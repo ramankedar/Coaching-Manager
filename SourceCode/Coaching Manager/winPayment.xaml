@@ -1,0 +1,178 @@
+﻿<Window x:Name="winPay" x:Class="Coaching_Manager.winPayment"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+       Title="Add Transaction | Coaching Manager" Height="600" Width="800" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" WindowStyle="None" AllowsTransparency="True" Background="{x:Null}" Icon="CM_Icon_001.ico">
+    <Window.Resources>
+        <Style x:Key="ButtonStyle" TargetType="{x:Type Button}">
+            <Setter Property="OverridesDefaultStyle" Value="True"/>
+            <Setter Property="Margin" Value="5"/>
+            <Setter Property="Foreground" Value="#FF333333"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Name="border" 
+                            BorderThickness="0,0,0,4" 
+                            Padding="10,5"
+                            BorderBrush="#FFEEEEEE" 
+                            CornerRadius="3" 
+                            Background="{TemplateBinding Background}">
+                            <ContentPresenter
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center" />
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter Property="Opacity" Value="0.5" />
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter Property="Foreground" Value="#FFC4C4C6" />
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="border" Property="BorderBrush" Value="#FF13a89e" />
+                                <Setter TargetName="border" Property="Background" Value="#1113A89E" />
+                                <Setter Property="Foreground" Value="#FF13a89e"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="CornerButtonStyle" TargetType="{x:Type Button}">
+            <Setter Property="OverridesDefaultStyle" Value="True"/>
+            <Setter Property="Margin" Value="5"/>
+            <Setter Property="Foreground" Value="#FF333333"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Name="border" 
+                            BorderThickness="0" 
+                            Padding="7,5"
+                            BorderBrush="White" 
+                            CornerRadius="0" 
+                            Background="{TemplateBinding Background}">
+                            <ContentPresenter
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center" />
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter Property="Opacity" Value="0.5" />
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter Property="Foreground" Value="#FFC4C4C6" />
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Foreground" Value="White"/>
+                                <Setter TargetName="border" Property="Background" Value="#FF13a89e"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+    <Grid x:Name="gMain" Margin="15" Background="White" MouseLeftButtonDown="gMain_MouseLeftButtonDown">
+        <Grid.Effect>
+            <DropShadowEffect Opacity="0.5" ShadowDepth="2" BlurRadius="7"/>
+        </Grid.Effect>
+        <Label x:Name="lblWinTitle" Content="Title" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" FontSize="14" BorderThickness="0,0,0,3" BorderBrush="#FFEEEEEE"/>
+        <Label Content="Type:" HorizontalAlignment="Left" Margin="30,65,0,0" VerticalAlignment="Top" FontSize="16"/>
+        <ComboBox x:Name="cmbBxType" HorizontalAlignment="Left" Margin="200,67,0,0" VerticalAlignment="Top" Width="250" FontSize="16" SelectionChanged="cmbBxType_SelectionChanged" TabIndex="0">
+            <ComboBoxItem Content="Student"/>
+            <ComboBoxItem Content="Teacher"/>
+        </ComboBox>
+        <TextBox x:Name="txtYear" HorizontalAlignment="Left" Margin="200,141,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="250" FontSize="16" IsEnabled="False" TabIndex="3"/>
+        <TextBox x:Name="txtAmount" HorizontalAlignment="Left" Margin="200,213,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="250" FontSize="16" IsEnabled="False" TabIndex="5"/>
+        <Label Content="Year:" HorizontalAlignment="Left" Margin="30,137,0,0" VerticalAlignment="Top" FontSize="16"/>
+        <Label Content="Month:" HorizontalAlignment="Left" Margin="30,173,0,0" VerticalAlignment="Top" FontSize="16"/>
+        <Label Content="Amount:" HorizontalAlignment="Left" Margin="30,209,0,0" VerticalAlignment="Top" FontSize="16"/>
+        <TextBox x:Name="txtID" HorizontalAlignment="Left" Margin="200,105,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="250" FontSize="16" LostFocus="txtID_LostFocus" IsEnabled="False" TabIndex="1"/>
+        <Label Content="Coaching ID:" HorizontalAlignment="Left" Margin="30,101,0,0" VerticalAlignment="Top" FontSize="16"/>
+        <ComboBox x:Name="cmbBxMonth" HorizontalAlignment="Left" Margin="200,175,0,0" VerticalAlignment="Top" Width="250" FontSize="16" SelectedIndex="0" IsEnabled="False" TabIndex="4">
+            <ComboBoxItem Content="January"/>
+            <ComboBoxItem Content="February"/>
+            <ComboBoxItem Content="March"/>
+            <ComboBoxItem Content="April"/>
+            <ComboBoxItem Content="May"/>
+            <ComboBoxItem Content="June"/>
+            <ComboBoxItem Content="July"/>
+            <ComboBoxItem Content="August"/>
+            <ComboBoxItem Content="September"/>
+            <ComboBoxItem Content="October"/>
+            <ComboBoxItem Content="November"/>
+            <ComboBoxItem Content="December"/>
+        </ComboBox>
+        <Label x:Name="lblName" Content="" Margin="495,101,10,0" VerticalAlignment="Top" FontSize="16"/>
+        <Button x:Name="btnBack" Content="&#xF0A8; Back" HorizontalAlignment="Right" Margin="0,0,10,10" VerticalAlignment="Bottom" Width="100" Height="35" FontSize="16" FontFamily="FontAwesome" Background="White" BorderThickness="0,0,0,3" Click="btnBack_Click" Style="{DynamicResource ButtonStyle}" IsCancel="True" TabIndex="11"/>
+        <Button x:Name="btnAdd" Content="&#xF067; Add Transaction" HorizontalAlignment="Left" Margin="10,0,0,10" VerticalAlignment="Bottom" Height="35" FontSize="16" FontFamily="FontAwesome" Background="White" BorderThickness="0,0,0,3" Style="{DynamicResource ButtonStyle}" Width="180" Click="btnAdd_Click" TabIndex="10"/>
+        <Label x:Name="lblName_Copy" Content="৳" HorizontalAlignment="Left" Margin="455,209,0,0" VerticalAlignment="Top" FontSize="16"/>
+        <Label Content="Transaction Date:" HorizontalAlignment="Left" Margin="30,400,0,0" VerticalAlignment="Top" FontSize="16"/>
+        <DatePicker x:Name="dPTransaction" HorizontalAlignment="Left" Margin="200,401,0,0" VerticalAlignment="Top" Width="250" FontSize="16" SelectedDateFormat="Long" BorderBrush="#FFABADB3" IsEnabled="False" TabIndex="9"/>
+        <Button x:Name="btnSearchName" Content="&#xF002;" HorizontalAlignment="Left" Margin="455,0,0,436" VerticalAlignment="Bottom" Height="35" FontSize="16" FontFamily="FontAwesome" Background="White" BorderThickness="0,0,0,3" Style="{DynamicResource ButtonStyle}" Width="35" Click="txtID_LostFocus" IsEnabled="False" TabIndex="2"/>
+
+
+        <GroupBox x:Name="grpBxPayCalc" Header="Payment Calc" HorizontalAlignment="Left" Height="155" Margin="200,241,0,0" VerticalAlignment="Top" Width="250" FontSize="14" Padding="10">
+            <Grid Margin="0">
+                <TextBox x:Name="txtTotalClass" HorizontalAlignment="Left" Margin="115,4,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="103" FontSize="16" TextChanged="txtTotalClass_TextChanged" PreviewTextInput="txtTotalClass_PreviewTextInput" TabIndex="6"/>
+                <Label Content="Total Class:" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="16"/>
+                <Label Content="Fee per Class:" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="16" Margin="0,36,0,0"/>
+                <Label Content="Total Amount:" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="16" Margin="0,72,0,0"/>
+                <TextBox x:Name="txtFeePerClass" HorizontalAlignment="Left" Margin="115,40,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="103" FontSize="16" TextChanged="txtTotalClass_TextChanged" PreviewTextInput="txtTotalClass_PreviewTextInput" TabIndex="7"/>
+                <TextBox x:Name="txtTotalAmount" HorizontalAlignment="Left" Margin="115,76,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="103" FontSize="16" IsEnabled="False" TextChanged="txtTotalAmount_TextChanged" TabIndex="8"/>
+            </Grid>
+        </GroupBox>
+
+        <!-- Receipt -->
+        <Grid x:Name="gridPayReceipt" Visibility="Collapsed">
+            <Grid Background="Black" Opacity="0.5"></Grid>
+            <Border x:Name="borderReceiptView"
+            Background="White" 
+            BorderBrush="#ff13a89e" 
+            BorderThickness="3" 
+            CornerRadius="7" 
+            HorizontalAlignment="Center" 
+            VerticalAlignment="Center">
+                <Grid Width="700" Height="250">
+                    <Label Content="Year:" HorizontalAlignment="Left" Margin="36,106,0,0" VerticalAlignment="Top" FontSize="16" FontWeight="Bold"/>
+                    <Label Content="Month:" HorizontalAlignment="Left" Margin="288,106,0,0" VerticalAlignment="Top" FontSize="16" FontWeight="Bold"/>
+                    <Label Content="Amount:" HorizontalAlignment="Left" Margin="36,137,0,0" VerticalAlignment="Top" FontSize="16" FontWeight="Bold"/>
+                    <Label Content="Coaching ID:" HorizontalAlignment="Left" Margin="36,75,0,0" VerticalAlignment="Top" FontSize="16" FontWeight="Bold"/>
+                    <Label Content="Transaction Date:" HorizontalAlignment="Left" Margin="288,137,0,0" VerticalAlignment="Top" FontSize="16" FontWeight="Bold"/>
+                    <Label x:Name="lblTxtName" Content="Name:" HorizontalAlignment="Left" Margin="288,75,0,0" VerticalAlignment="Top" FontSize="16" FontWeight="Bold"/>
+                    <Label x:Name="lblReceiptID" Content="ID" HorizontalAlignment="Left" Margin="146,75,0,0" VerticalAlignment="Top" FontSize="16"/>
+                    <Label x:Name="lblReceiptYear" Content="Year" HorizontalAlignment="Left" Margin="146,106,0,0" VerticalAlignment="Top" FontSize="16"/>
+                    <Label x:Name="lblReceiptAmount" Content="Amount" HorizontalAlignment="Left" Margin="146,137,0,0" VerticalAlignment="Top" FontSize="16"/>
+                    <Label x:Name="lblReceiptDate" Content="Date" HorizontalAlignment="Left" Margin="433,137,0,0" VerticalAlignment="Top" FontSize="16"/>
+                    <Label x:Name="lblReciptMonth" Content="Month" HorizontalAlignment="Left" Margin="433,106,0,0" VerticalAlignment="Top" FontSize="16"/>
+                    <Label x:Name="lblReceiptName" Content="Name" HorizontalAlignment="Left" Margin="433,75,0,0" VerticalAlignment="Top" FontSize="16"/>
+                    <Label Content="৳" HorizontalAlignment="Left" Margin="252,137,0,0" VerticalAlignment="Top" FontSize="16" RenderTransformOrigin="2.571,0.581" FontWeight="Bold"/>
+                    <Label Content="-----------------------------------------------------------------------------------------------------" HorizontalAlignment="Left" Margin="10,168,0,0" VerticalAlignment="Top" FontSize="16" Width="674" HorizontalContentAlignment="Center"/>
+                    <Label Content="ASCEND Academic Care |" HorizontalAlignment="Left" Margin="26,10,0,0" VerticalAlignment="Top" FontSize="24" FontWeight="Bold"/>
+                    <Label Content="-----------------------------------------------------------------------------------------------------" HorizontalAlignment="Left" Margin="10,44,0,0" VerticalAlignment="Top" FontSize="16" Width="674" HorizontalContentAlignment="Center"/>
+                    <Label x:Name="lblReceiptCollector" Content="Recipient: ---------------------" HorizontalAlignment="Right" Margin="0,199,26,0" VerticalAlignment="Top" FontSize="16"/>
+                    <Label x:Name="lblReceiptCollector_Copy" Content="Receipt No:" HorizontalAlignment="Left" Margin="505,23,0,0" VerticalAlignment="Top" FontSize="14" FontWeight="Bold"/>
+                    <Label x:Name="lblReceiptNo" Content="0" HorizontalAlignment="Left" Margin="596,22,0,0" VerticalAlignment="Top" FontSize="16" RenderTransformOrigin="0.368,0.387"/>
+                    <Label x:Name="lblReceiptCollector_Copy1" Content="Accountent: ---------------------" HorizontalAlignment="Left" Margin="26,199,0,0" VerticalAlignment="Top" FontSize="16"/>
+                    <Label Content="Money Receipt" HorizontalAlignment="Left" Margin="318,19,0,0" VerticalAlignment="Top" FontSize="16" FontWeight="Bold"/>
+                </Grid>
+            </Border>
+            <Border 
+                VerticalAlignment="Top" 
+                HorizontalAlignment="Right" 
+                Margin="0,422,32,0"
+                Padding="10"
+                BorderBrush="DarkGray" 
+                BorderThickness="3" 
+                Background="WhiteSmoke"
+                CornerRadius="7">
+                <Grid>
+                    <Button x:Name="btnPrint" Content="&#xF02F; Print" HorizontalAlignment="Center" Margin="0,0,105,0" VerticalAlignment="Bottom" Width="100" Height="35" FontSize="16" FontFamily="FontAwesome" Background="White" BorderThickness="0,0,0,3" Click="btnPrint_Click" Style="{DynamicResource ButtonStyle}"/>
+                    <Button x:Name="btnCloseReceipt" Content="&#xF00D; Close" HorizontalAlignment="Right" Margin="0" VerticalAlignment="Bottom" Width="100" Height="35" FontSize="16" FontFamily="FontAwesome" Background="White" BorderThickness="0,0,0,3" Style="{DynamicResource ButtonStyle}" Click="btnCloseReceipt_Click"/>
+                </Grid>
+            </Border>
+        </Grid>
+        <Button x:Name="btnCornerExit" Content="&#xF00D;" Margin="0" VerticalAlignment="Top" HorizontalAlignment="Right" FontFamily="FontAwesome" FontSize="14" BorderThickness="0,0,0,3" Background="White" Click="btnBack_Click" Style="{DynamicResource CornerButtonStyle}" TabIndex="4" IsTabStop="False"/>
+        <Button x:Name="btnCornerMin" Content="&#xF068;" Margin="0,0,25,0" VerticalAlignment="Top" HorizontalAlignment="Right" FontFamily="FontAwesome" FontSize="14" BorderThickness="0,0,0,3" Background="White" Style="{DynamicResource CornerButtonStyle}" Click="btnCornerMin_Click" TabIndex="3" IsTabStop="False"/>
+    </Grid>
+</Window>

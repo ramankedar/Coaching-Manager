@@ -1,0 +1,126 @@
+﻿<Window
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" x:Name="winMain" mc:Ignorable="d" x:Class="Coaching_Manager.MainWindow"
+        Title="Coaching Manager" Height="600" Width="800" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" WindowStyle="None" AllowsTransparency="True" Background="{x:Null}" Icon="CM_Icon_001.ico">
+    <Window.Resources>
+        <Style x:Key="ButtonStyle" TargetType="{x:Type Button}">
+            <Setter Property="OverridesDefaultStyle" Value="True"/>
+            <Setter Property="Margin" Value="5"/>
+            <Setter Property="Foreground" Value="#FF333333"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Name="border" 
+                            BorderThickness="4,0,0,0" 
+                            Padding="10,10"
+                            BorderBrush="#FFEEEEEE" 
+                            CornerRadius="3" 
+                            Background="{TemplateBinding Background}">
+                            <ContentPresenter
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Center" />
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter Property="Opacity" Value="0.5" />
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter Property="Foreground" Value="#FFC4C4C6" />
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="border" Property="BorderThickness" Value="7,0,0,0" />
+                                <Setter TargetName="border" Property="Background" Value="#1113A89E" />
+                                <Setter TargetName="border" Property="BorderBrush" Value="#FF13a89e" />
+                                <Setter Property="Foreground" Value="#FF13A89E"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="CornerButtonStyle" TargetType="{x:Type Button}">
+            <Setter Property="OverridesDefaultStyle" Value="True"/>
+            <Setter Property="Margin" Value="5"/>
+            <Setter Property="Foreground" Value="#FF333333"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Name="border" 
+                            BorderThickness="0" 
+                            Padding="7,5"
+                            BorderBrush="White" 
+                            CornerRadius="0" 
+                            Background="{TemplateBinding Background}">
+                            <ContentPresenter
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center" />
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter Property="Opacity" Value="0.5" />
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter Property="Foreground" Value="#FFC4C4C6" />
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Foreground" Value="White"/>
+                                <Setter TargetName="border" Property="Background" Value="#FF13a89e"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+    <Grid x:Name="gMain" Margin="15" Background="White" MouseLeftButtonDown="gMain_MouseLeftButtonDown">
+        <Grid.Effect>
+            <DropShadowEffect Opacity="0.5" ShadowDepth="2" BlurRadius="7"/>
+        </Grid.Effect>
+        <Label x:Name="lblWinTitle" Content="Coaching Manger" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" FontSize="14" BorderThickness="0,0,0,3" BorderBrush="#FFEEEEEE"/>
+        <Label x:Name="lblCoachingName" Content="ASCEND" Margin="0,83,0,0" VerticalAlignment="Top" FontSize="80" HorizontalAlignment="Center" FontFamily="Minion Pro" Foreground="Red" FontWeight="Bold"/>
+        <Label x:Name="lblCoachingNameSubPart" Content="Academic Care" Margin="0,178,0,0" VerticalAlignment="Top" HorizontalAlignment="Center" FontSize="36" FontFamily="Minion Pro" Foreground="Black"/>
+        <Button x:Name="btnStdntInfo" Content="&#xF19D; Search Students" HorizontalAlignment="Left" Margin="45,281,0,0" VerticalAlignment="Top" FontFamily="FontAwesome" FontSize="20" BorderThickness="0,0,0,3" Background="White" Click="btnStdntInfo_Click" Style="{DynamicResource ButtonStyle}" Padding="15,10,15,7" Width="220" TabIndex="0"/>
+        <Button x:Name="btnTchrInfo" Content="&#xF007; Search Teachers" HorizontalAlignment="Left" Margin="270,281,0,0" VerticalAlignment="Top" FontFamily="FontAwesome" FontSize="20" BorderThickness="0,0,0,3" Background="White" Style="{DynamicResource ButtonStyle}" Click="btnTchrInfo_Click" Padding="15,10,15,7" Width="220" TabIndex="5"/>
+        <Button x:Name="btnAddStdnt" Content="&#xF067; Add Student" HorizontalAlignment="Left" Margin="45,326,0,0" VerticalAlignment="Top" FontFamily="FontAwesome" FontSize="20" BorderThickness="0,0,0,3" Background="White" Style="{DynamicResource ButtonStyle}" Click="btnAddStdnt_Click" Padding="15,10,15,7" Width="220" TabIndex="1"/>
+        <Button x:Name="btnPay" Content="&#xF0F4; Add Payment" HorizontalAlignment="Left" Margin="270,416,0,0" VerticalAlignment="Top" FontFamily="FontAwesome" FontSize="20" BorderThickness="0,0,0,3" Background="White" Style="{DynamicResource ButtonStyle}" Click="btnPay_Click" Padding="15,10,15,7" Width="220" TabIndex="8"/>
+        <Button x:Name="btnExit" Content="&#xF011; Exit" Margin="495,461,0,0" FontFamily="FontAwesome" FontSize="20" BorderThickness="0,0,0,3" Background="White" Click="btnExit_Click" Style="{DynamicResource ButtonStyle}" Padding="15,10,15,7" VerticalAlignment="Top" Foreground="#FFC85050" HorizontalAlignment="Left" Width="220" TabIndex="14"/>
+        <Label x:Name="lblVersion" Content="0.0.0.0" HorizontalAlignment="Left" Margin="130,13,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="lblUser" Content="Welcome" HorizontalAlignment="Left" Margin="10,47,0,0" VerticalAlignment="Top" FontSize="14" BorderThickness="0,0,0,3" BorderBrush="#FFEEEEEE"/>
+        <Label Content="An imagination of Imaginative World" HorizontalAlignment="Left" Margin="10,0,0,10" VerticalAlignment="Bottom" BorderThickness="0" Foreground="#FF777777"/>
+        <Label Content="imaginativeworld.org" HorizontalAlignment="Right" Margin="0,0,10,10" VerticalAlignment="Bottom" BorderThickness="0" Foreground="#FF777777"/>
+        <Button x:Name="btnAttendance" Content="&#xF00B; Add Attendance" HorizontalAlignment="Left" Margin="45,416,0,0" VerticalAlignment="Top" FontFamily="FontAwesome" FontSize="20" BorderThickness="0,0,0,3" Background="White" Style="{DynamicResource ButtonStyle}" Padding="15,10,15,7" Width="220" Click="btnAttendance_Click" TabIndex="3"/>
+        <Button x:Name="btnExamResult" Content="&#xF046; Add Exam Result" HorizontalAlignment="Left" Margin="45,461,0,0" VerticalAlignment="Top" FontFamily="FontAwesome" FontSize="20" BorderThickness="0,0,0,3" Background="White" Style="{DynamicResource ButtonStyle}" Padding="15,10,15,7" Width="220" Click="btnExamResult_Click" TabIndex="4"/>
+        <Button x:Name="btnAddTeacher" Content="&#xF067; Add Teacher" HorizontalAlignment="Left" Margin="270,326,0,0" VerticalAlignment="Top" FontFamily="FontAwesome" FontSize="20" BorderThickness="0,0,0,3" Background="White" Style="{DynamicResource ButtonStyle}" Padding="15,10,15,7" Width="220" Click="btnAddTeacher_Click" TabIndex="6"/>
+        <Button x:Name="btnCornerExit" Content="&#xF00D;" Margin="0" VerticalAlignment="Top" HorizontalAlignment="Right" FontFamily="FontAwesome" FontSize="14" BorderThickness="0,0,0,3" Background="White" Click="btnExit_Click" Style="{DynamicResource CornerButtonStyle}" IsTabStop="False" TabIndex="21"/>
+        <Button x:Name="btnCornerMin" Content="&#xF068;" Margin="0,0,25,0" VerticalAlignment="Top" HorizontalAlignment="Right" FontFamily="FontAwesome" FontSize="14" BorderThickness="0,0,0,3" Background="White" Style="{DynamicResource CornerButtonStyle}" Click="btnCornerMin_Click" TabIndex="20" IsTabStop="False"/>
+        <Button x:Name="btnStdntDetails" Content="&#xF0F6; Students Details" HorizontalAlignment="Left" Margin="45,371,0,0" VerticalAlignment="Top" FontFamily="FontAwesome" FontSize="20" BorderThickness="0,0,0,3" Background="White" Style="{DynamicResource ButtonStyle}" Padding="15,10,15,7" Width="220" Click="btnStdntDetails_Click" TabIndex="2"/>
+        <Button x:Name="btnOptions" Content="&#xF0AD; Options" HorizontalAlignment="Left" Margin="495,416,0,0" VerticalAlignment="Top" FontFamily="FontAwesome" FontSize="20" BorderThickness="0,0,0,3" Background="White" Style="{DynamicResource ButtonStyle}" Padding="15,10,15,7" Width="220" Click="btnOptions_Click" TabIndex="13"/>
+        <Button x:Name="btnTeacherDetails" Content="&#xF0F6; Teachers Details" HorizontalAlignment="Left" Margin="270,371,0,0" VerticalAlignment="Top" FontFamily="FontAwesome" FontSize="20" BorderThickness="0,0,0,3" Background="White" Style="{DynamicResource ButtonStyle}" Padding="15,10,15,7" Width="220" Click="btnTeacherDetails_Click" TabIndex="7"/>
+        <Button x:Name="btnAbout" Content=" &#xF129;  About" HorizontalAlignment="Left" Margin="495,371,0,0" VerticalAlignment="Top" FontFamily="FontAwesome" FontSize="20" BorderThickness="0,0,0,3" Background="White" Style="{DynamicResource ButtonStyle}" Padding="15,10,15,7" Width="220" Click="btnAbout_Click" TabIndex="12"/>
+        <Button x:Name="btnLogs" Content="&#xF12E; Logs" HorizontalAlignment="Left" Margin="495,326,0,0" VerticalAlignment="Top" FontFamily="FontAwesome" FontSize="20" BorderThickness="0,0,0,3" Background="White" Style="{DynamicResource ButtonStyle}" Padding="15,10,15,7" Width="220" TabIndex="11" Click="btnLogs_Click"/>
+        <Button x:Name="btnPayViewer" Content="&#xF073; Payment Viewer" HorizontalAlignment="Left" Margin="270,461,0,0" VerticalAlignment="Top" FontFamily="FontAwesome" FontSize="20" BorderThickness="0,0,0,3" Background="White" Style="{DynamicResource ButtonStyle}" Click="btnPayViewer_Click" Padding="15,10,15,7" Width="220" TabIndex="9"/>
+
+        <!-- About Box -->
+        <Grid x:Name="gridAbout" Visibility="Collapsed">
+            <Grid Background="Black" Opacity="0.5"></Grid>
+            <Border
+            Background="White" 
+            BorderBrush="#ff13a89e" 
+            BorderThickness="3" 
+            CornerRadius="15" 
+            HorizontalAlignment="Center" 
+            VerticalAlignment="Center">
+                <Grid Width="600" Height="400">
+                    <Label Content="A Coaching Management System (CMS).&#xA;Its an Open-source imagination under MPL 2.0 by Imaginative World.&#xA;This imagination is copyrighted and maintained by Md. Mahmudul Hasan Shohag." Margin="10,65,10,0" VerticalAlignment="Top" FontSize="14"/>
+                    <Button x:Name="btnAboutOk" Content="OK" HorizontalAlignment="Right" Margin="0,0,20,10" VerticalAlignment="Bottom" Width="100" Height="35" FontSize="16" FontFamily="FontAwesome" Background="White" BorderThickness="0,0,0,3" Click="btnInputCancel_Click" Style="{DynamicResource CornerButtonStyle}" IsCancel="True" TabIndex="10" FontWeight="Bold"/>
+                    <Label x:Name="lblWinTitle_Copy" Content="Coaching Manger" HorizontalAlignment="Left" Margin="10,20,0,0" VerticalAlignment="Top" FontSize="20" BorderThickness="0,0,0,3" BorderBrush="#FFEEEEEE" FontWeight="Bold"/>
+                    <Label x:Name="lblVersion2" Content="0.0.0.0" HorizontalAlignment="Left" Margin="191,29,0,0" VerticalAlignment="Top" FontSize="16"/>
+                    <Label Content="Copyright © Imaginative World. All rights reserved.&#xA;http://imaginativeworld.org&#xD;&#xA;E-mail: info@imaginativeworld.org" Margin="10,0,10,50" VerticalAlignment="Bottom" FontSize="14"/>
+                    <Label Content="-------------------------------[ About Institute ]-------------------------------&#xA;&#x9;ASCEND Academic Care&#xA;&#x9;Director: Md. Shameem Reza&#xA;&#x9;E-mail: &#xA;&#x9;Mobile: +880-1824-998329&#xA;---------------------------------------------------------------------------------" Margin="10,135,10,0" VerticalAlignment="Top" FontSize="16" HorizontalContentAlignment="Center" Background="#07000000" BorderBrush="#FF13A89E" BorderThickness="0,3" Height="144" ScrollViewer.CanContentScroll="True"/>
+                </Grid>
+            </Border>
+        </Grid>
+    </Grid>
+</Window>

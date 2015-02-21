@@ -1,0 +1,102 @@
+﻿<Window x:Class="Coaching_Manager.winWelcome"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Welcome to Coaching Manager" Height="400" Width="600" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" WindowStyle="None" AllowsTransparency="True" Background="{x:Null}" Icon="CM_Icon_001.ico">
+    <Window.Resources>
+        <Style x:Key="ButtonStyle" TargetType="{x:Type Button}">
+            <Setter Property="OverridesDefaultStyle" Value="True"/>
+            <Setter Property="Margin" Value="5"/>
+            <Setter Property="Foreground" Value="#FF333333"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Name="border" 
+                            BorderThickness="0,0,0,4" 
+                            Padding="10,5"
+                            BorderBrush="#FFEEEEEE" 
+                            CornerRadius="3" 
+                            Background="{TemplateBinding Background}">
+                            <ContentPresenter
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center" />
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter Property="Opacity" Value="0.5" />
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter Property="Foreground" Value="#FFC4C4C6" />
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="border" Property="BorderBrush" Value="#FF13a89e" />
+                                <Setter TargetName="border" Property="Background" Value="#1113A89E" />
+                                <Setter Property="Foreground" Value="#FF13a89e"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="CornerButtonStyle" TargetType="{x:Type Button}">
+            <Setter Property="OverridesDefaultStyle" Value="True"/>
+            <Setter Property="Margin" Value="5"/>
+            <Setter Property="Foreground" Value="#FF333333"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Name="border" 
+                            BorderThickness="0" 
+                            Padding="7,5"
+                            BorderBrush="White" 
+                            CornerRadius="0" 
+                            Background="{TemplateBinding Background}">
+                            <ContentPresenter
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center" />
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter Property="Opacity" Value="0.5" />
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter Property="Foreground" Value="#FFC4C4C6" />
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Foreground" Value="White"/>
+                                <Setter TargetName="border" Property="Background" Value="#FF13a89e"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+    <Grid x:Name="gMain" Margin="15" Background="White" MouseLeftButtonDown="gMain_MouseLeftButtonDown">
+        <Grid.Effect>
+            <DropShadowEffect Opacity="0.5" ShadowDepth="2" BlurRadius="7"/>
+        </Grid.Effect>
+        <Button x:Name="btnAdmin" Content="&#xF023;" HorizontalAlignment="Left" Height="100" Margin="150,109,0,0" VerticalAlignment="Top" Width="100" FontFamily="FontAwesome" FontSize="48" BorderThickness="0,0,0,3" Background="White" Style="{DynamicResource ButtonStyle}" Click="btnAdmin_Click" TabIndex="0" IsDefault="True"/>
+        <Label Content="LOGIN" HorizontalAlignment="Left" Margin="173,214,0,0" VerticalAlignment="Top" FontSize="14" FontWeight="Bold" Foreground="#FF888888"/>
+        <Label Content="An imagination of Imaginative World" HorizontalAlignment="Left" Margin="10,0,0,10" VerticalAlignment="Bottom" BorderThickness="0" Foreground="#FF777777"/>
+        <Label Content="imaginativeworld.org" HorizontalAlignment="Right" Margin="0,0,10,10" VerticalAlignment="Bottom" BorderThickness="0" Foreground="#FF777777"/>
+        <Label Content="Coaching Manger" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" FontSize="14" BorderThickness="0,0,0,3" BorderBrush="#FFEEEEEE"/>
+        <Label x:Name="lblVersion" Content="0.0.0.0" HorizontalAlignment="Left" Margin="130,14,0,0" VerticalAlignment="Top" FontSize="10"/>
+        <Grid Margin="175,55,174,281">
+            <Label x:Name="lblCoachingName" Content="ASCEND" Margin="0,0,132,0" VerticalAlignment="Top" FontSize="20" HorizontalAlignment="Center" FontFamily="Minion Pro" Foreground="Red" FontWeight="Bold"/>
+            <Label x:Name="lblCoachingNameSubPart" Content="Academic Care" Margin="89,0,0,0" VerticalAlignment="Top" HorizontalAlignment="Center" FontSize="20" FontFamily="Minion Pro" Foreground="Black"/>
+        </Grid>
+        <Grid x:Name="gUnlockBox" Margin="0,244,0,41" Width="500">
+            <PasswordBox x:Name="PassBox" Margin="107,48,105,0" FontSize="16" VerticalAlignment="Top" MaxLength="50" TabIndex="6"/>
+            <Label Content="Password:" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="16" Margin="10,44,0,0" RenderTransformOrigin="0.112,0.387"/>
+            <Button x:Name="btnGo" Content="&#xF09C;" HorizontalAlignment="Center" Margin="420,0,10,10" VerticalAlignment="Bottom" Width="70" Height="65" FontSize="36" FontFamily="FontAwesome" Background="White" BorderThickness="0,0,0,3" Style="{DynamicResource CornerButtonStyle}" Click="btnGo_Click" TabIndex="7"/>
+            <Label Content="User Name:" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="16" Margin="10,10,0,0" RenderTransformOrigin="0.112,0.387"/>
+            <TextBox x:Name="txtUser" HorizontalAlignment="Left" Margin="107,14,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="288" RenderTransformOrigin="0.854,0.448" FontSize="16" MaxLength="50" TabIndex="5"/>
+        </Grid>
+        <Button x:Name="btnExit" Content="&#xF011;" Height="100" Margin="0,109,150,0" VerticalAlignment="Top" HorizontalAlignment="Right" Width="100" FontFamily="FontAwesome" FontSize="48" BorderThickness="0,0,0,3" Background="White" Click="btnExit_Click" Style="{DynamicResource ButtonStyle}" TabIndex="2" IsCancel="True"/>
+        <Label Content="EXIT" HorizontalAlignment="Left" Margin="352,214,0,0" VerticalAlignment="Top" FontSize="14" FontWeight="Bold" Foreground="#FF888888"/>
+        <Button x:Name="btnCornerExit" Content="&#xF00D;" Margin="0" VerticalAlignment="Top" HorizontalAlignment="Right" FontFamily="FontAwesome" FontSize="14" BorderThickness="0,0,0,3" Background="White" Click="btnExit_Click" Style="{DynamicResource CornerButtonStyle}" TabIndex="4" IsTabStop="False"/>
+        <Button x:Name="btnCornerMin" Content="&#xF068;" Margin="0,0,25,0" VerticalAlignment="Top" HorizontalAlignment="Right" FontFamily="FontAwesome" FontSize="14" BorderThickness="0,0,0,3" Background="White" Style="{DynamicResource CornerButtonStyle}" Click="btnCornerMin_Click" TabIndex="3" IsTabStop="False"/>
+
+    </Grid>
+</Window>
