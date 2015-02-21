@@ -234,7 +234,7 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="CM_Icon_001.ico" />
-    <Content Include="IW.CM.DB.accdb">
+    <Content Include="IW.CM.DB.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

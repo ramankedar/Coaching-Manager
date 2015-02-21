@@ -26,6 +26,7 @@
 /// All the Strings used frequently
 
 using System;
+using System.IO;
 
 namespace Coaching_Manager
 {
@@ -36,13 +37,14 @@ namespace Coaching_Manager
         public const String InstituteName = "ASCEND Academic Care";
 
         //DB
-        public static String DBconStr =
-@"Provider=Microsoft.ACE.OLEDB.12.0;Data Source=|DataDirectory|\IW.CM.DB.accdb;
-Jet OLEDB:Database Password='';";
+        public static String DBconStr;
 
         public const string PassPhrase = "xF2uLpCZDG9A2L2iELS8PgreMIzH1zS0";
 
         public static string strUserName;
         public static Boolean IsAdmin = false;
+
+        public static string strDBFilePath = Path.Combine(Environment.GetFolderPath(
+    Environment.SpecialFolder.CommonApplicationData), @"Imaginative World\Coaching Manager\IW.CM.DB.dll");
     }
 }

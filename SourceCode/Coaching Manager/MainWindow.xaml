@@ -113,7 +113,7 @@
             HorizontalAlignment="Center" 
             VerticalAlignment="Center">
                 <Grid Width="600" Height="400">
-                    <Label Content="A Coaching Management System (CMS).&#xA;Its an Open-source imagination under MPL 2.0 by Imaginative World.&#xA;This imagination is copyrighted and maintained by Md. Mahmudul Hasan Shohag." Margin="10,65,10,0" VerticalAlignment="Top" FontSize="14"/>
+                    <Label Content="An Open-Source Coaching Management System (CMS).&#xA;It's an Open-source imagination under MPL 2.0 by Imaginative World.&#xA;This imagination is copyrighted and maintained by Md. Mahmudul Hasan Shohag." Margin="10,65,10,0" VerticalAlignment="Top" FontSize="14"/>
                     <Button x:Name="btnAboutOk" Content="OK" HorizontalAlignment="Right" Margin="0,0,20,10" VerticalAlignment="Bottom" Width="100" Height="35" FontSize="16" FontFamily="FontAwesome" Background="White" BorderThickness="0,0,0,3" Click="btnInputCancel_Click" Style="{DynamicResource CornerButtonStyle}" IsCancel="True" TabIndex="10" FontWeight="Bold"/>
                     <Label x:Name="lblWinTitle_Copy" Content="Coaching Manger" HorizontalAlignment="Left" Margin="10,20,0,0" VerticalAlignment="Top" FontSize="20" BorderThickness="0,0,0,3" BorderBrush="#FFEEEEEE" FontWeight="Bold"/>
                     <Label x:Name="lblVersion2" Content="0.0.0.0" HorizontalAlignment="Left" Margin="191,29,0,0" VerticalAlignment="Top" FontSize="16"/>

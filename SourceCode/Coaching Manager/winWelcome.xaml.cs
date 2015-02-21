@@ -29,6 +29,7 @@ using System.Windows.Input;
 using System.Data.OleDb;
 using Microsoft.Win32;
 using System.Threading;
+using System.IO;
 
 namespace Coaching_Manager
 {
@@ -37,7 +38,7 @@ namespace Coaching_Manager
     /// </summary>
     public partial class winWelcome : Window
     {
-        
+
 
         public winWelcome()
         {
@@ -50,15 +51,75 @@ namespace Coaching_Manager
             Version version = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version;
             lblVersion.Content = version;
             gUnlockBox.Visibility = Visibility.Hidden;
-            GetReg();
+
+            if (!IsDBexist())
+            {
+                if (MessageBox.Show("ATTENTATION: Database file not found!\n\nAre you sure want to create a new Database file?", "Coaching Manager", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+                {
+                    if (!CopyDBfile())
+                    {
+                        cmTools.showInfoMsg("Something wrong with your file permission!");
+                        Application.Current.Shutdown();
+                    }
+                }
+                else
+                    Application.Current.Shutdown();
+            }
+
+            SetDBstr();
         }
 
-        private void GetReg()
+        #region "Database Check and Create/Copy"
+
+        /// <summary>
+        ///  As C:\Program files\ has permission problem. So we need to copy the db file to "C:\ProgramData folder
+        /// </summary>
+
+        private Boolean IsDBexist()
+        {
+            if (System.IO.File.Exists(Strings.strDBFilePath))
+                return true;
+            else
+                return false;
+        }
+
+        private Boolean CopyDBfile()
+        {
+            string DesPath = Path.GetDirectoryName(Strings.strDBFilePath);
+
+            try
+            {
+                if (!System.IO.Directory.Exists(DesPath))
+                {
+                    System.IO.Directory.CreateDirectory(DesPath);
+                }
+
+                System.IO.File.Copy(
+                    Path.Combine(Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location), "IW.CM.DB.dll"),
+                    Strings.strDBFilePath, false);
+
+                return true;
+
+            }
+            catch (Exception ex)
+            {
+                cmTools.showInfoMsg(ex.Message);
+                return false;
+            }
+        }
+
+        #endregion
+
+        private void SetDBstr()
         {
             //Making Database Connection String
+            //            Strings.DBconStr =
+            //@"Provider=Microsoft.ACE.OLEDB.12.0;Data Source=|DataDirectory|\IW.CM.DB.accdb;
+            //Jet OLEDB:Database Password='" + cmCrypto.Decrypt("6pbzTfdZljrijyP2Ul6T6Q==", Strings.PassPhrase) + "';";
+
             Strings.DBconStr =
-@"Provider=Microsoft.ACE.OLEDB.12.0;Data Source=|DataDirectory|\IW.CM.DB.accdb;
-Jet OLEDB:Database Password='" + cmCrypto.Decrypt("6pbzTfdZljrijyP2Ul6T6Q==", Strings.PassPhrase) + "';";
+@"Provider=Microsoft.ACE.OLEDB.12.0;Data Source='" + Strings.strDBFilePath +
+@"';Jet OLEDB:Database Password='" + cmCrypto.Decrypt("6pbzTfdZljrijyP2Ul6T6Q==", Strings.PassPhrase) + "';";
         }
 
         private void btnExit_Click(object sender, RoutedEventArgs e)
