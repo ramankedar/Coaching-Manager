@@ -41,7 +41,7 @@ namespace Coaching_Manager
         {
             InitializeComponent();
             SetValues();
-            lblWinTitle.Content = Title + " | " + Strings.InstituteName;
+            lblWinTitle.Content = Title + " | " + Strings.AppName + " | " + Strings.InstituteName;
         }
 
         public class ListItem

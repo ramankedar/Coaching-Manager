@@ -43,9 +43,8 @@ namespace Coaching_Manager
 
         private void SetValues()
         {
-            Version version = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version;
-            lblVersion.Content = version;
-            lblVersion2.Content = version;
+            lblVersion.Content = Strings.AppVersion;
+            lblVersion2.Content = Strings.AppVersion;
             lblUser.Content = "Welcome, " + Strings.strUserName;
         }
 
@@ -192,6 +191,17 @@ namespace Coaching_Manager
             this.Close();
 
             cmTools.AddLog("Open Student Paymant Viewer", this.Title);
+        }
+
+        private void btnStdntReport_Click(object sender, RoutedEventArgs e)
+        {
+            // To Show a window we need to write below two line
+            winStudentReport win = new winStudentReport();
+            win.Show();
+            // this line for close this form.
+            this.Close();
+
+            cmTools.AddLog("Open Students Report", this.Title);
         }
     }
 }

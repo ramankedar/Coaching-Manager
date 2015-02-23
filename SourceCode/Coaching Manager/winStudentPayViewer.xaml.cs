@@ -24,9 +24,10 @@
 /// </aboutDev>
 
 using System;
+using System.Data.OleDb;
+using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Input;
-using System.Data.OleDb;
 using System.Windows.Threading;
 
 namespace Coaching_Manager
@@ -44,8 +45,10 @@ namespace Coaching_Manager
 
         private void SetValues()
         {
-            lblWinTitle.Content = Title + " | " + Strings.InstituteName;
+            lblWinTitle.Content = Title + " | " + Strings.AppName + " | " + Strings.InstituteName;
             txtYear.Text = DateTime.Now.Year.ToString();
+
+            lblQuerying.Visibility = Visibility.Collapsed;
         }
 
         private void gMain_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
@@ -81,6 +84,7 @@ namespace Coaching_Manager
                 cmbBxSelClass.IsEnabled = false;
                 txtYear.IsEnabled = false;
                 btnQuery.IsEnabled = false;
+                lblQuerying.Visibility = Visibility.Visible;
             }), DispatcherPriority.ContextIdle);
 
         }
@@ -93,7 +97,7 @@ namespace Coaching_Manager
                 cmbBxSelClass.IsEnabled = true;
                 txtYear.IsEnabled = true;
                 btnQuery.IsEnabled = true;
-
+                lblQuerying.Visibility = Visibility.Collapsed;
             }), DispatcherPriority.ContextIdle);
         }
 
@@ -113,14 +117,17 @@ namespace Coaching_Manager
 
         private Boolean UpdateTable()
         {
-            int TotalStudent;
-            TotalStudent = SearchStudent(cmbBxSelClass.SelectedIndex);
-
-            for (int count = 0; count < TotalStudent; count++)
+            Dispatcher.Invoke(new Action(() =>
             {
-                var selectedlistItem = lstView.Items[count] as ListItem;
-                GetPayment(selectedlistItem.ID, count);
-            }
+                int TotalStudent;
+                TotalStudent = SearchStudent(cmbBxSelClass.SelectedIndex);
+
+                for (int count = 0; count < TotalStudent; count++)
+                {
+                    var selectedlistItem = lstView.Items[count] as ListItem;
+                    GetPayment(selectedlistItem.ID, count);
+                }
+            }), DispatcherPriority.ContextIdle);
 
             return true;
 
@@ -130,7 +137,6 @@ namespace Coaching_Manager
         {
             try
             {
-
                 string queryString =
                     "SELECT [Month], [Fee] from TblFee WHERE [ID] = @srcID AND [Year] = @strYear";
 
@@ -279,6 +285,12 @@ namespace Coaching_Manager
                 WindowState = WindowState.Maximized;
             else
                 WindowState = WindowState.Normal;
+        }
+
+        private void txtYear_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            Regex regex = new Regex("[^0-9]+");
+            e.Handled = regex.IsMatch(e.Text);
         }
 
         //#if DEBUG

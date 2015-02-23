@@ -48,8 +48,7 @@ namespace Coaching_Manager
 
         private void SetValues()
         {
-            Version version = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version;
-            lblVersion.Content = version;
+            lblVersion.Content = Strings.AppVersion;
             gUnlockBox.Visibility = Visibility.Hidden;
 
             if (!IsDBexist())
@@ -61,6 +60,8 @@ namespace Coaching_Manager
                         cmTools.showInfoMsg("Something wrong with your file permission!");
                         Application.Current.Shutdown();
                     }
+                    else
+                        MessageBox.Show("Database successfully created!\n\nUse below credential for login:\n\n    USERNAME: admin\n    PASSWORD: Password", "Coaching Manager");
                 }
                 else
                     Application.Current.Shutdown();

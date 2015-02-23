@@ -6,8 +6,13 @@ This imagination is copyrighted and maintained by **[Md. Mahmudul Hasan Shohag](
 
 The Project is specially made for the institute: **ASCEND Academic Care**
 
-Functions
--------------
+Download Installer
+------------------
+Comming soon...
+
+
+Features
+--------
 - Password Protection
 - Multi-user Support
 - Attractive UI
@@ -19,6 +24,7 @@ Functions
 - Students & Teachers Payment Management
 - Payment Receipt Print
 - Payment Viewer
+- Students Report
 - Logs (For Admin) 
 	- New Student Add
 	- Student Info Changed
@@ -33,18 +39,18 @@ Functions
 - Easy to use
 
 Technology
-----------------
+----------
 - Microsoft .NET framework 4.0 Client Profile
 - C# Programming Language
 - Access Database
 
 Programming Software
---------------------------------
-- Visual Studio 2012 Express Edition
+--------------------
+- Visual Studio 2012 Express Edition for Desktop
 
 Runtimes
--------------
-- [Microsoft  .NET framework 4.0 Client Profile](http://www.microsoft.com/en-us/download/details.aspx?id=24872)
+--------
+- [Microsoft .NET framework 4.0 Client Profile](http://www.microsoft.com/en-us/download/details.aspx?id=24872)
 - [Microsoft Access Database Engine 2010](http://www.microsoft.com/en-us/download/details.aspx?displaylang=en&id=13255)
 - FontAwesome 4.x (Font)
 - Minion Pro (Font)

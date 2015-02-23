@@ -1,7 +1,7 @@
 ﻿<Window x:Class="Coaching_Manager.winStudentDetails"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Student Details | Coaching Manager" Height="600" Width="1000" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" WindowStyle="None" AllowsTransparency="True" Background="{x:Null}" Icon="CM_Icon_001.ico">
+        Title="Student Details" Height="600" Width="1000" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" WindowStyle="None" AllowsTransparency="True" Background="{x:Null}" Icon="CM_Icon_001.ico">
     <Window.Resources>
         <Style x:Key="ButtonStyle" TargetType="{x:Type Button}">
             <Setter Property="OverridesDefaultStyle" Value="True"/>
@@ -120,8 +120,8 @@
                     <ComboBoxItem Content="None"/>
                 </ComboBox>
                 <TextBox x:Name="txtInstitute" Margin="170,345,10,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="16" MaxLength="255" IsEnabled="False"/>
-                <TextBox x:Name="txtFee" Margin="447,406,36,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="16" IsEnabled="False"/>
-                <TextBox x:Name="txtRoll" Margin="170,405,332,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="16" IsEnabled="False"/>
+                <TextBox x:Name="txtFee" Margin="447,406,36,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="16" IsEnabled="False" PreviewTextInput="txtRoll_PreviewTextInput"/>
+                <TextBox x:Name="txtRoll" Margin="170,405,332,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="16" IsEnabled="False" PreviewTextInput="txtRoll_PreviewTextInput"/>
                 <TextBox x:Name="txtBatchNo" Margin="170,433,332,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="16" MaxLength="255" IsEnabled="False"/>
                 <TextBox x:Name="txtPermanentAddr" Margin="170,161,10,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="16" MinLines="2" MaxLength="255" IsEnabled="False"/>
                 <TextBox x:Name="txtPresentAddr" Margin="170,211,10,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="16" MinLines="2" MaxLength="255" IsEnabled="False"/>

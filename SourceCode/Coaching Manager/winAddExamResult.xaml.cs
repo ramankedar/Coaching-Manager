@@ -28,6 +28,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Data.OleDb;
+using System.Text.RegularExpressions;
 
 namespace Coaching_Manager
 {
@@ -46,7 +47,7 @@ namespace Coaching_Manager
 
         private void SetValues()
         {
-            lblWinTitle.Content = Title + " | " + Strings.InstituteName;
+            lblWinTitle.Content = Title + " | " + Strings.AppName + " | " + Strings.InstituteName;
             dpDateOfXm.SelectedDate = DateTime.Today.Date;
         }
 
@@ -283,6 +284,24 @@ WHERE [ID] = @strID AND [Date] = @strDate", connection);
         private void btnCornerMin_Click(object sender, RoutedEventArgs e)
         {
             WindowState = WindowState.Minimized;
+        }
+
+        private void txtID_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            Regex regex = new Regex("[^0-9]+");
+            e.Handled = regex.IsMatch(e.Text);
+        }
+
+        private void dpDateOfXm_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (lstView.Items.Count > 0)
+            {
+                cmbBxClass.SelectedIndex = -1;
+                lstView.Items.Clear();
+                txtSub.Text = "";
+                txtTotalMarks.Text = "";
+                txtAchievement.Text = "";
+            }
         }
     }
 }

@@ -28,6 +28,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Data.OleDb;
+using System.Text.RegularExpressions;
 
 namespace Coaching_Manager
 {
@@ -37,6 +38,7 @@ namespace Coaching_Manager
     public partial class winAddAttendance : Window
     {
         Boolean IsAdded = false;
+        int intYear;
 
         public winAddAttendance()
         {
@@ -46,16 +48,12 @@ namespace Coaching_Manager
 
         private void SetValues()
         {
-            //for getting last month
-            var today = DateTime.Today;
-            var month = new DateTime(today.Year, today.Month, 1);
-            var first = month.AddMonths(-1);
-            var lastday = month.AddDays(-1);
+            intYear = DateTime.Today.Year;
+            txtYear.Text = intYear.ToString();
 
-            lblWinTitle.Content = Title + " | " + Strings.InstituteName;
-            txtYear.Text = DateTime.Today.Year.ToString();
-            cmbBxMonth.SelectedIndex = first.Month - 1;
-            txtTotalDay.Text = lastday.Day.ToString();
+            lblWinTitle.Content = Title + " | " + Strings.AppName + " | " + Strings.InstituteName;
+            txtTotalDay.Text = "0";
+            txtPresent.Text = "0";
         }
 
         public class listItem
@@ -85,7 +83,11 @@ namespace Coaching_Manager
         private void cmbBxClass_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (cmbBxClass.SelectedIndex != -1)
+            {
                 searchNow();
+                txtTotalDay.IsEnabled = true;
+                txtPresent.IsEnabled = true;
+            }
         }
 
         private void searchNow()
@@ -289,6 +291,67 @@ WHERE [ID] = @strID AND [Month] = @strMonth AND [Year] = @strYear", connection);
         private void btnCornerMin_Click(object sender, RoutedEventArgs e)
         {
             WindowState = WindowState.Minimized;
+        }
+
+        private void txtTotalDay_LostFocus(object sender, RoutedEventArgs e)
+        {
+            //for getting last month
+            var month = new DateTime(intYear, cmbBxMonth.SelectedIndex + 1, 1);
+            var lastday = month.AddDays(-1);
+
+            if (txtTotalDay.Text != "")
+                if (Convert.ToInt32(txtTotalDay.Text) > lastday.Day)
+                {
+                    cmTools.showInfoMsg("Total Day is greter then month size!");
+                    txtTotalDay.Text = lastday.Day.ToString();
+                }
+        }
+
+        private void cmbBxMonth_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (cmbBxMonth.SelectedIndex != -1)
+            {
+                txtTotalDay.Text = DateTime.DaysInMonth(intYear, cmbBxMonth.SelectedIndex + 1).ToString();
+                txtTotalDay.IsEnabled = false;
+                txtPresent.IsEnabled = false;
+                cmbBxClass.SelectedIndex = -1;
+                cmbBxClass.IsEnabled = true;
+                if (lstView.Items.Count > 0)
+                    lstView.Items.Clear();
+            }
+        }
+
+        private void txtYear_LostFocus(object sender, RoutedEventArgs e)
+        {
+            if (txtYear.Text != "")
+            {
+                if (!((Convert.ToDecimal(txtYear.Text) > 2000) && (Convert.ToDecimal(txtYear.Text) < 2099)))
+                {
+                    int year = DateTime.Now.Year;
+                    txtYear.Text = year.ToString();
+                    cmTools.showInfoMsg("Invalid Year! Year changed to " + year + ".");
+                    intYear = year;
+                }
+
+                if (lstView.Items.Count > 0)
+                    lstView.Items.Clear();
+            }
+            else
+                txtYear.Text = intYear.ToString();
+        }
+
+        private void txtYear_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (txtYear.Text != "")
+                cmbBxMonth.IsEnabled = true;
+            else
+                cmbBxMonth.IsEnabled = false;
+        }
+
+        private void txtYear_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            Regex regex = new Regex("[^0-9]+");
+            e.Handled = regex.IsMatch(e.Text);
         }
     }
 }

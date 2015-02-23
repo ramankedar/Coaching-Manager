@@ -47,7 +47,7 @@ namespace Coaching_Manager
 
         private void SetValues()
         {
-            lblWinTitle.Content = Title + " | " + Strings.InstituteName;
+            lblWinTitle.Content = Title + " | " + Strings.AppName + " | " + Strings.InstituteName;
             //InputTextBox.Text = String.Empty;
             if (Strings.IsAdmin == false)
             {

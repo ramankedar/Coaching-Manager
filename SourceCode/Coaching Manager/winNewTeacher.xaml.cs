@@ -27,6 +27,7 @@ using System;
 using System.Windows;
 using System.Windows.Input;
 using System.Data.OleDb;
+using System.Text.RegularExpressions;
 
 namespace Coaching_Manager
 {
@@ -43,7 +44,7 @@ namespace Coaching_Manager
 
         private void SetValues()
         {
-            lblWinTitle.Content = Title + " | " + Strings.InstituteName;
+            lblWinTitle.Content = Title + " | " + Strings.AppName + " | " + Strings.InstituteName;
             datePickerJoin.SelectedDate = DateTime.Today.Date;
         }
 
@@ -130,6 +131,12 @@ namespace Coaching_Manager
         private void btnCornerMin_Click(object sender, RoutedEventArgs e)
         {
             WindowState = WindowState.Minimized;
+        }
+
+        private void txtPay_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            Regex regex = new Regex("[^0-9]+");
+            e.Handled = regex.IsMatch(e.Text);
         }
     }
 }

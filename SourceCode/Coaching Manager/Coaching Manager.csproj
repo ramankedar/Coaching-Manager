@@ -106,6 +106,9 @@
     <Compile Include="winStudentPayViewer.xaml.cs">
       <DependentUpon>winStudentPayViewer.xaml</DependentUpon>
     </Compile>
+    <Compile Include="winStudentReport.xaml.cs">
+      <DependentUpon>winStudentReport.xaml</DependentUpon>
+    </Compile>
     <Compile Include="winTchrInfo.xaml.cs">
       <DependentUpon>winTchrInfo.xaml</DependentUpon>
     </Compile>
@@ -151,6 +154,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="winStudentPayViewer.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="winStudentReport.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

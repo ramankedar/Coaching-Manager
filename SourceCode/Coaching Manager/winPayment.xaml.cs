@@ -53,7 +53,7 @@ namespace Coaching_Manager
             var month = new DateTime(today.Year, today.Month, 1);
             var first = month.AddMonths(-1);
 
-            lblWinTitle.Content = Title + " | " + Strings.InstituteName;
+            lblWinTitle.Content = Title + " | " + Strings.AppName + " | " + Strings.InstituteName;
             txtYear.Text = DateTime.Today.Year.ToString();
             cmbBxMonth.SelectedIndex = first.Month - 1;
             dPTransaction.SelectedDate = DateTime.Today;

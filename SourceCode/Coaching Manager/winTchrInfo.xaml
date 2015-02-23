@@ -1,7 +1,7 @@
 ﻿<Window x:Name="winStdntInfo" x:Class="Coaching_Manager.winTeacherInfo"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Search Teachers | Coaching Manager" Height="600" Width="800" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" WindowStyle="None" AllowsTransparency="True" Background="{x:Null}" Icon="CM_Icon_001.ico">
+        Title="Search Teachers" Height="600" Width="800" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" WindowStyle="None" AllowsTransparency="True" Background="{x:Null}" Icon="CM_Icon_001.ico">
     <Window.Resources>
         <Style x:Key="ButtonStyle" TargetType="{x:Type Button}">
             <Setter Property="OverridesDefaultStyle" Value="True"/>

@@ -23,7 +23,7 @@
 /// 
 /// </aboutDev>
 
-/// All the Strings used frequently
+/// All frequently used Strings 
 
 using System;
 using System.IO;
@@ -34,7 +34,11 @@ namespace Coaching_Manager
     {
         // used [public] for use all file
         // used [const] bcoz sometimes many body asked for unchangable string
+        // used [static], so that it can be changable
+        // used [readonly], so that those are act like const
         public const String InstituteName = "ASCEND Academic Care";
+        public static readonly String AppName = System.Reflection.Assembly.GetExecutingAssembly().GetName().Name;
+        public static readonly Version AppVersion = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version;
 
         //DB
         public static String DBconStr;

@@ -1,7 +1,7 @@
 ﻿<Window x:Class="Coaching_Manager.winNewTeacher"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-         Title="Add Teacher | Coaching Manager" Height="600" Width="800" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" WindowStyle="None" AllowsTransparency="True" Background="{x:Null}" Icon="CM_Icon_001.ico">
+         Title="Add Teacher" Height="600" Width="800" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" WindowStyle="None" AllowsTransparency="True" Background="{x:Null}" Icon="CM_Icon_001.ico">
     <Window.Resources>
         <Style x:Key="ButtonStyle" TargetType="{x:Type Button}">
             <Setter Property="OverridesDefaultStyle" Value="True"/>
@@ -88,7 +88,7 @@
         <Label Content="Subject*:" HorizontalAlignment="Left" Margin="30,209,0,0" VerticalAlignment="Top" FontSize="16" Foreground="#FF640000"/>
         <TextBox x:Name="txtSub" Margin="200,213,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="16" HorizontalAlignment="Left" Width="540" SpellCheck.IsEnabled="True" TabIndex="4"/>
         <Label Content="Pay Scale:" HorizontalAlignment="Left" Margin="30,281,0,0" VerticalAlignment="Top" FontSize="16"/>
-        <TextBox x:Name="txtPay" Margin="200,285,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="16" HorizontalAlignment="Left" Width="514" TabIndex="6"/>
+        <TextBox x:Name="txtPay" Margin="200,285,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="16" HorizontalAlignment="Left" Width="514" TabIndex="6" PreviewTextInput="txtPay_PreviewTextInput"/>
         <Label Content="Join Date*:" HorizontalAlignment="Left" Margin="30,317,0,0" VerticalAlignment="Top" FontSize="16" Background="White" Foreground="#FF640000"/>
         <DatePicker x:Name="datePickerJoin" HorizontalAlignment="Left" Margin="200,318,0,0" VerticalAlignment="Top" Width="540" FontSize="16" BorderThickness="1" FirstDayOfWeek="Saturday" SelectedDateFormat="Long" BorderBrush="#FFABADB3" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Center" TabIndex="7"/>
         <Label Content="Sex*:" HorizontalAlignment="Left" Margin="30,101,0,0" VerticalAlignment="Top" FontSize="16" Foreground="#FF640000"/>

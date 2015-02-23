@@ -44,7 +44,7 @@ namespace Coaching_Manager
 
         private void SetValues()
         {
-            lblWinTitle.Content = Title + " | " + Strings.InstituteName;
+            lblWinTitle.Content = Title + " | " + Strings.AppName + " | " + Strings.InstituteName;
 
             if (Strings.IsAdmin)
                 btnClear.IsEnabled = true;
