@@ -8,7 +8,10 @@ The Project is specially made for the institute: **ASCEND Academic Care**
 
 Download Installer
 ------------------
-Comming soon...
+Version 1.1.0.3 Download Links:
+
+- EXE: [Download](http://www.mediafire.com/download/dmdlx8igxwll4ld/Coaching_Manager_1.1.0.3_%5B24_Feb_2015%5D_Setup.exe)
+- ZIP: [Download](http://www.mediafire.com/download/4nxijrrodv0ut1x/Coaching_Manager_1.1.0.3_%5B24_Feb_2015%5D_Setup.zip)
 
 
 Features
@@ -37,6 +40,7 @@ Features
 	- Make Active/Inactive
 	- Some Window Open Log
 - Easy to use
+- Database Backup/Restore
 
 Technology
 ----------
