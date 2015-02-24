@@ -77,8 +77,8 @@
             <DropShadowEffect Opacity="0.5" ShadowDepth="2" BlurRadius="7"/>
         </Grid.Effect>
         <Label x:Name="lblWinTitle" Content="Title" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" FontSize="14" BorderThickness="0,0,0,3" BorderBrush="#FFEEEEEE"/>
-        <Button x:Name="btnBack" Content="&#xF0A8; Back" HorizontalAlignment="Right" Margin="0,0,10,10" VerticalAlignment="Bottom" Width="100" Height="35" FontSize="16" FontFamily="FontAwesome" Background="White" BorderThickness="0,0,0,3" Click="btnBack_Click" Style="{DynamicResource ButtonStyle}" IsCancel="True" TabIndex="7"/>
-        <ListView x:Name="lstView" HorizontalAlignment="Left" Margin="10,246,0,0" VerticalAlignment="Top" Width="750" Height="274" Foreground="Black" BorderBrush="#FFEEEEEE" BorderThickness="1,1,1,3" FontSize="14" SelectionChanged="lstView_SelectionChanged">
+        <Button x:Name="btnBack" Content="&#xF0A8; Back" HorizontalAlignment="Right" Margin="0,0,10,10" VerticalAlignment="Bottom" Width="100" Height="35" FontSize="16" FontFamily="FontAwesome" Background="White" BorderThickness="0,0,0,3" Click="btnBack_Click" Style="{DynamicResource ButtonStyle}" IsCancel="True" TabIndex="9"/>
+        <ListView x:Name="lstView" HorizontalAlignment="Left" Margin="10,246,0,0" VerticalAlignment="Top" Width="750" Height="274" Foreground="Black" BorderBrush="#FFEEEEEE" BorderThickness="1,1,1,3" FontSize="14" SelectionChanged="lstView_SelectionChanged" TabIndex="6">
             <ListView.View>
                 <GridView>
                     <GridViewColumn x:Name="colRoll" Width="100" Header="Coaching ID" DisplayMemberBinding="{Binding CoachingRoll}"/>
@@ -95,7 +95,7 @@
                 </GridView>
             </ListView.View>
         </ListView>
-        <Button x:Name="btnSearch" Content="&#xF002; SEARCH" HorizontalAlignment="Center" Margin="0,194,0,0" VerticalAlignment="Top" FontFamily="FontAwesome" FontSize="24" BorderThickness="0,0,0,3" Background="White" Padding="10" Style="{DynamicResource ButtonStyle}" Click="btnSearch_Click" TabIndex="4" Width="150" IsDefault="True"/>
+        <Button x:Name="btnSearch" Content="&#xF002; SEARCH" HorizontalAlignment="Center" Margin="0,194,0,0" VerticalAlignment="Top" FontFamily="FontAwesome" FontSize="24" BorderThickness="0,0,0,3" Background="White" Padding="10" Style="{DynamicResource ButtonStyle}" Click="btnSearch_Click" TabIndex="5" Width="150" IsDefault="True"/>
         <Label Content="Student Name:" HorizontalAlignment="Left" Margin="10,89,0,0" VerticalAlignment="Top" Width="124" FontSize="14"/>
         <TextBox x:Name="txtBoxStdntName" HorizontalAlignment="Left" Margin="139,93,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="621" FontSize="14" TabIndex="0"/>
         <Label Content="School/College:" HorizontalAlignment="Left" Margin="10,123,0,0" VerticalAlignment="Top" Width="124" FontSize="14"/>
@@ -104,7 +104,7 @@
         <TextBox x:Name="txtBoxCoachingRoll" HorizontalAlignment="Left" Margin="139,161,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="150" FontSize="14" TabIndex="2" PreviewTextInput="txtBoxCoachingRoll_PreviewTextInput"/>
         <Label Content="Class:" HorizontalAlignment="Left" Margin="309,157,0,0" VerticalAlignment="Top" FontSize="14"/>
         <Label Content="Search Criteria" HorizontalAlignment="Center" Margin="318,50,318,0" VerticalAlignment="Top" FontSize="18" FontWeight="Bold"/>
-        <ComboBox x:Name="cmbBxClass" HorizontalAlignment="Right" Margin="0,159,262,0" VerticalAlignment="Top" Width="150" FontSize="14" Background="{x:Null}" BorderBrush="{x:Null}" TabIndex="3">
+        <ComboBox x:Name="cmbBxClass" HorizontalAlignment="Right" Margin="0,159,262,0" VerticalAlignment="Top" Width="150" FontSize="14" Background="White" TabIndex="3">
             <ComboBoxItem Content="Nursery"/>
             <ComboBoxItem Content="1"/>
             <ComboBoxItem Content="2"/>
@@ -119,16 +119,16 @@
             <ComboBoxItem Content="11"/>
             <ComboBoxItem Content="12"/>
         </ComboBox>
-        <Button x:Name="btnCngActive" Content="&#xF05E; Make Active" Margin="400,0,0,10" VerticalAlignment="Bottom" Height="35" FontSize="16" FontFamily="FontAwesome" Background="White" BorderThickness="0,0,0,3" Style="{DynamicResource ButtonStyle}" HorizontalAlignment="Left" Width="150" IsEnabled="False" Click="btnCngActive_Click" TabIndex="5"/>
+        <Button x:Name="btnCngActive" Content="&#xF05E; Make Active" Margin="400,0,0,10" VerticalAlignment="Bottom" Height="35" FontSize="16" FontFamily="FontAwesome" Background="White" BorderThickness="0,0,0,3" Style="{DynamicResource ButtonStyle}" HorizontalAlignment="Left" Width="150" IsEnabled="False" Click="btnCngActive_Click" TabIndex="7"/>
         <Label Content="Is Active:" HorizontalAlignment="Left" Margin="541,157,0,0" VerticalAlignment="Top" FontSize="14"/>
-        <ComboBox x:Name="cmbBxIsActive" HorizontalAlignment="Right" Margin="0,159,10,0" VerticalAlignment="Top" Width="150" FontSize="14" Background="{x:Null}" BorderBrush="{x:Null}">
+        <ComboBox x:Name="cmbBxIsActive" HorizontalAlignment="Right" Margin="0,159,10,0" VerticalAlignment="Top" Width="150" FontSize="14" Background="White" TabIndex="4">
             <ComboBoxItem Content="Yes"/>
             <ComboBoxItem Content="No"/>
         </ComboBox>
-        <Button x:Name="btnReset" Content="&#xF021; Reset" HorizontalAlignment="Right" Margin="0,0,115,10" VerticalAlignment="Bottom" Width="100" Height="35" FontSize="16" FontFamily="FontAwesome" Background="White" BorderThickness="0,0,0,3" Style="{DynamicResource ButtonStyle}" Click="btnReset_Click" TabIndex="6"/>
+        <Button x:Name="btnReset" Content="&#xF021; Reset" HorizontalAlignment="Right" Margin="0,0,115,10" VerticalAlignment="Bottom" Width="100" Height="35" FontSize="16" FontFamily="FontAwesome" Background="White" BorderThickness="0,0,0,3" Style="{DynamicResource ButtonStyle}" Click="btnReset_Click" TabIndex="8"/>
         <Label x:Name="lblTotalResult" Content="Ready" HorizontalAlignment="Left" Margin="10,527,0,0" VerticalAlignment="Top" FontSize="16"/>
-        <Button x:Name="btnCornerExit" Content="&#xF00D;" Margin="0" VerticalAlignment="Top" HorizontalAlignment="Right" FontFamily="FontAwesome" FontSize="14" BorderThickness="0,0,0,3" Background="White" Click="btnBack_Click" Style="{DynamicResource CornerButtonStyle}" TabIndex="4" IsTabStop="False"/>
-        <Button x:Name="btnCornerMin" Content="&#xF068;" Margin="0,0,25,0" VerticalAlignment="Top" HorizontalAlignment="Right" FontFamily="FontAwesome" FontSize="14" BorderThickness="0,0,0,3" Background="White" Style="{DynamicResource CornerButtonStyle}" Click="btnCornerMin_Click" TabIndex="3" IsTabStop="False"/>
+        <Button x:Name="btnCornerExit" Content="&#xF00D;" Margin="0" VerticalAlignment="Top" HorizontalAlignment="Right" FontFamily="FontAwesome" FontSize="14" BorderThickness="0,0,0,3" Background="White" Click="btnBack_Click" Style="{DynamicResource CornerButtonStyle}" TabIndex="11" IsTabStop="False"/>
+        <Button x:Name="btnCornerMin" Content="&#xF068;" Margin="0,0,25,0" VerticalAlignment="Top" HorizontalAlignment="Right" FontFamily="FontAwesome" FontSize="14" BorderThickness="0,0,0,3" Background="White" Style="{DynamicResource CornerButtonStyle}" Click="btnCornerMin_Click" TabIndex="10" IsTabStop="False"/>
 
     </Grid>
 </Window>

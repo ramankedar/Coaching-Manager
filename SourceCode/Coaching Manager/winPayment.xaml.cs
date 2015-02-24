@@ -59,6 +59,9 @@ namespace Coaching_Manager
             dPTransaction.SelectedDate = DateTime.Today;
 
             grpBxPayCalc.Visibility = Visibility.Hidden;
+
+            lblInstituteName.Content = Strings.InstituteName;
+            lblReceiptAppTitle.Content = Strings.AppName + " " + Strings.AppVersion;
         }
 
         private void btnBack_Click(object sender, RoutedEventArgs e)

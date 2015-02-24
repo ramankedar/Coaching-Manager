@@ -82,9 +82,9 @@
         <Label Content="imaginativeworld.org" HorizontalAlignment="Right" Margin="0,0,10,10" VerticalAlignment="Bottom" BorderThickness="0" Foreground="#FF777777"/>
         <Label Content="Coaching Manger" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" FontSize="14" BorderThickness="0,0,0,3" BorderBrush="#FFEEEEEE"/>
         <Label x:Name="lblVersion" Content="0.0.0.0" HorizontalAlignment="Left" Margin="130,14,0,0" VerticalAlignment="Top" FontSize="10"/>
-        <Grid Margin="175,55,174,281">
-            <Label x:Name="lblCoachingName" Content="ASCEND" Margin="0,0,132,0" VerticalAlignment="Top" FontSize="20" HorizontalAlignment="Center" FontFamily="Minion Pro" Foreground="Red" FontWeight="Bold"/>
-            <Label x:Name="lblCoachingNameSubPart" Content="Academic Care" Margin="89,0,0,0" VerticalAlignment="Top" HorizontalAlignment="Center" FontSize="20" FontFamily="Minion Pro" Foreground="Black"/>
+        <Grid Margin="10,55,10,281" Width="265">
+            <Label x:Name="lblCoachingName" Content="ASCEND" Margin="0" VerticalAlignment="Top" FontSize="24" HorizontalAlignment="Left" FontFamily="Minion Pro" Foreground="Red" FontWeight="Bold"/>
+            <Label x:Name="lblCoachingNameSubPart" Content="Academic Care" Margin="0" VerticalAlignment="Top" HorizontalAlignment="Right" FontSize="24" FontFamily="Minion Pro" Foreground="Black"/>
         </Grid>
         <Grid x:Name="gUnlockBox" Margin="0,244,0,41" Width="500">
             <PasswordBox x:Name="PassBox" Margin="107,48,105,0" FontSize="16" VerticalAlignment="Top" MaxLength="50" TabIndex="6"/>

@@ -109,7 +109,7 @@
         <Button x:Name="btnReset" Content="&#xF021; Reset" HorizontalAlignment="Right" Margin="0,0,115,10" VerticalAlignment="Bottom" Width="100" Height="35" FontSize="16" FontFamily="FontAwesome" Background="White" BorderThickness="0,0,0,3" Style="{DynamicResource ButtonStyle}" Click="btnReset_Click" TabIndex="7"/>
         <Label x:Name="lblTotalResult" Content="Ready" HorizontalAlignment="Left" Margin="10,527,0,0" VerticalAlignment="Top" FontSize="16"/>
         <Label Content="Is Active:" HorizontalAlignment="Left" Margin="541,157,0,0" VerticalAlignment="Top" FontSize="14"/>
-        <ComboBox x:Name="cmbBxIsActive" HorizontalAlignment="Right" Margin="0,159,10,0" VerticalAlignment="Top" Width="150" FontSize="14" Background="{x:Null}" BorderBrush="{x:Null}" TabIndex="4">
+        <ComboBox x:Name="cmbBxIsActive" HorizontalAlignment="Right" Margin="0,159,10,0" VerticalAlignment="Top" Width="150" FontSize="14" Background="White" TabIndex="4">
             <ComboBoxItem Content="Yes"/>
             <ComboBoxItem Content="No"/>
         </ComboBox>

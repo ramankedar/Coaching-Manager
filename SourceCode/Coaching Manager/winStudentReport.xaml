@@ -81,9 +81,9 @@
         <Label x:Name="lblWinTitle" Content="Title" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" FontSize="14" BorderThickness="0,0,0,3" BorderBrush="#FFEEEEEE"/>
         <Button x:Name="btnCornerExit" Content="&#xF00D;" Margin="0" VerticalAlignment="Top" HorizontalAlignment="Right" FontFamily="FontAwesome" FontSize="14" BorderThickness="0,0,0,3" Background="White" Click="btnBack_Click" Style="{DynamicResource CornerButtonStyle}" TabIndex="4" IsTabStop="False"/>
         <Button x:Name="btnCornerMin" Content="&#xF068;" Margin="0,0,25,0" VerticalAlignment="Top" HorizontalAlignment="Right" FontFamily="FontAwesome" FontSize="14" BorderThickness="0,0,0,3" Background="White" Style="{DynamicResource CornerButtonStyle}" Click="btnCornerMin_Click" TabIndex="3" IsTabStop="False"/>
-        <Button x:Name="btnBack" Content="&#xF0A8; Back" HorizontalAlignment="Right" Margin="0,0,10,10" VerticalAlignment="Bottom" Width="100" Height="35" FontSize="16" FontFamily="FontAwesome" Background="White" BorderThickness="0,0,0,3" Click="btnBack_Click" Style="{DynamicResource ButtonStyle}" IsCancel="True" TabIndex="11"/>
+        <Button x:Name="btnBack" Content="&#xF0A8; Back" HorizontalAlignment="Right" Margin="0,0,10,10" VerticalAlignment="Bottom" Width="100" Height="35" FontSize="16" FontFamily="FontAwesome" Background="White" BorderThickness="0,0,0,3" Click="btnBack_Click" Style="{DynamicResource ButtonStyle}" IsCancel="True" TabIndex="4"/>
         <Button x:Name="btnCornerMaximize" Content="&#xF0B2;" Margin="0,0,50,0" VerticalAlignment="Top" HorizontalAlignment="Right" FontFamily="FontAwesome" FontSize="14" BorderThickness="0,0,0,3" Background="White" Click="btnCornerMaximize_Click" Style="{DynamicResource CornerButtonStyle}" TabIndex="4" IsTabStop="False"/>
-        <ListView x:Name="lstView" Margin="10,65,10,75" Foreground="Black" BorderBrush="#FFEEEEEE" BorderThickness="1,1,1,3" FontSize="14" Background="WhiteSmoke">
+        <ListView x:Name="lstView" Margin="10,73,10,75" Foreground="Black" BorderBrush="#FFEEEEEE" BorderThickness="1,1,1,3" FontSize="16" Background="WhiteSmoke">
             <ListView.View>
                 <GridView AllowsColumnReorder="False">
                     <GridView.ColumnHeaderContainerStyle>
@@ -100,7 +100,7 @@
                     
                     <GridViewColumn x:Name="colID" Width="80" Header="ID" DisplayMemberBinding="{Binding ID}"/>
                     <GridViewColumn x:Name="colStdName" Width="200" Header="Student Name" DisplayMemberBinding="{Binding StudentName}"/>
-                    <GridViewColumn x:Name="colAttendance" Width="120" Header="Attendance">
+                    <GridViewColumn x:Name="colAttendance" Width="140" Header="Attendance">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <TextBlock Text="{Binding Attendance}" Foreground="{Binding ForeColorAttendance}"/>
@@ -330,7 +330,7 @@
             </ListView.View>
         </ListView>
         <Label Content="Class:" HorizontalAlignment="Left" Margin="10,0,0,10" VerticalAlignment="Bottom" FontSize="16" Background="White" Foreground="Black"/>
-        <ComboBox x:Name="cmbBxSelClass" HorizontalAlignment="Left" Margin="64,0,0,12" VerticalAlignment="Bottom" FontSize="16" SelectedIndex="0" Width="100">
+        <ComboBox x:Name="cmbBxSelClass" HorizontalAlignment="Left" Margin="64,0,0,12" VerticalAlignment="Bottom" FontSize="16" SelectedIndex="0" Width="100" TabIndex="0">
             <ComboBoxItem Content="Nursery"/>
             <ComboBoxItem Content="1"/>
             <ComboBoxItem Content="2"/>
@@ -345,10 +345,10 @@
             <ComboBoxItem Content="11"/>
             <ComboBoxItem Content="12"/>
         </ComboBox>
-        <Button x:Name="btnQuery" Content="&#xF135; Query Now" HorizontalAlignment="Right" Margin="0,0,115,10" VerticalAlignment="Bottom" Width="150" Height="35" FontSize="16" FontFamily="FontAwesome" Background="White" BorderThickness="0,0,0,3" Style="{DynamicResource ButtonStyle}" Click="btnQuery_Click" TabIndex="12" IsDefault="True"/>
+        <Button x:Name="btnQuery" Content="&#xF135; Query Now" HorizontalAlignment="Right" Margin="0,0,115,10" VerticalAlignment="Bottom" Width="150" Height="35" FontSize="16" FontFamily="FontAwesome" Background="White" BorderThickness="0,0,0,3" Style="{DynamicResource ButtonStyle}" Click="btnQuery_Click" TabIndex="3" IsDefault="True"/>
         <Label Content="Year:" HorizontalAlignment="Left" Margin="323,0,0,10" VerticalAlignment="Bottom" FontSize="16" Background="White" Foreground="Black"/>
-        <TextBox x:Name="txtYear" HorizontalAlignment="Left" Margin="372,0,0,14" TextWrapping="Wrap" VerticalAlignment="Bottom" Width="100" FontSize="16" LostFocus="txtYear_LostFocus" PreviewTextInput="txtYear_PreviewTextInput"/>
-        <ComboBox x:Name="cmbBxMonth" HorizontalAlignment="Left" Margin="218,0,0,12" VerticalAlignment="Bottom" Width="100" FontSize="16" SelectedIndex="0" TabIndex="4">
+        <TextBox x:Name="txtYear" HorizontalAlignment="Left" Margin="372,0,0,14" TextWrapping="Wrap" VerticalAlignment="Bottom" Width="100" FontSize="16" LostFocus="txtYear_LostFocus" PreviewTextInput="txtYear_PreviewTextInput" TabIndex="2"/>
+        <ComboBox x:Name="cmbBxMonth" HorizontalAlignment="Left" Margin="218,0,0,12" VerticalAlignment="Bottom" Width="100" FontSize="16" SelectedIndex="0" TabIndex="1">
             <ComboBoxItem Content="January"/>
             <ComboBoxItem Content="February"/>
             <ComboBoxItem Content="March"/>
@@ -370,7 +370,10 @@
         <Label Content="30%" HorizontalAlignment="Left" Margin="171,0,0,44" VerticalAlignment="Bottom" Background="White" Foreground="Tomato" FontWeight="Bold" FontSize="14"/>
         <Label Content="Fail" HorizontalAlignment="Left" Margin="214,0,0,44" VerticalAlignment="Bottom" Background="White" Foreground="Red" FontWeight="Bold" FontSize="14"/>
         <Label Content="&#xF119;" HorizontalAlignment="Left" Margin="251,0,0,43" VerticalAlignment="Bottom" Background="White" Foreground="Red" FontSize="20" FontFamily="FontAwesome"/>
-        <Label x:Name="lblQuerying" Content="&#xF085; Querying..." Margin="10,65,10,75" FontSize="48" Background="{x:Null}" Foreground="#FF888888" FontFamily="FontAwesome" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
+        <Label x:Name="lblQuerying" Content="&#xF085; Querying..." Margin="10,73,10,75" FontSize="48" Background="{x:Null}" Foreground="#FF888888" FontFamily="FontAwesome" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
+        <Button x:Name="btnZoomOut" Content="&#xF010;" Margin="0,34,10,0" VerticalAlignment="Top" HorizontalAlignment="Right" FontFamily="FontAwesome" FontSize="16" BorderThickness="0,0,0,3" Background="White" Style="{DynamicResource CornerButtonStyle}" TabIndex="4" IsTabStop="False" Click="btnZoomOut_Click"/>
+        <Button x:Name="btnZoomIn" Content="&#xF00E;" Margin="0,34,39,0" VerticalAlignment="Top" HorizontalAlignment="Right" FontFamily="FontAwesome" FontSize="16" BorderThickness="0,0,0,3" Background="White" Style="{DynamicResource CornerButtonStyle}" TabIndex="4" IsTabStop="False" Click="btnZoomIn_Click"/>
+        <Label x:Name="lblReportTitle" Content="Students Report January 2015 : Class 0" HorizontalAlignment="Center" Margin="0,42,0,0" VerticalAlignment="Top" FontSize="16" Background="White" Foreground="Black" FontWeight="Bold"/>
 
 
     </Grid>

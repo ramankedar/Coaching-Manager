@@ -27,6 +27,8 @@ using System;
 using System.Windows;
 using System.Windows.Input;
 using System.Data.OleDb;
+using System.IO;
+using Microsoft.Win32;
 
 namespace Coaching_Manager
 {
@@ -36,6 +38,7 @@ namespace Coaching_Manager
     public partial class winOptions : Window
     {
         int intOption = 0;
+        string restoreFileLoc = "";
 
         public winOptions()
         {
@@ -54,6 +57,8 @@ namespace Coaching_Manager
                 btnDelUser.IsEnabled = false;
                 btnAddUser.IsEnabled = false;
                 cmbBxUsers.IsEnabled = false;
+                btnRestore.IsEnabled = false;
+                btnBackup.IsEnabled = false;
                 cmbBxUsers.Items.Add(Strings.strUserName);
                 cmbBxUsers.SelectedIndex = 0;
             }
@@ -65,6 +70,7 @@ namespace Coaching_Manager
             txtBxUserName.Text = "";
             PassBx.Password = "";
             PassBxRepeat.Password = "";
+            btnInputOK.IsDefault = true;
         }
 
         private void GetUsers()
@@ -203,6 +209,24 @@ namespace Coaching_Manager
                 }
                 else
                     cmTools.showInfoMsg("Enter a User Name first!");
+            }
+            else if (intOption == 4) // Restore Database File
+            {
+                if ((txtBxUserName.Text != "") && (PassBx.Password != ""))
+                {
+                    if (IsCorrectUserPass(restoreFileLoc, txtBxUserName.Text, PassBx.Password))
+                    {
+                        if (ImportDBfile(restoreFileLoc))
+                            cmTools.showInfoMsg("Database Successfully Restored!");
+                        else
+                            cmTools.showInfoMsg("Something Wrong! ErrCode: CM#0001");
+
+                        gridInput.Visibility = Visibility.Collapsed;
+                    }
+                    else
+                        cmTools.showInfoMsg("Wrong Database Admin Username or Password or both! :(");
+                }
+
             }
         }
 
@@ -387,8 +411,9 @@ namespace Coaching_Manager
             switch (type)
             {
                 case 1: // Add User
+                    lblInputTitle.Content = "Enter new user credentials";
                     txtBxUserName.Visibility = Visibility.Visible; //Text Box
-                    lblInputUserName.Content = "User Name:";
+                    lblInputUserName.Content = "Username:";
                     PassBx.Visibility = Visibility.Visible;
                     PassBxRepeat.Visibility = Visibility.Visible;
                     lblInputPass.Visibility = Visibility.Visible;
@@ -396,6 +421,7 @@ namespace Coaching_Manager
                     PassBxCurrent.Visibility = Visibility.Collapsed; //Extra Pass Box
                     break;
                 case 2: // Update User Pass
+                    lblInputTitle.Content = "Enter following credentials";
                     txtBxUserName.Visibility = Visibility.Collapsed; //Text Box
                     lblInputUserName.Content = "Old Password:";
                     PassBx.Visibility = Visibility.Visible;
@@ -406,12 +432,23 @@ namespace Coaching_Manager
                     break;
 
                 case 3: // Update User Name
+                    lblInputTitle.Content = "Enter new Username";
                     txtBxUserName.Visibility = Visibility.Visible; //Text Box
-                    lblInputUserName.Content = "New User Name:";
+                    lblInputUserName.Content = "New Username:";
                     PassBx.Visibility = Visibility.Hidden;
                     PassBxRepeat.Visibility = Visibility.Hidden;
                     lblInputPass.Visibility = Visibility.Hidden;
                     lblPassRep.Visibility = Visibility.Hidden;
+                    PassBxCurrent.Visibility = Visibility.Collapsed; //Extra Pass Box
+                    break;
+                case 4: // Import Database
+                    lblInputTitle.Content = "Enter the database credential:";
+                    txtBxUserName.Visibility = Visibility.Visible; //Text Box
+                    lblInputUserName.Content = "Admin Username:";
+                    PassBx.Visibility = Visibility.Visible;
+                    PassBxRepeat.Visibility = Visibility.Collapsed;
+                    lblInputPass.Visibility = Visibility.Visible;
+                    lblPassRep.Visibility = Visibility.Collapsed;
                     PassBxCurrent.Visibility = Visibility.Collapsed; //Extra Pass Box
                     break;
             }
@@ -433,6 +470,164 @@ namespace Coaching_Manager
                     btnDelUser.IsEnabled = true;
                 }
             }
+        }
+
+        private void btnBackup_Click(object sender, RoutedEventArgs e)
+        {
+            SaveFileDialog saveFileDlg = new SaveFileDialog();
+            saveFileDlg.Filter = "Coaching Manager Database|*.cmdb";
+            saveFileDlg.Title = Strings.AppName + " | Save Database";
+            saveFileDlg.FileName = "Backup_Database.cmdb";
+            try
+            {
+
+                // If the file name is not an empty string open it for saving.
+                if ((bool)saveFileDlg.ShowDialog())
+                {
+                    if (saveFileDlg.FileName != "")
+                    {
+                        if (SaveDBfile(saveFileDlg.FileName))
+                        {
+                            cmTools.showInfoMsg("Database Successfully Saved! :)");
+                        }
+                        else
+                            cmTools.showInfoMsg("Something Wrong! ErrCode: CM#0002");
+                    }
+                }
+
+            }
+            catch (Exception ex)
+            {
+                cmTools.showInfoMsg(ex.Message);
+            }
+
+        }
+
+        private Boolean SaveDBfile(string desLocation)
+        {
+            string DesPath = Path.GetDirectoryName(desLocation);
+
+            if (!System.IO.Directory.Exists(DesPath))
+            {
+                System.IO.Directory.CreateDirectory(DesPath);
+            }
+
+            try
+            {
+                System.IO.File.Copy(Strings.strDBFilePath,
+                    desLocation, true);
+            }
+            catch (Exception ex)
+            {
+                cmTools.showInfoMsg(ex.Message);
+                return false;
+            }
+
+            return true;
+        }
+
+        private void btnRestore_Click(object sender, RoutedEventArgs e)
+        {
+            if (MessageBox.Show(
+                @"If you restore a database, you will,
+    -> Loose the current database forever.
+    -> Loose all current Users.
+
+So, Before Restore a Database make a Backup of the current Database if needed.
+
+Are you sure want to Restore Database?", "ATTENTATION", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+            {
+                OpenFileDialog openFileDlg = new OpenFileDialog();
+                openFileDlg.Filter = "Coaching Manager Database|*.cmdb";
+                openFileDlg.Title = Strings.AppName + " | Restore Database";
+                openFileDlg.CheckFileExists = true;
+
+                if ((bool)openFileDlg.ShowDialog())
+                {
+                    if (openFileDlg.FileName != "")
+                    {
+                        restoreFileLoc = openFileDlg.FileName;
+                        ClearInput();
+                        changeInputBox(4);
+                        gridInput.Visibility = Visibility.Visible;
+                        intOption = 4; //Update User Name
+                    }
+                }
+            }
+        }
+
+        private Boolean ImportDBfile(string srcLocation)
+        {
+            try
+            {
+#if DEBUG
+
+                System.IO.File.Copy(srcLocation,
+                Path.Combine(Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location), "IW.CM.DB.dll")
+                , true);
+
+#else
+
+                System.IO.File.Copy(srcLocation, Strings.strDBFilePath, true);
+
+#endif
+                return true;
+            }
+            catch (Exception ex)
+            {
+                cmTools.showInfoMsg(ex.Message);
+                return false;
+            }
+        }
+
+        private Boolean IsCorrectUserPass(String strLocation, string username, string password)
+        {
+            string user = "";
+            try
+            {
+                string queryString =
+                    "SELECT [User] from TblUser WHERE [User] = @srcUser AND [Pass] = @srcPass AND [IsAdmin] = @strIsAdmin";
+
+                string conStr =
+@"Provider=Microsoft.ACE.OLEDB.12.0;Data Source='" + strLocation +
+@"';Jet OLEDB:Database Password='" + cmCrypto.Decrypt(Strings.DbEncryptedPass, Strings.PassPhrase) + "';";
+
+                OleDbConnection connection = new OleDbConnection(conStr);
+                OleDbCommand command = new OleDbCommand(queryString, connection);
+
+                command.Parameters.AddWithValue("@srcUser", username.ToLower());
+                command.Parameters.AddWithValue("@srcPass", cmCrypto.Encrypt(password, password));
+                command.Parameters.AddWithValue("@strIsAdmin", true);
+
+                //Console.WriteLine(DBconStr);
+
+                connection.Open();
+
+                OleDbDataReader reader = command.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    user = reader[0].ToString();
+                }
+
+                reader.Close();
+                connection.Close();
+                // Release Memory
+                command.Dispose();
+                connection.Dispose();
+
+                if (user == "")
+                    return false;
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+                return false;
+            }
+
+            return true;
+
         }
 
     }

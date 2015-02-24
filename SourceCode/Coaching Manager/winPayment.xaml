@@ -122,6 +122,8 @@
                 <TextBox x:Name="txtTotalAmount" HorizontalAlignment="Left" Margin="115,76,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="103" FontSize="16" IsEnabled="False" TextChanged="txtTotalAmount_TextChanged" TabIndex="8"/>
             </Grid>
         </GroupBox>
+        <Button x:Name="btnCornerExit" Content="&#xF00D;" Margin="0" VerticalAlignment="Top" HorizontalAlignment="Right" FontFamily="FontAwesome" FontSize="14" BorderThickness="0,0,0,3" Background="White" Click="btnBack_Click" Style="{DynamicResource CornerButtonStyle}" TabIndex="4" IsTabStop="False"/>
+        <Button x:Name="btnCornerMin" Content="&#xF068;" Margin="0,0,25,0" VerticalAlignment="Top" HorizontalAlignment="Right" FontFamily="FontAwesome" FontSize="14" BorderThickness="0,0,0,3" Background="White" Style="{DynamicResource CornerButtonStyle}" Click="btnCornerMin_Click" TabIndex="3" IsTabStop="False"/>
 
         <!-- Receipt -->
         <Grid x:Name="gridPayReceipt" Visibility="Collapsed">
@@ -133,46 +135,45 @@
             CornerRadius="7" 
             HorizontalAlignment="Center" 
             VerticalAlignment="Center">
-                <Grid Width="700" Height="250">
-                    <Label Content="Year:" HorizontalAlignment="Left" Margin="36,106,0,0" VerticalAlignment="Top" FontSize="16" FontWeight="Bold"/>
-                    <Label Content="Month:" HorizontalAlignment="Left" Margin="288,106,0,0" VerticalAlignment="Top" FontSize="16" FontWeight="Bold"/>
-                    <Label Content="Amount:" HorizontalAlignment="Left" Margin="36,137,0,0" VerticalAlignment="Top" FontSize="16" FontWeight="Bold"/>
-                    <Label Content="Coaching ID:" HorizontalAlignment="Left" Margin="36,75,0,0" VerticalAlignment="Top" FontSize="16" FontWeight="Bold"/>
-                    <Label Content="Transaction Date:" HorizontalAlignment="Left" Margin="288,137,0,0" VerticalAlignment="Top" FontSize="16" FontWeight="Bold"/>
-                    <Label x:Name="lblTxtName" Content="Name:" HorizontalAlignment="Left" Margin="288,75,0,0" VerticalAlignment="Top" FontSize="16" FontWeight="Bold"/>
-                    <Label x:Name="lblReceiptID" Content="ID" HorizontalAlignment="Left" Margin="146,75,0,0" VerticalAlignment="Top" FontSize="16"/>
-                    <Label x:Name="lblReceiptYear" Content="Year" HorizontalAlignment="Left" Margin="146,106,0,0" VerticalAlignment="Top" FontSize="16"/>
-                    <Label x:Name="lblReceiptAmount" Content="Amount" HorizontalAlignment="Left" Margin="146,137,0,0" VerticalAlignment="Top" FontSize="16"/>
-                    <Label x:Name="lblReceiptDate" Content="Date" HorizontalAlignment="Left" Margin="433,137,0,0" VerticalAlignment="Top" FontSize="16"/>
-                    <Label x:Name="lblReciptMonth" Content="Month" HorizontalAlignment="Left" Margin="433,106,0,0" VerticalAlignment="Top" FontSize="16"/>
-                    <Label x:Name="lblReceiptName" Content="Name" HorizontalAlignment="Left" Margin="433,75,0,0" VerticalAlignment="Top" FontSize="16"/>
-                    <Label Content="৳" HorizontalAlignment="Left" Margin="252,137,0,0" VerticalAlignment="Top" FontSize="16" RenderTransformOrigin="2.571,0.581" FontWeight="Bold"/>
-                    <Label Content="-----------------------------------------------------------------------------------------------------" HorizontalAlignment="Left" Margin="10,168,0,0" VerticalAlignment="Top" FontSize="16" Width="674" HorizontalContentAlignment="Center"/>
-                    <Label Content="ASCEND Academic Care |" HorizontalAlignment="Left" Margin="26,10,0,0" VerticalAlignment="Top" FontSize="24" FontWeight="Bold"/>
-                    <Label Content="-----------------------------------------------------------------------------------------------------" HorizontalAlignment="Left" Margin="10,44,0,0" VerticalAlignment="Top" FontSize="16" Width="674" HorizontalContentAlignment="Center"/>
-                    <Label x:Name="lblReceiptCollector" Content="Recipient: ---------------------" HorizontalAlignment="Right" Margin="0,199,26,0" VerticalAlignment="Top" FontSize="16"/>
-                    <Label x:Name="lblReceiptCollector_Copy" Content="Receipt No:" HorizontalAlignment="Left" Margin="505,23,0,0" VerticalAlignment="Top" FontSize="14" FontWeight="Bold"/>
-                    <Label x:Name="lblReceiptNo" Content="0" HorizontalAlignment="Left" Margin="596,22,0,0" VerticalAlignment="Top" FontSize="16" RenderTransformOrigin="0.368,0.387"/>
-                    <Label x:Name="lblReceiptCollector_Copy1" Content="Accountent: ---------------------" HorizontalAlignment="Left" Margin="26,199,0,0" VerticalAlignment="Top" FontSize="16"/>
-                    <Label Content="Money Receipt" HorizontalAlignment="Left" Margin="318,19,0,0" VerticalAlignment="Top" FontSize="16" FontWeight="Bold"/>
+                <Grid Width="700" Height="300">
+                    <Label Content="Year:" HorizontalAlignment="Left" Margin="36,140,0,0" VerticalAlignment="Top" FontSize="16" FontWeight="Bold"/>
+                    <Label Content="Month:" HorizontalAlignment="Left" Margin="288,140,0,0" VerticalAlignment="Top" FontSize="16" FontWeight="Bold"/>
+                    <Label Content="Amount:" HorizontalAlignment="Left" Margin="36,171,0,0" VerticalAlignment="Top" FontSize="16" FontWeight="Bold"/>
+                    <Label Content="Coaching ID:" HorizontalAlignment="Left" Margin="36,109,0,0" VerticalAlignment="Top" FontSize="16" FontWeight="Bold"/>
+                    <Label Content="Transaction Date:" HorizontalAlignment="Left" Margin="288,171,0,0" VerticalAlignment="Top" FontSize="16" FontWeight="Bold"/>
+                    <Label x:Name="lblTxtName" Content="Name:" HorizontalAlignment="Left" Margin="288,109,0,0" VerticalAlignment="Top" FontSize="16" FontWeight="Bold"/>
+                    <Label x:Name="lblReceiptID" Content="ID" HorizontalAlignment="Left" Margin="146,109,0,0" VerticalAlignment="Top" FontSize="16"/>
+                    <Label x:Name="lblReceiptYear" Content="Year" HorizontalAlignment="Left" Margin="146,140,0,0" VerticalAlignment="Top" FontSize="16"/>
+                    <Label x:Name="lblReceiptAmount" Content="Amount" HorizontalAlignment="Left" Margin="146,171,0,0" VerticalAlignment="Top" FontSize="16"/>
+                    <Label x:Name="lblReceiptDate" Content="Date" HorizontalAlignment="Left" Margin="433,171,0,0" VerticalAlignment="Top" FontSize="16"/>
+                    <Label x:Name="lblReciptMonth" Content="Month" HorizontalAlignment="Left" Margin="433,140,0,0" VerticalAlignment="Top" FontSize="16"/>
+                    <Label x:Name="lblReceiptName" Content="Name" HorizontalAlignment="Left" Margin="433,109,0,0" VerticalAlignment="Top" FontSize="16"/>
+                    <Label Content="৳" HorizontalAlignment="Left" Margin="252,171,0,0" VerticalAlignment="Top" FontSize="16" RenderTransformOrigin="2.571,0.581" FontWeight="Bold"/>
+                    <Label Content="-----------------------------------------------------------------------------------------------------" HorizontalAlignment="Left" Margin="10,205,0,0" VerticalAlignment="Top" FontSize="16" Width="674" HorizontalContentAlignment="Center"/>
+                    <Label x:Name="lblInstituteName" Content="Institute Name" HorizontalAlignment="Left" Margin="26,10,0,0" VerticalAlignment="Top" FontSize="36" FontWeight="Bold" FontFamily="Minion Pro"/>
+                    <Label Content="-----------------------------------------------------------------------------------------------------" HorizontalAlignment="Left" Margin="10,71,0,0" VerticalAlignment="Top" FontSize="16" Width="674" HorizontalContentAlignment="Center"/>
+                    <Label x:Name="lblReceiptCollector" Content="Recipient: ---------------------" HorizontalAlignment="Right" Margin="0,251,26,0" VerticalAlignment="Top" FontSize="16"/>
+                    <Label x:Name="lblReceiptCollector_Copy" Content="Receipt No:" HorizontalAlignment="Left" Margin="505,50,0,0" VerticalAlignment="Top" FontSize="14" FontWeight="Bold"/>
+                    <Label x:Name="lblReceiptNo" Content="0" HorizontalAlignment="Left" Margin="596,49,0,0" VerticalAlignment="Top" FontSize="16" RenderTransformOrigin="0.368,0.387"/>
+                    <Label x:Name="lblReceiptCollector_Copy1" Content="Accountent: ---------------------" HorizontalAlignment="Left" Margin="26,251,0,0" VerticalAlignment="Top" FontSize="16"/>
+                    <Label Content="Money Receipt" HorizontalAlignment="Left" Margin="26,49,0,0" VerticalAlignment="Top" FontSize="16" FontWeight="Bold"/>
+                    <Label x:Name="lblReceiptAppTitle" Content="App Name" HorizontalAlignment="Right" Margin="0,5,5,0" VerticalAlignment="Top" Foreground="#CC000000" FontWeight="Bold"/>
                 </Grid>
             </Border>
             <Border 
                 VerticalAlignment="Top" 
                 HorizontalAlignment="Right" 
-                Margin="0,422,32,0"
+                Margin="0,452,32,0"
                 Padding="10"
                 BorderBrush="DarkGray" 
                 BorderThickness="3" 
-                Background="WhiteSmoke"
+                Background="White"
                 CornerRadius="7">
                 <Grid>
-                    <Button x:Name="btnPrint" Content="&#xF02F; Print" HorizontalAlignment="Center" Margin="0,0,105,0" VerticalAlignment="Bottom" Width="100" Height="35" FontSize="16" FontFamily="FontAwesome" Background="White" BorderThickness="0,0,0,3" Click="btnPrint_Click" Style="{DynamicResource ButtonStyle}"/>
-                    <Button x:Name="btnCloseReceipt" Content="&#xF00D; Close" HorizontalAlignment="Right" Margin="0" VerticalAlignment="Bottom" Width="100" Height="35" FontSize="16" FontFamily="FontAwesome" Background="White" BorderThickness="0,0,0,3" Style="{DynamicResource ButtonStyle}" Click="btnCloseReceipt_Click"/>
+                    <Button x:Name="btnPrint" Content="&#xF02F; Print" HorizontalAlignment="Center" Margin="0,0,105,0" VerticalAlignment="Bottom" Width="100" Height="35" FontSize="16" FontFamily="FontAwesome" Background="White" BorderThickness="0,0,0,3" Click="btnPrint_Click" Style="{DynamicResource CornerButtonStyle}" TabIndex="12"/>
+                    <Button x:Name="btnCloseReceipt" Content="&#xF00D; Close" HorizontalAlignment="Right" Margin="0" VerticalAlignment="Bottom" Width="100" Height="35" FontSize="16" FontFamily="FontAwesome" Background="White" BorderThickness="0,0,0,3" Style="{DynamicResource CornerButtonStyle}" Click="btnCloseReceipt_Click" TabIndex="13"/>
                 </Grid>
             </Border>
         </Grid>
-        <Button x:Name="btnCornerExit" Content="&#xF00D;" Margin="0" VerticalAlignment="Top" HorizontalAlignment="Right" FontFamily="FontAwesome" FontSize="14" BorderThickness="0,0,0,3" Background="White" Click="btnBack_Click" Style="{DynamicResource CornerButtonStyle}" TabIndex="4" IsTabStop="False"/>
-        <Button x:Name="btnCornerMin" Content="&#xF068;" Margin="0,0,25,0" VerticalAlignment="Top" HorizontalAlignment="Right" FontFamily="FontAwesome" FontSize="14" BorderThickness="0,0,0,3" Background="White" Style="{DynamicResource CornerButtonStyle}" Click="btnCornerMin_Click" TabIndex="3" IsTabStop="False"/>
     </Grid>
 </Window>

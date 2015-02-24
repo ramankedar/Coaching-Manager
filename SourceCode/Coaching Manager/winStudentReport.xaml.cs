@@ -28,7 +28,6 @@ using System.Data.OleDb;
 using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Input;
-using System.Windows.Media;
 using System.Windows.Threading;
 
 namespace Coaching_Manager
@@ -55,6 +54,7 @@ namespace Coaching_Manager
             txtYear.Text = DateTime.Now.Year.ToString();
             cmbBxMonth.SelectedIndex = first.Month - 1;
             lblQuerying.Visibility = Visibility.Collapsed;
+            lblReportTitle.Visibility = Visibility.Collapsed;
         }
 
         public class ListItem
@@ -205,6 +205,8 @@ namespace Coaching_Manager
 
                 if (UpdateTable())
                 {
+                    lblReportTitle.Content = "Students Report " + cmbBxMonth.Text + " " + txtYear.Text + " : Class " + cmbBxSelClass.Text;
+                    lblReportTitle.Visibility = Visibility.Visible;
                     EnableAll();
                 }
             }), DispatcherPriority.ContextIdle);
@@ -511,7 +513,7 @@ namespace Coaching_Manager
                     }
 
                     (FindName("colDay" + Convert.ToDateTime(reader[0]).Day) as System.Windows.Controls.GridViewColumn)
-                        .Width = 100;
+                        .Width = 120;
 
                 }
 
@@ -549,6 +551,18 @@ namespace Coaching_Manager
         {
             Regex regex = new Regex("[^0-9]+");
             e.Handled = regex.IsMatch(e.Text);
+        }
+
+        private void btnZoomIn_Click(object sender, RoutedEventArgs e)
+        {
+            if (lstView.FontSize < 20)
+                lstView.FontSize = ++lstView.FontSize;
+        }
+
+        private void btnZoomOut_Click(object sender, RoutedEventArgs e)
+        {
+            if (lstView.FontSize > 10)
+                lstView.FontSize = --lstView.FontSize;
         }
     }
 }

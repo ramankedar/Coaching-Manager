@@ -113,15 +113,22 @@ namespace Coaching_Manager
 
         private void SetDBstr()
         {
-            //Making Database Connection String
-            //            Strings.DBconStr =
-            //@"Provider=Microsoft.ACE.OLEDB.12.0;Data Source=|DataDirectory|\IW.CM.DB.accdb;
-            //Jet OLEDB:Database Password='" + cmCrypto.Decrypt("6pbzTfdZljrijyP2Ul6T6Q==", Strings.PassPhrase) + "';";
+            // Making Database Connection String
+#if DEBUG
 
             Strings.DBconStr =
-@"Provider=Microsoft.ACE.OLEDB.12.0;Data Source='" + Strings.strDBFilePath +
-@"';Jet OLEDB:Database Password='" + cmCrypto.Decrypt("6pbzTfdZljrijyP2Ul6T6Q==", Strings.PassPhrase) + "';";
+@"Provider=Microsoft.ACE.OLEDB.12.0;Data Source='|DataDirectory|\IW.CM.DB.dll" +
+@"';Jet OLEDB:Database Password='" + cmCrypto.Decrypt(Strings.DbEncryptedPass, Strings.PassPhrase) + "';";
         }
+
+#else
+
+        Strings.DBconStr =
+@"Provider=Microsoft.ACE.OLEDB.12.0;Data Source='" + Strings.strDBFilePath +
+@"';Jet OLEDB:Database Password='" + cmCrypto.Decrypt(Strings.DbEncryptedPass, Strings.PassPhrase) + "';";
+        }
+
+#endif
 
         private void btnExit_Click(object sender, RoutedEventArgs e)
         {

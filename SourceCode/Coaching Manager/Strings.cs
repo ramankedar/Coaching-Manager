@@ -42,13 +42,23 @@ namespace Coaching_Manager
 
         //DB
         public static String DBconStr;
+        // DB pass phrase.. Must Change those for Better Database security
+        public const String PassPhrase = "xF2uLpCZDG9A2L2iELS8PgreMIzH1zS0";
+        public const String DbEncryptedPass = "6pbzTfdZljrijyP2Ul6T6Q==";
+        public const String SaltValue = "IrD69icOQmoF6Cwe";
 
-        public const string PassPhrase = "xF2uLpCZDG9A2L2iELS8PgreMIzH1zS0";
-
-        public static string strUserName;
+        public static String strUserName;
         public static Boolean IsAdmin = false;
 
-        public static string strDBFilePath = Path.Combine(Environment.GetFolderPath(
+        public static readonly String strDBFilePath = Path.Combine(Environment.GetFolderPath(
     Environment.SpecialFolder.CommonApplicationData), @"Imaginative World\Coaching Manager\IW.CM.DB.dll");
     }
 }
+
+/*
+ * ErrCode
+ * 
+ * CM#0001 : Restore Database File => Copy problem
+ * CM#0002 : Save Database File => Copy Problem
+ * 
+ */

@@ -49,6 +49,7 @@ namespace Coaching_Manager
             txtYear.Text = DateTime.Now.Year.ToString();
 
             lblQuerying.Visibility = Visibility.Collapsed;
+            lblReportTitle.Visibility = Visibility.Collapsed;
         }
 
         private void gMain_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
@@ -110,6 +111,8 @@ namespace Coaching_Manager
                 DisableAll();
                 if (UpdateTable())
                 {
+                    lblReportTitle.Content = "Payment report " + txtYear.Text + " : Class " + cmbBxSelClass.Text;
+                    lblReportTitle.Visibility = Visibility.Visible;
                     EnableAll();
                 }
             }), DispatcherPriority.ContextIdle);
@@ -291,6 +294,18 @@ namespace Coaching_Manager
         {
             Regex regex = new Regex("[^0-9]+");
             e.Handled = regex.IsMatch(e.Text);
+        }
+
+        private void btnZoomIn_Click(object sender, RoutedEventArgs e)
+        {
+            if (lstView.FontSize < 20)
+                lstView.FontSize = ++lstView.FontSize;
+        }
+
+        private void btnZoomOut_Click(object sender, RoutedEventArgs e)
+        {
+            if (lstView.FontSize > 10)
+                lstView.FontSize = --lstView.FontSize;
         }
 
         //#if DEBUG
