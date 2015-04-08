@@ -1,11 +1,10 @@
-﻿<Window
-        x:Class="Coaching_Manager.winStudentPayViewer"
+﻿<Window x:Class="Coaching_Manager.winTransectionReport"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
-        Title="Student Payment Viewer" Height="600" Width="1000" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" WindowStyle="None" AllowsTransparency="True" Background="{x:Null}" Icon="CM_Icon_001.ico">
+        Title="Finance Report" Height="600" Width="1000" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" WindowStyle="None" AllowsTransparency="True" Background="{x:Null}" Icon="CM_Icon_001.ico">
     <Window.Resources>
         <Style x:Key="ButtonStyle" TargetType="{x:Type Button}">
             <Setter Property="OverridesDefaultStyle" Value="True"/>
@@ -82,58 +81,41 @@
         </Grid.Effect>
         <Label x:Name="lblWinTitle" Content="Title" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" FontSize="14" BorderThickness="0,0,0,3" BorderBrush="#FFEEEEEE"/>
         <Button x:Name="btnBack" Content="&#xF0A8; Back" HorizontalAlignment="Right" Margin="0,0,10,10" VerticalAlignment="Bottom" Width="100" Height="35" FontSize="16" FontFamily="FontAwesome" Background="White" BorderThickness="0,0,0,3" Style="{DynamicResource ButtonStyle}" Click="btnBack_Click" IsCancel="True" TabIndex="3"/>
-
-        <Label Content="Class:" HorizontalAlignment="Left" Margin="10,0,0,10" VerticalAlignment="Bottom" FontSize="16" Background="White" Foreground="Black"/>
-        <ComboBox x:Name="cmbBxSelClass" HorizontalAlignment="Left" Margin="64,0,0,12" VerticalAlignment="Bottom" Width="100" FontSize="16" SelectedIndex="0" TabIndex="0">
-            <ComboBoxItem Content="Nursery"/>
-            <ComboBoxItem Content="1"/>
-            <ComboBoxItem Content="2"/>
-            <ComboBoxItem Content="3"/>
-            <ComboBoxItem Content="4"/>
-            <ComboBoxItem Content="5"/>
-            <ComboBoxItem Content="6"/>
-            <ComboBoxItem Content="7"/>
-            <ComboBoxItem Content="8"/>
-            <ComboBoxItem Content="9"/>
-            <ComboBoxItem Content="10"/>
-            <ComboBoxItem Content="11"/>
-            <ComboBoxItem Content="12"/>
-        </ComboBox>
         <Button x:Name="btnQuery" Content="&#xF135; Query Now" HorizontalAlignment="Right" Margin="0,0,115,10" VerticalAlignment="Bottom" Width="150" Height="35" FontSize="16" FontFamily="FontAwesome" Background="White" BorderThickness="0,0,0,3" Style="{DynamicResource ButtonStyle}" Click="btnQuery_Click" TabIndex="2" IsDefault="True"/>
-        <Label Content="Year:" HorizontalAlignment="Left" Margin="169,0,0,10" VerticalAlignment="Bottom" FontSize="16" Background="White" Foreground="Black"/>
-        <TextBox x:Name="txtYear" HorizontalAlignment="Left" Margin="218,0,0,14" TextWrapping="Wrap" VerticalAlignment="Bottom" Width="100" FontSize="16" LostFocus="txtYear_LostFocus" PreviewTextInput="txtYear_PreviewTextInput" TabIndex="1"/>
+        <Label Content="Year:" HorizontalAlignment="Left" Margin="11,0,0,12" VerticalAlignment="Bottom" FontSize="16" Background="White" Foreground="Black"/>
+        <TextBox x:Name="txtYear" HorizontalAlignment="Left" Margin="60,0,0,16" TextWrapping="Wrap" VerticalAlignment="Bottom" Width="100" FontSize="16" LostFocus="txtYear_LostFocus" PreviewTextInput="txtYear_PreviewTextInput" TabIndex="1"/>
         <Button x:Name="btnCornerMaximize" Content="&#xF0B2;" Margin="0,0,50,0" VerticalAlignment="Top" HorizontalAlignment="Right" FontFamily="FontAwesome" FontSize="14" BorderThickness="0,0,0,3" Background="White" Click="btnCornerMaximize_Click" Style="{DynamicResource CornerButtonStyle}" TabIndex="4" IsTabStop="False"/>
         <Button x:Name="btnCornerExit" Content="&#xF00D;" Margin="0" VerticalAlignment="Top" HorizontalAlignment="Right" FontFamily="FontAwesome" FontSize="14" BorderThickness="0,0,0,3" Background="White" Click="btnBack_Click" Style="{DynamicResource CornerButtonStyle}" TabIndex="4" IsTabStop="False"/>
         <Button x:Name="btnCornerMin" Content="&#xF068;" Margin="0,0,25,0" VerticalAlignment="Top" HorizontalAlignment="Right" FontFamily="FontAwesome" FontSize="14" BorderThickness="0,0,0,3" Background="White" Style="{DynamicResource CornerButtonStyle}" Click="btnCornerMin_Click" TabIndex="3" IsTabStop="False"/>
         <Label x:Name="lblQuerying" Content="&#xF085; Querying..." Margin="10,73,10,50" FontSize="48" Background="{x:Null}" Foreground="#FF888888" FontFamily="FontAwesome" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" d:IsLocked="True"/>
         <Button x:Name="btnZoomOut" Content="&#xF010;" Margin="0,34,10,0" VerticalAlignment="Top" HorizontalAlignment="Right" FontFamily="FontAwesome" FontSize="16" BorderThickness="0,0,0,3" Background="White" Style="{DynamicResource CornerButtonStyle}" TabIndex="4" IsTabStop="False" Click="btnZoomOut_Click"/>
         <Button x:Name="btnZoomIn" Content="&#xF00E;" Margin="0,34,39,0" VerticalAlignment="Top" HorizontalAlignment="Right" FontFamily="FontAwesome" FontSize="16" BorderThickness="0,0,0,3" Background="White" Style="{DynamicResource CornerButtonStyle}" TabIndex="4" IsTabStop="False" Click="btnZoomIn_Click"/>
-        <ScrollViewer Margin="11,65,10,50" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
-            <Grid x:Name="gPayment" VerticalAlignment="Top" HorizontalAlignment="Left" Width="1500">
-                <ListView x:Name="lstView" Margin="10,36,0,0" Foreground="Black" BorderBrush="#FFEEEEEE" BorderThickness="1,1,1,3" FontSize="16" Background="WhiteSmoke" VerticalAlignment="Top">
+        <ScrollViewer Margin="11,65,10,50" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" Padding="10,0">
+            <Grid x:Name="gFinanceReport" VerticalAlignment="Top">
+                <ListView x:Name="lstView" Margin="0,36,0,0" Foreground="Black" BorderBrush="#FFEEEEEE" BorderThickness="1,1,1,3" FontSize="16" Background="WhiteSmoke" VerticalAlignment="Top" Padding="10,0">
                     <ListView.View>
                         <GridView AllowsColumnReorder="False">
-                            <GridViewColumn x:Name="colID" Width="80" Header="ID" DisplayMemberBinding="{Binding ID}"/>
-                            <GridViewColumn x:Name="colStdName" Width="200" Header="Student Name" DisplayMemberBinding="{Binding StudentName}"/>
-                            <GridViewColumn x:Name="colJan" Width="100" Header="January" DisplayMemberBinding="{Binding Jan}"/>
-                            <GridViewColumn x:Name="colFeb" Width="100" Header="February" DisplayMemberBinding="{Binding Feb}"/>
-                            <GridViewColumn x:Name="colMarch" Width="100" Header="March" DisplayMemberBinding="{Binding Mar}"/>
-                            <GridViewColumn x:Name="colApril" Width="100" Header="April" DisplayMemberBinding="{Binding Apr}"/>
-                            <GridViewColumn x:Name="colMay" Width="100" Header="May" DisplayMemberBinding="{Binding May}"/>
-                            <GridViewColumn x:Name="colJune" Width="100" Header="June" DisplayMemberBinding="{Binding Jun}"/>
-                            <GridViewColumn x:Name="colJuly" Width="100" Header="July" DisplayMemberBinding="{Binding Jul}"/>
-                            <GridViewColumn x:Name="colAugust" Width="100" Header="August" DisplayMemberBinding="{Binding Aug}"/>
-                            <GridViewColumn x:Name="colSep" Width="100" Header="September" DisplayMemberBinding="{Binding Sep}"/>
-                            <GridViewColumn x:Name="colOct" Width="100" Header="October" DisplayMemberBinding="{Binding Oct}"/>
-                            <GridViewColumn x:Name="colNov" Width="100" Header="November " DisplayMemberBinding="{Binding Nov}"/>
-                            <GridViewColumn x:Name="colDec" Width="100" Header="December" DisplayMemberBinding="{Binding Dec}"/>
+                            <GridViewColumn x:Name="colMonth" Width="160" Header="Month" DisplayMemberBinding="{Binding Month}"/>
+                            <GridViewColumn x:Name="colGet" Width="190" Header="Student Fees (Tk)" DisplayMemberBinding="{Binding Get}"/>
+                            <GridViewColumn x:Name="colGive" Width="190" Header="Teacher Payments (Tk)" DisplayMemberBinding="{Binding Give}"/>
+                            <GridViewColumn x:Name="colCost" Width="190" Header="Extra Costs (Tk)" DisplayMemberBinding="{Binding Cost}"/>
+                            <GridViewColumn x:Name="colProfit" Width="160" Header="Profit (Tk)" >
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding Profit}" Foreground="{Binding ForeColorProfit}"/>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
                         </GridView>
                     </ListView.View>
                 </ListView>
-                <Label x:Name="lblReportTitle" Content="Payment report 2015 : Class 0" HorizontalAlignment="Center" Margin="0" VerticalAlignment="Top" FontSize="16" Background="White" Foreground="Black" FontWeight="Bold" HorizontalContentAlignment="Center"/>
+                <Label x:Name="lblReportTitle" Content="Finance report 0000 : Class 0" HorizontalAlignment="Center" Margin="0" VerticalAlignment="Top" FontSize="16" Background="White" Foreground="Black" FontWeight="Bold" HorizontalContentAlignment="Center"/>
             </Grid>
         </ScrollViewer>
         <Button x:Name="btnPrint" Content="&#xF02F; Print" HorizontalAlignment="Right" Margin="0,0,270,10" VerticalAlignment="Bottom" Width="100" Height="35" FontSize="16" FontFamily="FontAwesome" Background="White" BorderThickness="0,0,0,3" Click="btnPrint_Click" Style="{DynamicResource ButtonStyle}" TabIndex="2"/>
+        <Button x:Name="btnPrevious" Content="&#xF053;" HorizontalAlignment="Left" Margin="165,0,0,15" VerticalAlignment="Bottom" FontFamily="FontAwesome" Background="White" BorderThickness="0" Style="{DynamicResource CornerButtonStyle}" FontSize="16" Width="25" Height="25" Padding="1,3,1,1" Click="btnPrevious_Click" TabIndex="4"/>
+        <Button x:Name="btnNext" Content="&#xF054;" HorizontalAlignment="Left" Margin="190,0,0,15" VerticalAlignment="Bottom" FontFamily="FontAwesome" Background="White" BorderThickness="0" Style="{DynamicResource CornerButtonStyle}" FontSize="16" Width="25" Height="25" Padding="1,3,1,1" Click="btnNext_Click" TabIndex="5"/>
+
 
     </Grid>
 </Window>

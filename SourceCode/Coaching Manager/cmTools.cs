@@ -25,13 +25,22 @@
 
 using System;
 using System.Data.OleDb;
+using System.IO;
+using System.Threading;
 using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Threading;
 
 namespace Coaching_Manager
 {
     class cmTools
     {
-        //use static for making a function
+
+        static StreamWriter sWriter;
+        static FileStream fStream;
+
+        /// Tips:
+        /// use static for making a function
 
         public static void showInfoMsg(string msg)
         {
@@ -68,5 +77,116 @@ namespace Coaching_Manager
 
         }
 
+        public static void GetInstituteNames(ItemCollection items)
+        {
+            if (File.Exists(Strings.AppDataLocation + "cm.institutesName.iwdb"))
+            {
+                items.Clear();
+
+                string s;
+
+                try
+                {
+                    fStream = new FileStream(Strings.AppDataLocation + "cm.institutesName.iwdb", FileMode.Open);
+                }
+                catch (IOException ex)
+                {
+                    cmTools.showInfoMsg(Strings.str_error_open_file + Environment.NewLine + ex.Message);
+                }
+
+                StreamReader fstr_in = new StreamReader(fStream);
+
+                try
+                {
+                    while ((s = fstr_in.ReadLine()) != null)
+                    {
+                        items.Add(s);
+                    }
+                }
+                catch (IOException ex)
+                {
+                    cmTools.showInfoMsg(Strings.str_error_on_reading_file + Environment.NewLine + ex.Message);
+                }
+
+                fstr_in.Close();
+            }
+        }
+
+        public static void AddInstituteName(string institute) //append unknown institutes
+        {
+            try
+            {
+                sWriter = new StreamWriter(Strings.AppDataLocation + "cm.institutesName.iwdb", true);
+            }
+            catch (IOException ex)
+            {
+                cmTools.showInfoMsg(Strings.str_error_open_file + Environment.NewLine + ex.Message);
+            }
+
+            try
+            {
+                sWriter.Write(institute + Environment.NewLine);
+            }
+            catch (IOException ex)
+            {
+                cmTools.showInfoMsg(Strings.str_error_on_writing_file + Environment.NewLine + ex.Message);
+            }
+
+            sWriter.Close();
+
+        }
+
+        /*
+        Public Sub CheckUpdate()
+
+        If My.Computer.Network.IsAvailable Then
+
+            Dim sfile As String = "latestver.iwconf"
+            Dim URL As String = "http://imaginativeworld.org/update/iwst/"
+            'Dim URL As String = "http://localhost/update/iwst/" 'For test
+
+            Dim myWebClient As New System.Net.WebClient
+
+            Try
+                Dim file As New System.IO.StreamReader(myWebClient.OpenRead(URL & sfile))
+
+                Dim Contents As String = file.ReadToEnd()
+                file.Close()
+                Dim Content() As String = Contents.Split("|")
+
+                '0.0.0.0|Dl Link
+
+                '(0) = Application Version
+                '(1) = Download Link
+
+                If Version.Parse(Content(0)) > My.Application.Info.Version Then
+
+                    UpdateAvailable = True
+
+                Else
+
+                    UpdateAvailable = False
+
+                End If
+
+                STNewVersion = Content(0).ToString
+                STUDownload = Content(1).ToString
+
+
+            Catch Ex As Exception
+
+                UpdateError = True
+                STUpdateErr = Ex.ToString
+
+            End Try
+
+        Else
+            UpdateError = True
+        End If
+
+        UpdateCheckComplete = True
+
+        End Sub
+         */
     }
 }

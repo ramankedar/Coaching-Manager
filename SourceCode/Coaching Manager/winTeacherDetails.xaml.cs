@@ -29,6 +29,9 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Data.OleDb;
 using System.Text.RegularExpressions;
+using Microsoft.Win32;
+using System.IO;
+using System.Windows.Media.Imaging;
 
 namespace Coaching_Manager
 {
@@ -37,6 +40,9 @@ namespace Coaching_Manager
     /// </summary>
     public partial class winTeacherDetails : Window
     {
+
+        string imgSource = "";
+
         public winTeacherDetails()
         {
             InitializeComponent();
@@ -61,6 +67,8 @@ namespace Coaching_Manager
         private void SetValues()
         {
             lblWinTitle.Content = Title + " | " + Strings.AppName + " | " + Strings.InstituteName;
+            btnBrowseImg.Visibility = Visibility.Collapsed;
+            btnDeleteImg.Visibility = Visibility.Collapsed;
         }
 
         private void EnableAllField()
@@ -72,6 +80,10 @@ namespace Coaching_Manager
             txtSub.IsEnabled = true;
             txtMobNo.IsEnabled = true;
             txtPayScale.IsEnabled = true;
+
+            btnBrowseImg.Visibility = Visibility.Visible;
+            if (imgTeacher.Source != null)
+                btnDeleteImg.Visibility = Visibility.Visible;
         }
 
         private void DisableAllField()
@@ -83,6 +95,11 @@ namespace Coaching_Manager
             txtSub.IsEnabled = false;
             txtMobNo.IsEnabled = false;
             txtPayScale.IsEnabled = false;
+
+            btnBrowseImg.Visibility = Visibility.Collapsed;
+            btnDeleteImg.Visibility = Visibility.Collapsed;
+
+            imgSource = "";
         }
 
         private void gMain_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
@@ -305,7 +322,8 @@ namespace Coaching_Manager
                 command.Dispose();
                 connection.Dispose();
 
-                cmTools.showInfoMsg(txtName.Text + " marked as Inactive.");
+                cmTools.AddLog(string.Format(Strings.str_log_object_active_mark_changed, "Teacher", txtName.Text, selectedlistItem.ID, "Inactive"), this.Title);
+                cmTools.showInfoMsg(string.Format(Strings.str_log_object_active_mark_changed, "Teacher", txtName.Text, selectedlistItem.ID, "Inactive"));
 
                 searchTeachers();
 
@@ -325,13 +343,12 @@ namespace Coaching_Manager
                 {
                     DisableAllField();
                     btnEditInfo.Content = " Edit About";
-                    cmTools.showInfoMsg("Info Updated!");
                     btnCngActive.IsEnabled = true;
                     lstViewTeachers.IsEnabled = true;
                     btnBack.Content = " Back";
                 }
                 else
-                    cmTools.showInfoMsg("Something Wrong!");
+                    cmTools.showInfoMsg(Strings.str_something_wrong);
             }
             else
             {
@@ -350,16 +367,37 @@ namespace Coaching_Manager
 
                 OleDbConnection connection = new OleDbConnection(Strings.DBconStr);
                 OleDbCommand command = new OleDbCommand(@"UPDATE TblTeacher 
-            SET [Name] = @Name, [Sex] = @Sex, [InstituteName] = @InstituteName, [Qualification] = @Qualification,
+            SET [Name] = @Name"
++ (((imgTeacher.Source != null) && (imgSource == "")) ? "" : ",[Image] = @Image") +
+@", [Sex] = @Sex, [InstituteName] = @InstituteName, [Qualification] = @Qualification,
 [Subject] = @Subject, [MobileNumber] = @MobileNumber, [PayScale] = @PayScale
 WHERE [ID] = @ID", connection);
 
                 command.Parameters.AddWithValue("@Name", txtName.Text); // Datatype: Max 255 Char
+
+                if ((imgTeacher.Source != null) && (imgSource != ""))
+                {
+                    // Get image from file
+                    FileStream fs = new FileStream(imgSource, FileMode.Open, FileAccess.Read);
+                    byte[] imgData = new byte[fs.Length];
+                    fs.Read(imgData, 0, Convert.ToInt32(fs.Length));
+                    fs.Close();
+
+                    command.Parameters.AddWithValue("@Image", imgData); // Datatype: OLE Object
+                }
+                else if ((imgTeacher.Source == null) && (imgSource == ""))
+                    command.Parameters.AddWithValue("@Image", DBNull.Value); // Datatype: OLE Object
+
                 command.Parameters.AddWithValue("@Sex", cmbBxSex.SelectedIndex); // Datatype: Boolean
                 command.Parameters.AddWithValue("@InstituteName", txtInstitute.Text); // Datatype: Max 255 Char
                 command.Parameters.AddWithValue("@Qualification", txtQualification.Text); // Datatype: Max 255 Char
                 command.Parameters.AddWithValue("@Subject", txtSub.Text); // Datatype: Max 255 Char
-                command.Parameters.AddWithValue("@MobileNumber", (txtMobNo.Text != "") ? txtMobNo.Text : "-"); // Datatype: 50 Char
+
+                if (txtMobNo.Text != "")
+                    command.Parameters.AddWithValue("@MobileNumber", txtMobNo.Text); // Datatype: 50 Char
+                else
+                    command.Parameters.AddWithValue("@MobileNumber", DBNull.Value); // Datatype: 50 Char
+
                 command.Parameters.AddWithValue("@PayScale", (txtPayScale.Text != "") ? txtPayScale.Text : "0"); // Datatype: Integer (2 bytes)
                 //command.Parameters.AddWithValue("@JoinDate", datePickerJoin.SelectedDate); // Datatype: Date/Time
                 //command.Parameters.AddWithValue("@IsActive", true); // Datatype: Boolean
@@ -371,7 +409,7 @@ WHERE [ID] = @ID", connection);
                 if ((txtName.Text == "") || (txtInstitute.Text == "") || (txtQualification.Text == "")
                         || (txtSub.Text == ""))
                 {
-                    MessageBox.Show("Fill up all required fields.");
+                    MessageBox.Show(Strings.strFillupAllFields);
                 }
                 else
                 {
@@ -385,7 +423,8 @@ WHERE [ID] = @ID", connection);
                     command.Dispose();
                     connection.Dispose();
 
-                    cmTools.AddLog("Info Updated: Teacher \"" + txtName.Text + "\" (ID: " + selectedlistItem.ID + ")", this.Title);
+                    cmTools.AddLog(string.Format(Strings.str_object_info_updated, "Teacher", txtName.Text, selectedlistItem.ID), this.Title);
+                    cmTools.showInfoMsg(string.Format(Strings.str_object_info_updated, "Teacher", txtName.Text, selectedlistItem.ID));
                 }
 
                 // Release Memory
@@ -412,6 +451,47 @@ WHERE [ID] = @ID", connection);
         {
             Regex regex = new Regex("[^0-9]+");
             e.Handled = regex.IsMatch(e.Text);
+        }
+
+        private void btnBrowseImg_Click(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog openFileDlg = new OpenFileDialog();
+            openFileDlg.Filter = "JPEG Image|*.jpg";
+            openFileDlg.Title = Strings.AppName + " | Open Student Image";
+            openFileDlg.Multiselect = false;
+            openFileDlg.CheckFileExists = true;
+
+            if ((bool)openFileDlg.ShowDialog())
+            {
+                if (openFileDlg.FileName != "")
+                {
+                    // Check file size
+                    FileInfo ImgInfo = new FileInfo(openFileDlg.FileName);
+                    if ((ImgInfo.Length / 1024) <= 512)
+                    {
+                        imgTeacher.Source = new BitmapImage(new Uri(openFileDlg.FileName));
+                        imgSource = openFileDlg.FileName;
+
+                        btnDeleteImg.Visibility = Visibility.Visible;
+                    }
+                    else
+                    {
+                        imgSource = "";
+                        cmTools.showInfoMsg(Strings.strImgBigFileSize);
+                    }
+                }
+                else
+                    imgSource = "";
+            }
+            else
+                imgSource = "";
+        }
+
+        private void btnDeleteImg_Click(object sender, RoutedEventArgs e)
+        {
+            imgTeacher.Source = null;
+            imgSource = "";
+            btnDeleteImg.Visibility = Visibility.Collapsed;
         }
     }
 }

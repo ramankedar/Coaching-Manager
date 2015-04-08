@@ -27,6 +27,7 @@ using System;
 using System.Data.OleDb;
 using System.Text.RegularExpressions;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Threading;
 
@@ -158,7 +159,7 @@ namespace Coaching_Manager
             {
                 int year = DateTime.Now.Year;
                 txtYear.Text = year.ToString();
-                cmTools.showInfoMsg("Invalid Year! Year changed to " + year + ".");
+                cmTools.showInfoMsg(string.Format(Strings.str_invalid_year_changed_to_default_year, year));
             }
         }
 
@@ -169,34 +170,34 @@ namespace Coaching_Manager
 
         private void DisableAll()
         {
-            // the following code is for smooth UI flow. But don't no it worked or not..!! :(
-            Dispatcher.Invoke(new Action(() =>
-            {
-                lstView.IsEnabled = false;
-                cmbBxSelClass.IsEnabled = false;
-                txtYear.IsEnabled = false;
-                btnQuery.IsEnabled = false;
-                cmbBxMonth.IsEnabled = false;
-                lblQuerying.Visibility = Visibility.Visible;
-            }), DispatcherPriority.ContextIdle);
+            lstView.IsEnabled = false;
+            cmbBxSelClass.IsEnabled = false;
+            txtYear.IsEnabled = false;
+            btnQuery.IsEnabled = false;
+            cmbBxMonth.IsEnabled = false;
+            btnPrint.IsEnabled = false;
+            btnZoomIn.IsEnabled = false;
+            btnZoomOut.IsEnabled = false;
+            lblQuerying.Visibility = Visibility.Visible;
 
         }
 
         private void EnableAll()
         {
-            Dispatcher.Invoke(new Action(() =>
-            {
-                lstView.IsEnabled = true;
-                cmbBxSelClass.IsEnabled = true;
-                txtYear.IsEnabled = true;
-                btnQuery.IsEnabled = true;
-                cmbBxMonth.IsEnabled = true;
-                lblQuerying.Visibility = Visibility.Collapsed;
-            }), DispatcherPriority.ContextIdle);
+            lstView.IsEnabled = true;
+            cmbBxSelClass.IsEnabled = true;
+            txtYear.IsEnabled = true;
+            btnQuery.IsEnabled = true;
+            cmbBxMonth.IsEnabled = true;
+            btnPrint.IsEnabled = true;
+            btnZoomIn.IsEnabled = true;
+            btnZoomOut.IsEnabled = true;
+            lblQuerying.Visibility = Visibility.Collapsed;
         }
 
         private void btnQuery_Click(object sender, RoutedEventArgs e)
         {
+            // the following code is for smooth UI flow.. :)
             Dispatcher.Invoke(new Action(() =>
             {
                 lstView.Items.Clear();
@@ -205,7 +206,7 @@ namespace Coaching_Manager
 
                 if (UpdateTable())
                 {
-                    lblReportTitle.Content = "Students Report " + cmbBxMonth.Text + " " + txtYear.Text + " : Class " + cmbBxSelClass.Text;
+                    lblReportTitle.Content = string.Format(Strings.str_student_report_header, cmbBxMonth.Text, txtYear.Text, cmbBxSelClass.Text);
                     lblReportTitle.Visibility = Visibility.Visible;
                     EnableAll();
                 }
@@ -230,7 +231,7 @@ namespace Coaching_Manager
                     int TotalStudent = SearchStudent(cmbBxSelClass.SelectedIndex);
                     if (TotalStudent > 0)
                     {
-                        if (GetAttendance(month, txtYear.Text) > 0)
+                        if (GetAttendance(month, txtYear.Text))
                         {
                             for (int i = 0; i < TotalStudent; i++)
                             {
@@ -304,7 +305,7 @@ namespace Coaching_Manager
             }
         }
 
-        private int GetAttendance(int strMonth, string strYear)
+        private bool GetAttendance(int strMonth, string strYear)
         {
             try
             {
@@ -323,23 +324,21 @@ namespace Coaching_Manager
 
                 OleDbDataReader reader = command.ExecuteReader();
 
-                int count = 0;
+                bool flag = false;
 
-                if (reader.Read())
+                while (reader.Read())
                 {
-                    colAttendance.Header = "Attendance\n(Total Class: " + reader[1].ToString() + ")";
 
-                    do
+                    for (int i = 0; i < lstView.Items.Count; i++)
                     {
-                        var selectedlistItem = lstView.Items[count] as ListItem;
+                        var selectedlistItem = lstView.Items[i] as ListItem;
                         if (reader[0].ToString() == selectedlistItem.ID)
-                            selectedlistItem.Attendance = reader[2].ToString();
-
-                        selectedlistItem.ForeColorAttendance = AchievementColor(reader[1].ToString(), reader[2].ToString());
-
-                        count++;
-
-                    } while (reader.Read());
+                        {
+                            selectedlistItem.Attendance = reader[2].ToString() + " (" + reader[1].ToString() + ")";
+                            selectedlistItem.ForeColorAttendance = AchievementColor(reader[1].ToString(), reader[2].ToString());
+                            flag = true;
+                        }
+                    }
                 }
                 reader.Close();
                 connection.Close();
@@ -347,13 +346,13 @@ namespace Coaching_Manager
                 command.Dispose();
                 connection.Dispose();
 
-                return count;
+                return flag;
 
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
-                return 0;
+                MessageBox.Show("Error On Querying Attendance!" + Environment.NewLine + ex.Message);
+                return false;
             }
         }
 
@@ -363,8 +362,6 @@ namespace Coaching_Manager
             {
                 string queryString =
                     "SELECT [Date], [Achievement], [TotalMarks]  from TblExam WHERE [ID] = @strID AND [Date] BETWEEN @strStartDate AND @strEndDate";
-
-                //"SELECT [Date], [Achievement], [TotalMarks]  from TblExam WHERE [ID] = @strID AND [Date] BETWEEN @strStartDate AND @strEndDate";
 
                 OleDbConnection connection = new OleDbConnection(Strings.DBconStr);
                 OleDbCommand command = new OleDbCommand(queryString, connection);
@@ -382,138 +379,141 @@ namespace Coaching_Manager
 
                 var selectedlistItem = lstView.Items[RowNumber] as ListItem;
 
-                while (reader.Read())
+                if (reader.HasRows)
                 {
-                    switch (Convert.ToDateTime(reader[0]).Day)
+                    while (reader.Read())
                     {
-                        case 1:
-                            selectedlistItem.day1 = reader[1].ToString() + " (" + reader[2].ToString() + ")";
-                            selectedlistItem.ForeColor1 = AchievementColor(reader[2].ToString(), reader[1].ToString());
-                            break;
-                        case 2:
-                            selectedlistItem.day2 = reader[1].ToString() + " (" + reader[2].ToString() + ")";
-                            selectedlistItem.ForeColor2 = AchievementColor(reader[2].ToString(), reader[1].ToString());
-                            break;
-                        case 3:
-                            selectedlistItem.day3 = reader[1].ToString() + " (" + reader[2].ToString() + ")";
-                            selectedlistItem.ForeColor3 = AchievementColor(reader[2].ToString(), reader[1].ToString());
-                            break;
-                        case 4:
-                            selectedlistItem.day4 = reader[1].ToString() + " (" + reader[2].ToString() + ")";
-                            selectedlistItem.ForeColor4 = AchievementColor(reader[2].ToString(), reader[1].ToString());
-                            break;
-                        case 5:
-                            selectedlistItem.day5 = reader[1].ToString() + " (" + reader[2].ToString() + ")";
-                            selectedlistItem.ForeColor5 = AchievementColor(reader[2].ToString(), reader[1].ToString());
-                            break;
-                        case 6:
-                            selectedlistItem.day6 = reader[1].ToString() + " (" + reader[2].ToString() + ")";
-                            selectedlistItem.ForeColor6 = AchievementColor(reader[2].ToString(), reader[1].ToString());
-                            break;
-                        case 7:
-                            selectedlistItem.day7 = reader[1].ToString() + " (" + reader[2].ToString() + ")";
-                            selectedlistItem.ForeColor7 = AchievementColor(reader[2].ToString(), reader[1].ToString());
-                            break;
-                        case 8:
-                            selectedlistItem.day8 = reader[1].ToString() + " (" + reader[2].ToString() + ")";
-                            selectedlistItem.ForeColor8 = AchievementColor(reader[2].ToString(), reader[1].ToString());
-                            break;
-                        case 9:
-                            selectedlistItem.day9 = reader[1].ToString() + " (" + reader[2].ToString() + ")";
-                            selectedlistItem.ForeColor9 = AchievementColor(reader[2].ToString(), reader[1].ToString());
-                            break;
-                        case 10:
-                            selectedlistItem.day10 = reader[1].ToString() + " (" + reader[2].ToString() + ")";
-                            selectedlistItem.ForeColor10 = AchievementColor(reader[2].ToString(), reader[1].ToString());
-                            break;
-                        case 11:
-                            selectedlistItem.day11 = reader[1].ToString() + " (" + reader[2].ToString() + ")";
-                            selectedlistItem.ForeColor11 = AchievementColor(reader[2].ToString(), reader[1].ToString());
-                            break;
-                        case 12:
-                            selectedlistItem.day12 = reader[1].ToString() + " (" + reader[2].ToString() + ")";
-                            selectedlistItem.ForeColor12 = AchievementColor(reader[2].ToString(), reader[1].ToString());
-                            break;
-                        case 13:
-                            selectedlistItem.day13 = reader[1].ToString() + " (" + reader[2].ToString() + ")";
-                            selectedlistItem.ForeColor13 = AchievementColor(reader[2].ToString(), reader[1].ToString());
-                            break;
-                        case 14:
-                            selectedlistItem.day14 = reader[1].ToString() + " (" + reader[2].ToString() + ")";
-                            selectedlistItem.ForeColor14 = AchievementColor(reader[2].ToString(), reader[1].ToString());
-                            break;
-                        case 15:
-                            selectedlistItem.day15 = reader[1].ToString() + " (" + reader[2].ToString() + ")";
-                            selectedlistItem.ForeColor15 = AchievementColor(reader[2].ToString(), reader[1].ToString());
-                            break;
-                        case 16:
-                            selectedlistItem.day16 = reader[1].ToString() + " (" + reader[2].ToString() + ")";
-                            selectedlistItem.ForeColor16 = AchievementColor(reader[2].ToString(), reader[1].ToString());
-                            break;
-                        case 17:
-                            selectedlistItem.day17 = reader[1].ToString() + " (" + reader[2].ToString() + ")";
-                            selectedlistItem.ForeColor17 = AchievementColor(reader[2].ToString(), reader[1].ToString());
-                            break;
-                        case 18:
-                            selectedlistItem.day18 = reader[1].ToString() + " (" + reader[2].ToString() + ")";
-                            selectedlistItem.ForeColor18 = AchievementColor(reader[2].ToString(), reader[1].ToString());
-                            break;
-                        case 19:
-                            selectedlistItem.day19 = reader[1].ToString() + " (" + reader[2].ToString() + ")";
-                            selectedlistItem.ForeColor19 = AchievementColor(reader[2].ToString(), reader[1].ToString());
-                            break;
-                        case 20:
-                            selectedlistItem.day20 = reader[1].ToString() + " (" + reader[2].ToString() + ")";
-                            selectedlistItem.ForeColor20 = AchievementColor(reader[2].ToString(), reader[1].ToString());
-                            break;
-                        case 21:
-                            selectedlistItem.day21 = reader[1].ToString() + " (" + reader[2].ToString() + ")";
-                            selectedlistItem.ForeColor21 = AchievementColor(reader[2].ToString(), reader[1].ToString());
-                            break;
-                        case 22:
-                            selectedlistItem.day22 = reader[1].ToString() + " (" + reader[2].ToString() + ")";
-                            selectedlistItem.ForeColor22 = AchievementColor(reader[2].ToString(), reader[1].ToString());
-                            break;
-                        case 23:
-                            selectedlistItem.day23 = reader[1].ToString() + " (" + reader[2].ToString() + ")";
-                            selectedlistItem.ForeColor23 = AchievementColor(reader[2].ToString(), reader[1].ToString());
-                            break;
-                        case 24:
-                            selectedlistItem.day24 = reader[1].ToString() + " (" + reader[2].ToString() + ")";
-                            selectedlistItem.ForeColor24 = AchievementColor(reader[2].ToString(), reader[1].ToString());
-                            break;
-                        case 25:
-                            selectedlistItem.day25 = reader[1].ToString() + " (" + reader[2].ToString() + ")";
-                            selectedlistItem.ForeColor25 = AchievementColor(reader[2].ToString(), reader[1].ToString());
-                            break;
-                        case 26:
-                            selectedlistItem.day26 = reader[1].ToString() + " (" + reader[2].ToString() + ")";
-                            selectedlistItem.ForeColor26 = AchievementColor(reader[2].ToString(), reader[1].ToString());
-                            break;
-                        case 27:
-                            selectedlistItem.day27 = reader[1].ToString() + " (" + reader[2].ToString() + ")";
-                            selectedlistItem.ForeColor27 = AchievementColor(reader[2].ToString(), reader[1].ToString());
-                            break;
-                        case 28:
-                            selectedlistItem.day28 = reader[1].ToString() + " (" + reader[2].ToString() + ")";
-                            selectedlistItem.ForeColor28 = AchievementColor(reader[2].ToString(), reader[1].ToString());
-                            break;
-                        case 29:
-                            selectedlistItem.day29 = reader[1].ToString() + " (" + reader[2].ToString() + ")";
-                            selectedlistItem.ForeColor29 = AchievementColor(reader[2].ToString(), reader[1].ToString());
-                            break;
-                        case 30:
-                            selectedlistItem.day30 = reader[1].ToString() + " (" + reader[2].ToString() + ")";
-                            selectedlistItem.ForeColor30 = AchievementColor(reader[2].ToString(), reader[1].ToString());
-                            break;
-                        case 31:
-                            selectedlistItem.day31 = reader[1].ToString() + " (" + reader[2].ToString() + ")";
-                            selectedlistItem.ForeColor31 = AchievementColor(reader[2].ToString(), reader[1].ToString());
-                            break;
-                    }
+                        switch (Convert.ToDateTime(reader[0]).Day)
+                        {
+                            case 1:
+                                selectedlistItem.day1 = reader[1].ToString() + " (" + reader[2].ToString() + ")";
+                                selectedlistItem.ForeColor1 = AchievementColor(reader[2].ToString(), reader[1].ToString());
+                                break;
+                            case 2:
+                                selectedlistItem.day2 = reader[1].ToString() + " (" + reader[2].ToString() + ")";
+                                selectedlistItem.ForeColor2 = AchievementColor(reader[2].ToString(), reader[1].ToString());
+                                break;
+                            case 3:
+                                selectedlistItem.day3 = reader[1].ToString() + " (" + reader[2].ToString() + ")";
+                                selectedlistItem.ForeColor3 = AchievementColor(reader[2].ToString(), reader[1].ToString());
+                                break;
+                            case 4:
+                                selectedlistItem.day4 = reader[1].ToString() + " (" + reader[2].ToString() + ")";
+                                selectedlistItem.ForeColor4 = AchievementColor(reader[2].ToString(), reader[1].ToString());
+                                break;
+                            case 5:
+                                selectedlistItem.day5 = reader[1].ToString() + " (" + reader[2].ToString() + ")";
+                                selectedlistItem.ForeColor5 = AchievementColor(reader[2].ToString(), reader[1].ToString());
+                                break;
+                            case 6:
+                                selectedlistItem.day6 = reader[1].ToString() + " (" + reader[2].ToString() + ")";
+                                selectedlistItem.ForeColor6 = AchievementColor(reader[2].ToString(), reader[1].ToString());
+                                break;
+                            case 7:
+                                selectedlistItem.day7 = reader[1].ToString() + " (" + reader[2].ToString() + ")";
+                                selectedlistItem.ForeColor7 = AchievementColor(reader[2].ToString(), reader[1].ToString());
+                                break;
+                            case 8:
+                                selectedlistItem.day8 = reader[1].ToString() + " (" + reader[2].ToString() + ")";
+                                selectedlistItem.ForeColor8 = AchievementColor(reader[2].ToString(), reader[1].ToString());
+                                break;
+                            case 9:
+                                selectedlistItem.day9 = reader[1].ToString() + " (" + reader[2].ToString() + ")";
+                                selectedlistItem.ForeColor9 = AchievementColor(reader[2].ToString(), reader[1].ToString());
+                                break;
+                            case 10:
+                                selectedlistItem.day10 = reader[1].ToString() + " (" + reader[2].ToString() + ")";
+                                selectedlistItem.ForeColor10 = AchievementColor(reader[2].ToString(), reader[1].ToString());
+                                break;
+                            case 11:
+                                selectedlistItem.day11 = reader[1].ToString() + " (" + reader[2].ToString() + ")";
+                                selectedlistItem.ForeColor11 = AchievementColor(reader[2].ToString(), reader[1].ToString());
+                                break;
+                            case 12:
+                                selectedlistItem.day12 = reader[1].ToString() + " (" + reader[2].ToString() + ")";
+                                selectedlistItem.ForeColor12 = AchievementColor(reader[2].ToString(), reader[1].ToString());
+                                break;
+                            case 13:
+                                selectedlistItem.day13 = reader[1].ToString() + " (" + reader[2].ToString() + ")";
+                                selectedlistItem.ForeColor13 = AchievementColor(reader[2].ToString(), reader[1].ToString());
+                                break;
+                            case 14:
+                                selectedlistItem.day14 = reader[1].ToString() + " (" + reader[2].ToString() + ")";
+                                selectedlistItem.ForeColor14 = AchievementColor(reader[2].ToString(), reader[1].ToString());
+                                break;
+                            case 15:
+                                selectedlistItem.day15 = reader[1].ToString() + " (" + reader[2].ToString() + ")";
+                                selectedlistItem.ForeColor15 = AchievementColor(reader[2].ToString(), reader[1].ToString());
+                                break;
+                            case 16:
+                                selectedlistItem.day16 = reader[1].ToString() + " (" + reader[2].ToString() + ")";
+                                selectedlistItem.ForeColor16 = AchievementColor(reader[2].ToString(), reader[1].ToString());
+                                break;
+                            case 17:
+                                selectedlistItem.day17 = reader[1].ToString() + " (" + reader[2].ToString() + ")";
+                                selectedlistItem.ForeColor17 = AchievementColor(reader[2].ToString(), reader[1].ToString());
+                                break;
+                            case 18:
+                                selectedlistItem.day18 = reader[1].ToString() + " (" + reader[2].ToString() + ")";
+                                selectedlistItem.ForeColor18 = AchievementColor(reader[2].ToString(), reader[1].ToString());
+                                break;
+                            case 19:
+                                selectedlistItem.day19 = reader[1].ToString() + " (" + reader[2].ToString() + ")";
+                                selectedlistItem.ForeColor19 = AchievementColor(reader[2].ToString(), reader[1].ToString());
+                                break;
+                            case 20:
+                                selectedlistItem.day20 = reader[1].ToString() + " (" + reader[2].ToString() + ")";
+                                selectedlistItem.ForeColor20 = AchievementColor(reader[2].ToString(), reader[1].ToString());
+                                break;
+                            case 21:
+                                selectedlistItem.day21 = reader[1].ToString() + " (" + reader[2].ToString() + ")";
+                                selectedlistItem.ForeColor21 = AchievementColor(reader[2].ToString(), reader[1].ToString());
+                                break;
+                            case 22:
+                                selectedlistItem.day22 = reader[1].ToString() + " (" + reader[2].ToString() + ")";
+                                selectedlistItem.ForeColor22 = AchievementColor(reader[2].ToString(), reader[1].ToString());
+                                break;
+                            case 23:
+                                selectedlistItem.day23 = reader[1].ToString() + " (" + reader[2].ToString() + ")";
+                                selectedlistItem.ForeColor23 = AchievementColor(reader[2].ToString(), reader[1].ToString());
+                                break;
+                            case 24:
+                                selectedlistItem.day24 = reader[1].ToString() + " (" + reader[2].ToString() + ")";
+                                selectedlistItem.ForeColor24 = AchievementColor(reader[2].ToString(), reader[1].ToString());
+                                break;
+                            case 25:
+                                selectedlistItem.day25 = reader[1].ToString() + " (" + reader[2].ToString() + ")";
+                                selectedlistItem.ForeColor25 = AchievementColor(reader[2].ToString(), reader[1].ToString());
+                                break;
+                            case 26:
+                                selectedlistItem.day26 = reader[1].ToString() + " (" + reader[2].ToString() + ")";
+                                selectedlistItem.ForeColor26 = AchievementColor(reader[2].ToString(), reader[1].ToString());
+                                break;
+                            case 27:
+                                selectedlistItem.day27 = reader[1].ToString() + " (" + reader[2].ToString() + ")";
+                                selectedlistItem.ForeColor27 = AchievementColor(reader[2].ToString(), reader[1].ToString());
+                                break;
+                            case 28:
+                                selectedlistItem.day28 = reader[1].ToString() + " (" + reader[2].ToString() + ")";
+                                selectedlistItem.ForeColor28 = AchievementColor(reader[2].ToString(), reader[1].ToString());
+                                break;
+                            case 29:
+                                selectedlistItem.day29 = reader[1].ToString() + " (" + reader[2].ToString() + ")";
+                                selectedlistItem.ForeColor29 = AchievementColor(reader[2].ToString(), reader[1].ToString());
+                                break;
+                            case 30:
+                                selectedlistItem.day30 = reader[1].ToString() + " (" + reader[2].ToString() + ")";
+                                selectedlistItem.ForeColor30 = AchievementColor(reader[2].ToString(), reader[1].ToString());
+                                break;
+                            case 31:
+                                selectedlistItem.day31 = reader[1].ToString() + " (" + reader[2].ToString() + ")";
+                                selectedlistItem.ForeColor31 = AchievementColor(reader[2].ToString(), reader[1].ToString());
+                                break;
+                        }
 
-                    (FindName("colDay" + Convert.ToDateTime(reader[0]).Day) as System.Windows.Controls.GridViewColumn)
-                        .Width = 120;
+                        (FindName("colDay" + Convert.ToDateTime(reader[0]).Day) as System.Windows.Controls.GridViewColumn)
+                            .Width = 120;
+                    }
 
                 }
 
@@ -532,6 +532,7 @@ namespace Coaching_Manager
 
         private string AchievementColor(string TotalMarks, string Achievement)
         {
+
             float Achieve = Convert.ToInt32(Achievement) * 100 / Convert.ToInt32(TotalMarks);
 
             if (Achieve > 80)
@@ -563,6 +564,18 @@ namespace Coaching_Manager
         {
             if (lstView.FontSize > 10)
                 lstView.FontSize = --lstView.FontSize;
+        }
+
+        private void btnPrint_Click(object sender, RoutedEventArgs e)
+        {
+            PrintDialog printDialog = new PrintDialog();
+            if (printDialog.ShowDialog() == true)
+            {
+                printDialog.PrintVisual(gStudentReport, Strings.str_print_student_report);
+
+                //cmTools.AddLog(Strings.str_, this.Title);
+            }
+
         }
     }
 }

@@ -49,7 +49,8 @@ namespace Coaching_Manager
         private void SetValues()
         {
             lblVersion.Content = Strings.AppVersion;
-            gUnlockBox.Visibility = Visibility.Hidden;
+            gUnlockBox.Visibility = Visibility.Collapsed;
+            lblCapsLockHint.Visibility = Visibility.Collapsed;
 
             if (!IsDBexist())
             {
@@ -119,16 +120,17 @@ namespace Coaching_Manager
             Strings.DBconStr =
 @"Provider=Microsoft.ACE.OLEDB.12.0;Data Source='|DataDirectory|\IW.CM.DB.dll" +
 @"';Jet OLEDB:Database Password='" + cmCrypto.Decrypt(Strings.DbEncryptedPass, Strings.PassPhrase) + "';";
-        }
+
 
 #else
 
         Strings.DBconStr =
 @"Provider=Microsoft.ACE.OLEDB.12.0;Data Source='" + Strings.strDBFilePath +
 @"';Jet OLEDB:Database Password='" + cmCrypto.Decrypt(Strings.DbEncryptedPass, Strings.PassPhrase) + "';";
-        }
 
 #endif
+
+        }
 
         private void btnExit_Click(object sender, RoutedEventArgs e)
         {
@@ -137,6 +139,20 @@ namespace Coaching_Manager
 
         private void btnAdmin_Click(object sender, RoutedEventArgs e)
         {
+#if DEBUG
+
+            Strings.IsAdmin = true;
+            Strings.strUserName = "admin";
+
+
+            // To Show a window we need to write below two line
+            MainWindow win = new MainWindow();
+            win.Show();
+            // this line for close this form.
+            this.Close();
+
+#else
+
             gUnlockBox.Visibility = Visibility.Visible;
             txtUser.Focus();
             btnGo.IsDefault = true;
@@ -144,6 +160,8 @@ namespace Coaching_Manager
             //change IsDefault, so that we can click it by pressing <Enter>
             btnAdmin.IsDefault = false;
             btnGo.IsDefault = true;
+
+#endif
         }
 
         private void btnGo_Click(object sender, RoutedEventArgs e)
@@ -232,6 +250,26 @@ namespace Coaching_Manager
         private void btnCornerMin_Click(object sender, RoutedEventArgs e)
         {
             WindowState = WindowState.Minimized;
+        }
+
+        private void UpdateCapsLockWarning(KeyboardDevice keyboard)
+        {
+            lblCapsLockHint.Visibility = keyboard.IsKeyToggled(Key.CapsLock) ? Visibility.Visible : Visibility.Hidden;
+        }
+
+        private void PassBox_GotKeyboardFocus(object sender, KeyboardFocusChangedEventArgs e)
+        {
+            UpdateCapsLockWarning(e.KeyboardDevice);
+        }
+
+        private void PassBox_LostKeyboardFocus(object sender, KeyboardFocusChangedEventArgs e)
+        {
+            lblCapsLockHint.Visibility = Visibility.Hidden;
+        }
+
+        private void PassBox_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            UpdateCapsLockWarning(e.KeyboardDevice);
         }
     }
 }

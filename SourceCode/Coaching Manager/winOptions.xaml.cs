@@ -23,6 +23,10 @@
 /// 
 /// </aboutDev>
 
+/// <TODO>
+/// + Sort List
+/// </TODO>
+
 using System;
 using System.Windows;
 using System.Windows.Input;
@@ -40,6 +44,8 @@ namespace Coaching_Manager
         int intOption = 0;
         string restoreFileLoc = "";
 
+        StreamWriter sWriter;
+
         public winOptions()
         {
             InitializeComponent();
@@ -51,7 +57,7 @@ namespace Coaching_Manager
         private void SetValues()
         {
             lblWinTitle.Content = Title + " | " + Strings.AppName + " | " + Strings.InstituteName;
-            //InputTextBox.Text = String.Empty;
+
             if (Strings.IsAdmin == false)
             {
                 btnDelUser.IsEnabled = false;
@@ -63,6 +69,10 @@ namespace Coaching_Manager
                 cmbBxUsers.SelectedIndex = 0;
             }
 
+            txtInstituteName.ToolTip = Strings.str_tips_enter_new_institute_name;
+            lblInstitute.ToolTip = Strings.str_tips_enter_new_institute_name;
+
+            cmTools.GetInstituteNames(lstBxSchoolName.Items);
         }
 
         private void ClearInput()
@@ -117,6 +127,8 @@ namespace Coaching_Manager
 
         private void btnBack_Click(object sender, RoutedEventArgs e)
         {
+            SaveSchoolNames();
+
             // To Show a window we need to write below two line
             MainWindow win = new MainWindow();
             win.Show();
@@ -535,7 +547,7 @@ namespace Coaching_Manager
 
 So, Before Restore a Database make a Backup of the current Database if needed.
 
-Are you sure want to Restore Database?", "ATTENTATION", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+Are you sure want to Restore Database?", Strings.str_attention, MessageBoxButton.YesNo) == MessageBoxResult.Yes)
             {
                 OpenFileDialog openFileDlg = new OpenFileDialog();
                 openFileDlg.Filter = "Coaching Manager Database|*.cmdb";
@@ -627,6 +639,66 @@ Are you sure want to Restore Database?", "ATTENTATION", MessageBoxButton.YesNo) 
             }
 
             return true;
+
+        }
+
+        private void btnSchoolAdd_Click(object sender, RoutedEventArgs e)
+        {
+            addSchool();
+        }
+
+        private void addSchool()
+        {
+            if (txtInstituteName.Text != string.Empty)
+            {
+                if (lstBxSchoolName.Items.IndexOf(txtInstituteName.Text) == -1)
+                {
+                    lstBxSchoolName.Items.Add(txtInstituteName.Text);
+                    txtInstituteName.Clear();
+                }
+                else
+                    cmTools.showInfoMsg(Strings.str_err_already_in_institute_list);
+            }
+            else
+                txtInstituteName.Focus();
+        }
+
+        private void btnSchoolDel_Click(object sender, RoutedEventArgs e)
+        {
+            if (lstBxSchoolName.SelectedIndex != -1)
+            {
+                lstBxSchoolName.Items.RemoveAt(lstBxSchoolName.SelectedIndex);
+            }
+        }
+
+        private void SaveSchoolNames()
+        {
+            try
+            {
+                sWriter = new StreamWriter(Strings.AppDataLocation + "cm.institutesName.iwdb");
+            }
+            catch (IOException ex)
+            {
+                cmTools.showInfoMsg(Strings.str_error_open_file + Environment.NewLine + ex.Message);
+            }
+
+            int i = 0;
+
+            while (i < lstBxSchoolName.Items.Count)
+            {
+                try
+                {
+                    sWriter.Write(lstBxSchoolName.Items.GetItemAt(i).ToString() + Environment.NewLine);
+                }
+                catch (IOException ex)
+                {
+                    cmTools.showInfoMsg(Strings.str_error_on_writing_file + Environment.NewLine + ex.Message);
+                }
+
+                i++;
+            }
+
+            sWriter.Close();
 
         }
 

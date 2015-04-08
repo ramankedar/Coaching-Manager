@@ -108,7 +108,7 @@
         <Button x:Name="btnNext" Content="&#xF054;" HorizontalAlignment="Right" Margin="0,0,265,405" VerticalAlignment="Bottom" FontFamily="FontAwesome" Background="White" BorderThickness="0" Style="{DynamicResource CornerButtonStyle}" FontSize="16" Width="25" Height="25" Padding="1,3,1,1" Click="btnNext_Click" TabIndex="4"/>
         <DatePicker x:Name="dpDateOfXm" HorizontalAlignment="Left" Margin="200,65,0,0" VerticalAlignment="Top" Width="250" FontSize="16" BorderBrush="#FFABADB3" FirstDayOfWeek="Saturday" SelectedDateFormat="Long" TabIndex="0" SelectedDateChanged="dpDateOfXm_SelectedDateChanged"/>
         <Label Content="Subject(s):" HorizontalAlignment="Left" Margin="30,209,0,0" VerticalAlignment="Top" FontSize="16" Background="White" Foreground="Black"/>
-        <TextBox x:Name="txtSub" Margin="200,213,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="16" HorizontalAlignment="Left" Width="250" MaxLength="255" TabIndex="5" PreviewTextInput="txtID_PreviewTextInput"/>
+        <TextBox x:Name="txtSub" Margin="200,213,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="16" HorizontalAlignment="Left" Width="250" MaxLength="255" TabIndex="5"/>
         <ListView x:Name="lstView" HorizontalAlignment="Left" Margin="10,317,0,0" VerticalAlignment="Top" Width="750" Height="203" Foreground="Black" BorderBrush="#FFEEEEEE" BorderThickness="1,1,1,3" FontSize="14" SelectionChanged="lstView_SelectionChanged" TabIndex="8">
             <ListView.View>
                 <GridView>

@@ -77,12 +77,12 @@
             <DropShadowEffect Opacity="0.5" ShadowDepth="2" BlurRadius="7"/>
         </Grid.Effect>
         <Label x:Name="lblWinTitle" Content="Title" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" FontSize="14" BorderThickness="0,0,0,3" BorderBrush="#FFEEEEEE"/>
-        <Button x:Name="btnBack" Content="&#xF0A8; Back" HorizontalAlignment="Right" Margin="0,0,10,10" VerticalAlignment="Bottom" Width="100" Height="35" FontSize="16" FontFamily="FontAwesome" Background="White" BorderThickness="0,0,0,3" Style="{DynamicResource ButtonStyle}" Click="btnBack_Click" IsCancel="True" TabIndex="12"/>
+        <Button x:Name="btnBack" Content="&#xF0A8; Back" HorizontalAlignment="Right" Margin="0,0,10,10" VerticalAlignment="Bottom" Width="100" Height="35" FontSize="16" FontFamily="FontAwesome" Background="White" BorderThickness="0,0,0,3" Style="{DynamicResource ButtonStyle}" Click="btnBack_Click" IsCancel="True" TabIndex="3"/>
         <ScrollViewer x:Name="scrollView" Margin="278,65,10,50" Padding="10" BorderThickness="0" BorderBrush="#FFCCCCCC" Background="WhiteSmoke">
             <Grid Height="510" VerticalAlignment="Top">
                 <Label Content="Payment History" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="18" Background="{x:Null}" Foreground="#FF555555" Margin="0,301,0,0" FontWeight="Bold"/>
                 <Label Content="About" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="18" Background="{x:Null}" Foreground="#FF555555" Margin="0" FontWeight="Bold"/>
-                <ListView x:Name="lstViewPayment" HorizontalAlignment="Left" Margin="0,350,0,0" VerticalAlignment="Top" Width="645" Height="150" Foreground="Black" BorderBrush="#FFEEEEEE" BorderThickness="1,1,1,3" FontSize="14" TabIndex="11">
+                <ListView x:Name="lstViewPayment" HorizontalAlignment="Left" Margin="0,350,0,0" VerticalAlignment="Top" Width="645" Height="150" Foreground="Black" BorderBrush="#FFEEEEEE" BorderThickness="1,1,1,3" FontSize="14" TabIndex="24">
                     <ListView.View>
                         <GridView>
                             <GridViewColumn x:Name="colPayYear" Width="120" Header="Year" DisplayMemberBinding="{Binding PayYear}"/>
@@ -93,25 +93,32 @@
                     </ListView.View>
                 </ListView>
                 <Label Content="Name:" HorizontalAlignment="Left" Margin="0,42,0,0" VerticalAlignment="Top" FontSize="16" Foreground="Black"/>
-                <TextBox x:Name="txtName" Margin="170,46,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="16" HorizontalAlignment="Left" Width="465" IsEnabled="False" TabIndex="3"/>
+                <TextBox x:Name="txtName" Margin="170,46,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="16" HorizontalAlignment="Left" Width="360" IsEnabled="False" TabIndex="4"/>
                 <Label Content="Institute Name:" HorizontalAlignment="Left" Margin="0,104,0,0" VerticalAlignment="Top" FontSize="16" Foreground="Black"/>
-                <TextBox x:Name="txtInstitute" Margin="170,108,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="16" HorizontalAlignment="Left" Width="465" IsEnabled="False" TabIndex="5"/>
+                <TextBox x:Name="txtInstitute" Margin="170,108,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="16" HorizontalAlignment="Left" Width="360" IsEnabled="False" TabIndex="6"/>
                 <Label Content="Qualification:" HorizontalAlignment="Left" Margin="0,135,0,0" VerticalAlignment="Top" FontSize="16" Foreground="Black"/>
-                <TextBox x:Name="txtQualification" Margin="170,139,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="16" HorizontalAlignment="Left" Width="465" SpellCheck.IsEnabled="True" IsEnabled="False" TabIndex="6"/>
+                <TextBox x:Name="txtQualification" Margin="170,139,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="16" HorizontalAlignment="Left" Width="360" SpellCheck.IsEnabled="True" IsEnabled="False" TabIndex="7"/>
                 <Label Content="Subject:" HorizontalAlignment="Left" Margin="0,166,0,0" VerticalAlignment="Top" FontSize="16" Foreground="Black"/>
-                <TextBox x:Name="txtSub" Margin="170,170,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="16" HorizontalAlignment="Left" Width="465" SpellCheck.IsEnabled="True" IsEnabled="False" TabIndex="7"/>
+                <TextBox x:Name="txtSub" Margin="170,170,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="16" HorizontalAlignment="Left" Width="360" SpellCheck.IsEnabled="True" IsEnabled="False" TabIndex="8"/>
                 <Label Content="Pay Scale:" HorizontalAlignment="Left" Margin="0,228,0,0" VerticalAlignment="Top" FontSize="16"/>
-                <TextBox x:Name="txtPayScale" Margin="170,232,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="16" HorizontalAlignment="Left" Width="439" IsEnabled="False" TabIndex="9" PreviewTextInput="txtPayScale_PreviewTextInput"/>
+                <TextBox x:Name="txtPayScale" Margin="170,232,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="16" HorizontalAlignment="Left" Width="439" IsEnabled="False" TabIndex="10" PreviewTextInput="txtPayScale_PreviewTextInput"/>
                 <Label Content="Join Date:" HorizontalAlignment="Left" Margin="0,259,0,0" VerticalAlignment="Top" FontSize="16" Background="{x:Null}" Foreground="Black"/>
                 <Label Content="Sex:" HorizontalAlignment="Left" Margin="0,73,0,0" VerticalAlignment="Top" FontSize="16" Foreground="Black"/>
-                <ComboBox x:Name="cmbBxSex" Margin="170,75,0,0" VerticalAlignment="Top" FontSize="16" HorizontalAlignment="Left" Width="465" SelectedIndex="0" IsEnabled="False" TabIndex="4">
+                <ComboBox x:Name="cmbBxSex" Margin="170,75,0,0" VerticalAlignment="Top" FontSize="16" HorizontalAlignment="Left" Width="360" SelectedIndex="0" IsEnabled="False" TabIndex="5">
                     <ComboBoxItem Content="Male"/>
                     <ComboBoxItem Content="Female"/>
                 </ComboBox>
                 <Label Content="Mobile No.:" HorizontalAlignment="Left" Margin="0,197,0,0" VerticalAlignment="Top" FontSize="16" Foreground="Black"/>
                 <Label x:Name="lblName_Copy" Content="৳" HorizontalAlignment="Left" Margin="614,228,0,0" VerticalAlignment="Top" FontSize="16"/>
-                <TextBox x:Name="txtMobNo" Margin="170,201,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="16" HorizontalAlignment="Left" Width="465" SpellCheck.IsEnabled="True" IsEnabled="False" TabIndex="8"/>
-                <TextBox x:Name="txtJoinDate" Margin="170,263,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="16" HorizontalAlignment="Left" Width="465" SpellCheck.IsEnabled="True" IsEnabled="False" TabIndex="10"/>
+                <TextBox x:Name="txtMobNo" Margin="170,201,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="16" HorizontalAlignment="Left" Width="465" SpellCheck.IsEnabled="True" IsEnabled="False" TabIndex="9"/>
+                <TextBox x:Name="txtJoinDate" Margin="170,263,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="16" HorizontalAlignment="Left" Width="465" SpellCheck.IsEnabled="True" IsEnabled="False" TabIndex="11"/>
+                <Border
+                	BorderThickness="2"
+                	BorderBrush="LightGray" HorizontalAlignment="Right" VerticalAlignment="Top" Height="120" Width="100" Margin="0,46,10,0" Background="White">
+                    <Image x:Name="imgTeacher" Margin="0"/>
+                </Border>
+                <Button x:Name="btnBrowseImg" Content="&#xF03E;" HorizontalAlignment="Right" Margin="0,170,10,0" VerticalAlignment="Top" FontFamily="FontAwesome" BorderThickness="0,0,0,3" Style="{DynamicResource CornerButtonStyle}" TabIndex="13" FontSize="14" Click="btnBrowseImg_Click" ToolTip="Select Student Image" Width="45" Background="WhiteSmoke"/>
+                <Button x:Name="btnDeleteImg" Content="&#xF057;" HorizontalAlignment="Right" Margin="0,170,65,0" VerticalAlignment="Top" FontFamily="FontAwesome" BorderThickness="0,0,0,3" Style="{DynamicResource CornerButtonStyle}" TabIndex="12" FontSize="14" Click="btnDeleteImg_Click" ToolTip="Remove Image" Width="45" Background="WhiteSmoke"/>
 
 
             </Grid>
@@ -127,8 +134,8 @@
         </ListView>
         <Button x:Name="btnCngActive" Content="&#xF05E; Make Inactive" Margin="10,0,0,10" VerticalAlignment="Bottom" Height="35" FontSize="16" FontFamily="FontAwesome" Background="White" BorderThickness="0,0,0,3" Style="{DynamicResource ButtonStyle}" HorizontalAlignment="Left" Width="150" IsEnabled="False" Click="btnCngActive_Click" TabIndex="1"/>
         <Button x:Name="btnEditInfo" Content="&#xF040; Edit About" Margin="165,0,0,10" VerticalAlignment="Bottom" Height="35" FontSize="16" FontFamily="FontAwesome" Background="White" BorderThickness="0,0,0,3" Style="{DynamicResource ButtonStyle}" HorizontalAlignment="Left" Width="150" IsEnabled="False" Click="btnEditInfo_Click" TabIndex="2"/>
-        <Button x:Name="btnCornerExit" Content="&#xF00D;" Margin="0" VerticalAlignment="Top" HorizontalAlignment="Right" FontFamily="FontAwesome" FontSize="14" BorderThickness="0,0,0,3" Background="White" Click="btnBack_Click" Style="{DynamicResource CornerButtonStyle}" TabIndex="4" IsTabStop="False"/>
-        <Button x:Name="btnCornerMin" Content="&#xF068;" Margin="0,0,25,0" VerticalAlignment="Top" HorizontalAlignment="Right" FontFamily="FontAwesome" FontSize="14" BorderThickness="0,0,0,3" Background="White" Style="{DynamicResource CornerButtonStyle}" Click="btnCornerMin_Click" TabIndex="3" IsTabStop="False"/>
+        <Button x:Name="btnCornerExit" Content="&#xF00D;" Margin="0" VerticalAlignment="Top" HorizontalAlignment="Right" FontFamily="FontAwesome" FontSize="14" BorderThickness="0,0,0,3" Background="White" Click="btnBack_Click" Style="{DynamicResource CornerButtonStyle}" TabIndex="42" IsTabStop="False"/>
+        <Button x:Name="btnCornerMin" Content="&#xF068;" Margin="0,0,25,0" VerticalAlignment="Top" HorizontalAlignment="Right" FontFamily="FontAwesome" FontSize="14" BorderThickness="0,0,0,3" Background="White" Style="{DynamicResource CornerButtonStyle}" Click="btnCornerMin_Click" TabIndex="41" IsTabStop="False"/>
 
     </Grid>
 </Window>

@@ -66,7 +66,7 @@ namespace Coaching_Manager
         private void btnBack_Click(object sender, RoutedEventArgs e)
         {
             if (IsAdded)
-                cmTools.AddLog("Attendance Added.", this.Title);
+                cmTools.AddLog(Strings.str_attendance_added, this.Title);
 
             // To Show a window we need to write below two line
             MainWindow win = new MainWindow();
@@ -180,6 +180,9 @@ namespace Coaching_Manager
                 else
                     UpdateAttendance();
 
+            txtPresent.Focus();
+            txtPresent.SelectAll();
+
         }
 
         private void AddAttendance()
@@ -193,8 +196,6 @@ namespace Coaching_Manager
             ([ID], [Month], [Year], [TotalStudyDay], [Present])
             VALUES (@ID, @Month, @Year, @TotalStudyDay, @Present)", connection);
 
-                    //int intMonth = cmbBxMonth.SelectedIndex + 1;
-
                     command.Parameters.AddWithValue("@ID", txtID.Text); // Datatype: Integer (2 bytes)
                     command.Parameters.AddWithValue("@Month", cmbBxMonth.SelectedIndex + 1); // Datatype: Integer (2 bytes)
                     command.Parameters.AddWithValue("@Year", txtYear.Text); // Datatype: Integer (2 bytes)
@@ -204,7 +205,7 @@ namespace Coaching_Manager
                     if ((txtID.Text == "") || (txtYear.Text == "") || (txtTotalDay.Text == "")
                         || (txtPresent.Text == ""))
                     {
-                        cmTools.showInfoMsg("Fill up all required fields.");
+                        cmTools.showInfoMsg(Strings.strFillupAllFields);
                     }
                     else
                     {
@@ -223,7 +224,7 @@ namespace Coaching_Manager
                             if ((lstView.Items.Count != 0) && (lstView.SelectedIndex != lstView.Items.Count - 1))
                                 lstView.SelectedIndex = lstView.SelectedIndex + 1;
                             else
-                                cmTools.showInfoMsg("No more student found!");
+                                cmTools.showInfoMsg(Strings.str_no_more_student_found);
 
                         IsAdded = true;
 
@@ -283,7 +284,7 @@ WHERE [ID] = @strID AND [Month] = @strMonth AND [Year] = @strYear", connection);
             if (txtPresent.Text != "")
                 if (Convert.ToInt32(txtPresent.Text) > Convert.ToInt32(txtTotalDay.Text))
                 {
-                    cmTools.showInfoMsg("Total Present is greter then Total Study Day!");
+                    cmTools.showInfoMsg(Strings.str_attendance_greter_then_total_study_day);
                     txtPresent.Text = txtTotalDay.Text;
                 }
         }
@@ -302,7 +303,7 @@ WHERE [ID] = @strID AND [Month] = @strMonth AND [Year] = @strYear", connection);
             if (txtTotalDay.Text != "")
                 if (Convert.ToInt32(txtTotalDay.Text) > lastday.Day)
                 {
-                    cmTools.showInfoMsg("Total Day is greter then month size!");
+                    cmTools.showInfoMsg(Strings.str_total_day_greter_then_month_size);
                     txtTotalDay.Text = lastday.Day.ToString();
                 }
         }
@@ -329,7 +330,7 @@ WHERE [ID] = @strID AND [Month] = @strMonth AND [Year] = @strYear", connection);
                 {
                     int year = DateTime.Now.Year;
                     txtYear.Text = year.ToString();
-                    cmTools.showInfoMsg("Invalid Year! Year changed to " + year + ".");
+                    cmTools.showInfoMsg(Strings.str_invalid_year_changed_to_default_year);
                     intYear = year;
                 }
 

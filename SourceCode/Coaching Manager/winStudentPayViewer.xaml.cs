@@ -27,6 +27,7 @@ using System;
 using System.Data.OleDb;
 using System.Text.RegularExpressions;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Threading;
 
@@ -78,32 +79,31 @@ namespace Coaching_Manager
 
         private void DisableAll()
         {
-            // the following code is for smooth UI flow. But don't no it worked or not..!! :(
-            Dispatcher.Invoke(new Action(() =>
-            {
-                lstView.IsEnabled = false;
-                cmbBxSelClass.IsEnabled = false;
-                txtYear.IsEnabled = false;
-                btnQuery.IsEnabled = false;
-                lblQuerying.Visibility = Visibility.Visible;
-            }), DispatcherPriority.ContextIdle);
-
+            lstView.IsEnabled = false;
+            cmbBxSelClass.IsEnabled = false;
+            txtYear.IsEnabled = false;
+            btnQuery.IsEnabled = false;
+            btnPrint.IsEnabled = false;
+            btnZoomIn.IsEnabled = false;
+            btnZoomOut.IsEnabled = false;
+            lblQuerying.Visibility = Visibility.Visible;
         }
 
         private void EnableAll()
         {
-            Dispatcher.Invoke(new Action(() =>
-            {
-                lstView.IsEnabled = true;
-                cmbBxSelClass.IsEnabled = true;
-                txtYear.IsEnabled = true;
-                btnQuery.IsEnabled = true;
-                lblQuerying.Visibility = Visibility.Collapsed;
-            }), DispatcherPriority.ContextIdle);
+            lstView.IsEnabled = true;
+            cmbBxSelClass.IsEnabled = true;
+            txtYear.IsEnabled = true;
+            btnQuery.IsEnabled = true;
+            btnPrint.IsEnabled = true;
+            btnZoomIn.IsEnabled = true;
+            btnZoomOut.IsEnabled = true;
+            lblQuerying.Visibility = Visibility.Collapsed;
         }
 
         private void btnQuery_Click(object sender, RoutedEventArgs e)
         {
+            // the following code is for smooth UI flow.. :)
             Dispatcher.Invoke(new Action(() =>
             {
                 lstView.Items.Clear();
@@ -111,7 +111,7 @@ namespace Coaching_Manager
                 DisableAll();
                 if (UpdateTable())
                 {
-                    lblReportTitle.Content = "Payment report " + txtYear.Text + " : Class " + cmbBxSelClass.Text;
+                    lblReportTitle.Content = string.Format(Strings.str_student_payment_report_header, txtYear.Text, cmbBxSelClass.Text);
                     lblReportTitle.Visibility = Visibility.Visible;
                     EnableAll();
                 }
@@ -278,7 +278,7 @@ namespace Coaching_Manager
             {
                 int year = DateTime.Now.Year;
                 txtYear.Text = year.ToString();
-                cmTools.showInfoMsg("Invalid Year! Year changed to " + year + ".");
+                cmTools.showInfoMsg(string.Format(Strings.str_invalid_year_changed_to_default_year, year));
             }
         }
 
@@ -308,8 +308,15 @@ namespace Coaching_Manager
                 lstView.FontSize = --lstView.FontSize;
         }
 
-        //#if DEBUG
+        private void btnPrint_Click(object sender, RoutedEventArgs e)
+        {
+            PrintDialog printDialog = new PrintDialog();
+            if (printDialog.ShowDialog() == true)
+            {
+                printDialog.PrintVisual(gPayment, Strings.str_print_payment_report);
 
-        //#endif
+                //cmTools.AddLog(Strings.str_, this.Title);
+            }
+        }
     }
 }

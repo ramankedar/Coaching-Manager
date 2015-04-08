@@ -28,6 +28,9 @@ using System.Windows;
 using System.Windows.Input;
 using System.Data.OleDb;
 using System.Text.RegularExpressions;
+using System.IO;
+using System.Windows.Media.Imaging;
+using Microsoft.Win32;
 
 namespace Coaching_Manager
 {
@@ -36,6 +39,9 @@ namespace Coaching_Manager
     /// </summary>
     public partial class winNewTeacher : Window
     {
+
+        string imgSource = "";
+
         public winNewTeacher()
         {
             InitializeComponent();
@@ -46,6 +52,7 @@ namespace Coaching_Manager
         {
             lblWinTitle.Content = Title + " | " + Strings.AppName + " | " + Strings.InstituteName;
             datePickerJoin.SelectedDate = DateTime.Today.Date;
+            btnDeleteImg.Visibility = Visibility.Collapsed;
         }
 
         private void btnBack_Click(object sender, RoutedEventArgs e)
@@ -59,7 +66,7 @@ namespace Coaching_Manager
 
         private void btnAdd_Click(object sender, RoutedEventArgs e)
         {
-            if (MessageBox.Show("Are you sure want to Add this New Teacher?", "ATTENTATION", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+            if (MessageBox.Show(string.Format(Strings.strSureAddNewObject, "Teacher"), "ATTENTATION", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
                 AddNewEntry();
         }
 
@@ -71,15 +78,34 @@ namespace Coaching_Manager
                 {
                     OleDbConnection connection = new OleDbConnection(connectionString);
                     OleDbCommand command = new OleDbCommand(@"INSERT INTO TblTeacher 
-            ([Name], [Sex], [InstituteName], [Qualification], [Subject], [MobileNumber], [PayScale], [JoinDate], [IsActive])
-            VALUES (@Name, @Sex, @InstituteName, @Qualification, @Subject, @MobileNumber, @PayScale, @JoinDate, @IsActive)", connection);
+            ([Name], [Image], [Sex], [InstituteName], [Qualification], [Subject], [MobileNumber], [PayScale], [JoinDate], [IsActive])
+            VALUES (@Name, @Image, @Sex, @InstituteName, @Qualification, @Subject, @MobileNumber, @PayScale, @JoinDate, @IsActive)", connection);
 
                     command.Parameters.AddWithValue("@Name", txtName.Text); // Datatype: Max 255 Char
+
+                    if (imgSource != "")
+                    {
+                        // Get image from file
+                        FileStream fs = new FileStream(imgSource, FileMode.Open, FileAccess.Read);
+                        byte[] imgData = new byte[fs.Length];
+                        fs.Read(imgData, 0, Convert.ToInt32(fs.Length));
+                        fs.Close();
+
+                        command.Parameters.AddWithValue("@Image", imgData); // Datatype: OLE Object
+                    }
+                    else
+                        command.Parameters.AddWithValue("@Image", DBNull.Value); // Datatype: OLE Object
+
                     command.Parameters.AddWithValue("@Sex", cmbBxSex.SelectedIndex); // Datatype: Boolean
                     command.Parameters.AddWithValue("@InstituteName", txtInstitute.Text); // Datatype: Max 255 Char
                     command.Parameters.AddWithValue("@Qualification", txtQualification.Text); // Datatype: Max 255 Char
                     command.Parameters.AddWithValue("@Subject", txtSub.Text); // Datatype: Max 255 Char
-                    command.Parameters.AddWithValue("@MobileNumber", (txtMobNo.Text != "") ? txtMobNo.Text : "-"); // Datatype: 50 Char
+
+                    if (txtMobNo.Text != "")
+                        command.Parameters.AddWithValue("@MobileNumber", txtMobNo.Text); // Datatype: 50 Char
+                    else
+                        command.Parameters.AddWithValue("@MobileNumber", DBNull.Value); // Datatype: 50 Char
+
                     command.Parameters.AddWithValue("@PayScale", (txtPay.Text != "") ? txtPay.Text : "0"); // Datatype: Integer (2 bytes)
                     command.Parameters.AddWithValue("@JoinDate", datePickerJoin.SelectedDate); // Datatype: Date/Time
                     command.Parameters.AddWithValue("@IsActive", true); // Datatype: Boolean
@@ -87,7 +113,7 @@ namespace Coaching_Manager
                     if ((txtName.Text == "") || (txtInstitute.Text == "") || (txtQualification.Text == "")
                         || (txtSub.Text == ""))
                     {
-                        MessageBox.Show("Fill up all required fields.");
+                        MessageBox.Show(Strings.strFillupAllFields);
                     }
                     else
                     {
@@ -96,8 +122,8 @@ namespace Coaching_Manager
 
                         command.ExecuteNonQuery();
 
-                        cmTools.AddLog("New Teacher \"" + txtName.Text + "\" Added.", this.Title);
-                        MessageBox.Show("New Teacher Added Successfully! :)");
+                        cmTools.AddLog(string.Format(Strings.strLogNewTeacherAdded, txtName.Text, NewStudentId()), this.Title);
+                        cmTools.showInfoMsg(string.Format(Strings.strLogNewTeacherAdded, txtName.Text, NewStudentId()));
 
                         // Release Memory
                         connection.Close();
@@ -123,6 +149,39 @@ namespace Coaching_Manager
             }
         }
 
+        private int NewStudentId()
+        {
+            int count = 1;
+            try
+            {
+                string strQuery = "SELECT [ID] FROM TblTeacher";
+
+                OleDbConnection connection = new OleDbConnection(Strings.DBconStr);
+                OleDbCommand command = new OleDbCommand(strQuery, connection);
+
+                connection.Open();
+
+                OleDbDataReader reader = command.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    count++;
+                }
+
+                // Release Memory
+                connection.Close();
+                command.Dispose();
+                connection.Dispose();
+
+                return count;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+                return 0;
+            }
+        }
+
         private void gMain_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             DragMove();
@@ -137,6 +196,47 @@ namespace Coaching_Manager
         {
             Regex regex = new Regex("[^0-9]+");
             e.Handled = regex.IsMatch(e.Text);
+        }
+
+        private void btnBrowseImg_Click(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog openFileDlg = new OpenFileDialog();
+            openFileDlg.Filter = "JPEG Image|*.jpg";
+            openFileDlg.Title = Strings.AppName + " | Open Student Image";
+            openFileDlg.Multiselect = false;
+            openFileDlg.CheckFileExists = true;
+
+            if ((bool)openFileDlg.ShowDialog())
+            {
+                if (openFileDlg.FileName != "")
+                {
+                    // Check file size
+                    FileInfo ImgInfo = new FileInfo(openFileDlg.FileName);
+                    if ((ImgInfo.Length / 1024) <= 512)
+                    {
+                        imgTeacher.Source = new BitmapImage(new Uri(openFileDlg.FileName));
+                        imgSource = openFileDlg.FileName;
+
+                        btnDeleteImg.Visibility = Visibility.Visible;
+                    }
+                    else
+                    {
+                        imgSource = "";
+                        cmTools.showInfoMsg(Strings.strImgBigFileSize);
+                    }
+                }
+                else
+                    imgSource = "";
+            }
+            else
+                imgSource = "";
+        }
+
+        private void btnDeleteImg_Click(object sender, RoutedEventArgs e)
+        {
+            imgTeacher.Source = null;
+            imgSource = "";
+            btnDeleteImg.Visibility = Visibility.Collapsed;
         }
     }
 }

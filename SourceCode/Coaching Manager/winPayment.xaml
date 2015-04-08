@@ -81,14 +81,15 @@
         <ComboBox x:Name="cmbBxType" HorizontalAlignment="Left" Margin="200,67,0,0" VerticalAlignment="Top" Width="250" FontSize="16" SelectionChanged="cmbBxType_SelectionChanged" TabIndex="0">
             <ComboBoxItem Content="Student"/>
             <ComboBoxItem Content="Teacher"/>
+            <ComboBoxItem Content="Cost"/>
         </ComboBox>
-        <TextBox x:Name="txtYear" HorizontalAlignment="Left" Margin="200,141,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="250" FontSize="16" IsEnabled="False" TabIndex="3" PreviewTextInput="txtTotalClass_PreviewTextInput"/>
+        <TextBox x:Name="txtYear" HorizontalAlignment="Left" Margin="200,141,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="250" FontSize="16" IsEnabled="False" TabIndex="3" PreviewTextInput="txtTotalClass_PreviewTextInput" LostFocus="txtYear_LostFocus"/>
         <TextBox x:Name="txtAmount" HorizontalAlignment="Left" Margin="200,213,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="250" FontSize="16" IsEnabled="False" TabIndex="5" PreviewTextInput="txtTotalClass_PreviewTextInput"/>
-        <Label Content="Year:" HorizontalAlignment="Left" Margin="30,137,0,0" VerticalAlignment="Top" FontSize="16"/>
-        <Label Content="Month:" HorizontalAlignment="Left" Margin="30,173,0,0" VerticalAlignment="Top" FontSize="16"/>
+        <Label x:Name="lblYear" Content="Year:" HorizontalAlignment="Left" Margin="30,137,0,0" VerticalAlignment="Top" FontSize="16"/>
+        <Label x:Name="lblMonth" Content="Month:" HorizontalAlignment="Left" Margin="30,173,0,0" VerticalAlignment="Top" FontSize="16"/>
         <Label Content="Amount:" HorizontalAlignment="Left" Margin="30,209,0,0" VerticalAlignment="Top" FontSize="16"/>
         <TextBox x:Name="txtID" HorizontalAlignment="Left" Margin="200,105,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="250" FontSize="16" LostFocus="txtID_LostFocus" IsEnabled="False" TabIndex="1" PreviewTextInput="txtTotalClass_PreviewTextInput"/>
-        <Label Content="Coaching ID:" HorizontalAlignment="Left" Margin="30,101,0,0" VerticalAlignment="Top" FontSize="16"/>
+        <Label x:Name="lblID" Content="Coaching ID:" HorizontalAlignment="Left" Margin="30,101,0,0" VerticalAlignment="Top" FontSize="16"/>
         <ComboBox x:Name="cmbBxMonth" HorizontalAlignment="Left" Margin="200,175,0,0" VerticalAlignment="Top" Width="250" FontSize="16" SelectedIndex="0" IsEnabled="False" TabIndex="4">
             <ComboBoxItem Content="January"/>
             <ComboBoxItem Content="February"/>
@@ -157,7 +158,6 @@
                     <Label x:Name="lblReceiptNo" Content="0" HorizontalAlignment="Left" Margin="596,49,0,0" VerticalAlignment="Top" FontSize="16" RenderTransformOrigin="0.368,0.387"/>
                     <Label x:Name="lblReceiptCollector_Copy1" Content="Accountent: ---------------------" HorizontalAlignment="Left" Margin="26,251,0,0" VerticalAlignment="Top" FontSize="16"/>
                     <Label Content="Money Receipt" HorizontalAlignment="Left" Margin="26,49,0,0" VerticalAlignment="Top" FontSize="16" FontWeight="Bold"/>
-                    <Label x:Name="lblReceiptAppTitle" Content="App Name" HorizontalAlignment="Right" Margin="0,5,5,0" VerticalAlignment="Top" Foreground="#CC000000" FontWeight="Bold"/>
                 </Grid>
             </Border>
             <Border 

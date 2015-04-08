@@ -80,7 +80,7 @@ namespace Coaching_Manager
                 || (cmbBxIsActive.SelectedIndex != -1))
                 searchNow();
             else
-                cmTools.showInfoMsg("Fill any search criteria first!");
+                cmTools.showInfoMsg(Strings.str_fill_any_search_criteria_for_search);
         }
 
         private void searchNow()
@@ -156,8 +156,6 @@ namespace Coaching_Manager
                 if (cmbBxIsActive.SelectedIndex != -1)
                     command.Parameters.AddWithValue("@srcIsActive", (cmbBxIsActive.SelectedIndex == 0) ? true : false);
 
-                //Console.WriteLine(command.CommandText.ToString());
-
                 connection.Open();
 
                 OleDbDataReader reader = command.ExecuteReader();
@@ -185,11 +183,11 @@ namespace Coaching_Manager
 
                 if (lstView.Items.Count == 0)
                 {
-                    lblTotalResult.Content = "0 Result Found";
+                    lblTotalResult.Content = Strings.str_zero_result_found;
                     btnCngActive.IsEnabled = false;
                 }
                 else
-                    lblTotalResult.Content = lstView.Items.Count + " Result(s) Found";
+                    lblTotalResult.Content = string.Format(Strings.str_total_result_found, lstView.Items.Count);
 
             }
             catch (Exception ex)
@@ -200,7 +198,7 @@ namespace Coaching_Manager
 
         private void btnReset_Click(object sender, RoutedEventArgs e)
         {
-            lblTotalResult.Content = "Ready";
+            lblTotalResult.Content = Strings.str_ready;
             txtBoxTchrName.Text = "";
             txtBoxInstitute.Text = "";
             txtBoxQualification.Text = "";
@@ -243,8 +241,9 @@ namespace Coaching_Manager
                 command.Dispose();
                 connection.Dispose();
 
-                //ChangeTable
+                cmTools.AddLog(string.Format(Strings.str_log_object_active_mark_changed, "Teacher", selectedlistItem.Name, selectedlistItem.ID, (IsActive) ? "Inactive" : "Active"), this.Title);
 
+                //ChangeTable
                 selectedlistItem.IsActive = (IsActive) ? "" : "";
                 selectedlistItem.ForeColor = (IsActive) ? "Green" : "Red";
                 btnCngActive.Content = (IsActive) ? " Make Inactive" : " Make Active";
@@ -268,7 +267,6 @@ namespace Coaching_Manager
                     return;
                 }
 
-                //ShowStudentsDetails(selectedlistItem.ID);
                 btnCngActive.IsEnabled = true;
                 if (selectedlistItem.ForeColor == "Red")
                     btnCngActive.Content = " Make Active";

@@ -1,4 +1,5 @@
 #Coaching Manager 1.x
+Version: 1.2.0.4
 
 An Open-Source Coaching Management System (CMS).
 It’s an Open-source imagination under [MPL 2.0](https://www.mozilla.org/MPL/2.0/) by Imaginative World.
@@ -8,10 +9,10 @@ The Project is specially made for the institute: **ASCEND Academic Care**
 
 Download Installer
 ------------------
-Version 1.1.0.3 Download Links:
+Version 1.2.0.4 Download Links:
 
-- EXE: [Download](http://www.mediafire.com/download/dmdlx8igxwll4ld/Coaching_Manager_1.1.0.3_%5B24_Feb_2015%5D_Setup.exe)
-- ZIP: [Download](http://www.mediafire.com/download/4nxijrrodv0ut1x/Coaching_Manager_1.1.0.3_%5B24_Feb_2015%5D_Setup.zip)
+- EXE: [Download](http://www.mediafire.com/download/iyj5vb7wtaz4e36/Coaching_Manager_1.2.0.4_[08_Apr_2015]_Setup.exe)
+- ZIP: [Download](http://www.mediafire.com/download/2vue8x0gjd8440d/Coaching_Manager_1.2.0.4_[08_Apr_2015]_Setup.zip)
 
 
 Features
@@ -27,7 +28,11 @@ Features
 - Students & Teachers Payment Management
 - Payment Receipt Print
 - Payment Viewer
-- Students Report
+- Reports
+    - Student Report
+    - Payment Report
+    - Cost Report
+    - Finance Report
 - Logs (For Admin) 
 	- New Student Add
 	- Student Info Changed

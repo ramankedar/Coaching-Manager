@@ -76,25 +76,26 @@
         <Grid.Effect>
             <DropShadowEffect Opacity="0.5" ShadowDepth="2" BlurRadius="7"/>
         </Grid.Effect>
-        <Button x:Name="btnAdmin" Content="&#xF023;" HorizontalAlignment="Left" Height="100" Margin="150,109,0,0" VerticalAlignment="Top" Width="100" FontFamily="FontAwesome" FontSize="48" BorderThickness="0,0,0,3" Background="White" Style="{DynamicResource ButtonStyle}" Click="btnAdmin_Click" TabIndex="0" IsDefault="True"/>
-        <Label Content="LOGIN" HorizontalAlignment="Left" Margin="173,214,0,0" VerticalAlignment="Top" FontSize="14" FontWeight="Bold" Foreground="#FF888888"/>
+        <Button x:Name="btnAdmin" Content="&#xF023;" HorizontalAlignment="Left" Height="100" Margin="150,104,0,0" VerticalAlignment="Top" Width="100" FontFamily="FontAwesome" FontSize="48" BorderThickness="0,0,0,3" Background="White" Style="{DynamicResource ButtonStyle}" Click="btnAdmin_Click" TabIndex="0" IsDefault="True"/>
+        <Label Content="LOGIN" HorizontalAlignment="Left" Margin="173,209,0,0" VerticalAlignment="Top" FontSize="14" FontWeight="Bold" Foreground="#FF888888"/>
         <Label Content="An imagination of Imaginative World" HorizontalAlignment="Left" Margin="10,0,0,10" VerticalAlignment="Bottom" BorderThickness="0" Foreground="#FF777777"/>
         <Label Content="imaginativeworld.org" HorizontalAlignment="Right" Margin="0,0,10,10" VerticalAlignment="Bottom" BorderThickness="0" Foreground="#FF777777"/>
         <Label Content="Coaching Manger" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" FontSize="14" BorderThickness="0,0,0,3" BorderBrush="#FFEEEEEE"/>
         <Label x:Name="lblVersion" Content="0.0.0.0" HorizontalAlignment="Left" Margin="130,14,0,0" VerticalAlignment="Top" FontSize="10"/>
-        <Grid Margin="10,55,10,281" Width="265">
+        <Grid Margin="152,50,152,286" Width="265">
             <Label x:Name="lblCoachingName" Content="ASCEND" Margin="0" VerticalAlignment="Top" FontSize="24" HorizontalAlignment="Left" FontFamily="Minion Pro" Foreground="Red" FontWeight="Bold"/>
             <Label x:Name="lblCoachingNameSubPart" Content="Academic Care" Margin="0" VerticalAlignment="Top" HorizontalAlignment="Right" FontSize="24" FontFamily="Minion Pro" Foreground="Black"/>
         </Grid>
-        <Grid x:Name="gUnlockBox" Margin="0,244,0,41" Width="500">
-            <PasswordBox x:Name="PassBox" Margin="107,48,105,0" FontSize="16" VerticalAlignment="Top" MaxLength="50" TabIndex="6"/>
+        <Grid x:Name="gUnlockBox" Margin="35,239,35,46" Width="500">
+            <PasswordBox x:Name="PassBox" Margin="107,48,105,0" FontSize="16" VerticalAlignment="Top" MaxLength="50" TabIndex="6" GotKeyboardFocus="PassBox_GotKeyboardFocus" LostKeyboardFocus="PassBox_LostKeyboardFocus" PreviewKeyDown="PassBox_PreviewKeyDown"/>
             <Label Content="Password:" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="16" Margin="10,44,0,0" RenderTransformOrigin="0.112,0.387"/>
             <Button x:Name="btnGo" Content="&#xF09C;" HorizontalAlignment="Center" Margin="420,0,10,10" VerticalAlignment="Bottom" Width="70" Height="65" FontSize="36" FontFamily="FontAwesome" Background="White" BorderThickness="0,0,0,3" Style="{DynamicResource CornerButtonStyle}" Click="btnGo_Click" TabIndex="7"/>
             <Label Content="User Name:" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="16" Margin="10,10,0,0" RenderTransformOrigin="0.112,0.387"/>
             <TextBox x:Name="txtUser" HorizontalAlignment="Left" Margin="107,14,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="288" RenderTransformOrigin="0.854,0.448" FontSize="16" MaxLength="50" TabIndex="5"/>
+            <Label x:Name="lblCapsLockHint" Content="&#xF031; Caps Lock is On" HorizontalAlignment="Left" Margin="107,71,0,-12" VerticalAlignment="Top" BorderThickness="0" Foreground="Red" FontFamily="FontAwesome"/>
         </Grid>
-        <Button x:Name="btnExit" Content="&#xF011;" Height="100" Margin="0,109,150,0" VerticalAlignment="Top" HorizontalAlignment="Right" Width="100" FontFamily="FontAwesome" FontSize="48" BorderThickness="0,0,0,3" Background="White" Click="btnExit_Click" Style="{DynamicResource ButtonStyle}" TabIndex="2" IsCancel="True"/>
-        <Label Content="EXIT" HorizontalAlignment="Left" Margin="352,214,0,0" VerticalAlignment="Top" FontSize="14" FontWeight="Bold" Foreground="#FF888888"/>
+        <Button x:Name="btnExit" Content="&#xF011;" Height="100" Margin="0,104,150,0" VerticalAlignment="Top" HorizontalAlignment="Right" Width="100" FontFamily="FontAwesome" FontSize="48" BorderThickness="0,0,0,3" Background="White" Click="btnExit_Click" Style="{DynamicResource ButtonStyle}" TabIndex="2" IsCancel="True"/>
+        <Label Content="EXIT" HorizontalAlignment="Left" Margin="352,209,0,0" VerticalAlignment="Top" FontSize="14" FontWeight="Bold" Foreground="#FF888888"/>
         <Button x:Name="btnCornerExit" Content="&#xF00D;" Margin="0" VerticalAlignment="Top" HorizontalAlignment="Right" FontFamily="FontAwesome" FontSize="14" BorderThickness="0,0,0,3" Background="White" Click="btnExit_Click" Style="{DynamicResource CornerButtonStyle}" TabIndex="4" IsTabStop="False"/>
         <Button x:Name="btnCornerMin" Content="&#xF068;" Margin="0,0,25,0" VerticalAlignment="Top" HorizontalAlignment="Right" FontFamily="FontAwesome" FontSize="14" BorderThickness="0,0,0,3" Background="White" Style="{DynamicResource CornerButtonStyle}" Click="btnCornerMin_Click" TabIndex="3" IsTabStop="False"/>
 

@@ -66,7 +66,7 @@ namespace Coaching_Manager
         private void btnBack_Click(object sender, RoutedEventArgs e)
         {
             if (IsAdded)
-                cmTools.AddLog("Exam Result Added.", this.Title);
+                cmTools.AddLog(Strings.str_exam_result_added, this.Title);
 
             // To Show a window we need to write below two line
             MainWindow win = new MainWindow();
@@ -176,6 +176,9 @@ namespace Coaching_Manager
                     AddExamResult();
                 else
                     UpdateExamResult();
+
+            txtAchievement.Focus();
+            txtAchievement.SelectAll();
         }
 
         private void AddExamResult()
@@ -197,7 +200,7 @@ namespace Coaching_Manager
                     if ((txtID.Text == "") || (txtSub.Text == "") || (txtTotalMarks.Text == "")
                         || (txtAchievement.Text == ""))
                     {
-                        cmTools.showInfoMsg("Fill up all required fields.");
+                        cmTools.showInfoMsg(Strings.strFillupAllFields);
                     }
                     else
                     {
@@ -216,7 +219,7 @@ namespace Coaching_Manager
                             if ((lstView.Items.Count != 0) && (lstView.SelectedIndex != lstView.Items.Count - 1))
                                 lstView.SelectedIndex = lstView.SelectedIndex + 1;
                             else
-                                cmTools.showInfoMsg("No more student found!");
+                                cmTools.showInfoMsg(Strings.str_no_more_student_found);
 
                         IsAdded = true;
 
@@ -276,7 +279,7 @@ WHERE [ID] = @strID AND [Date] = @strDate", connection);
             if (txtAchievement.Text != "")
                 if (Convert.ToInt32(txtAchievement.Text) > Convert.ToInt32(txtTotalMarks.Text))
                 {
-                    cmTools.showInfoMsg("Achievement is greter then Total Marks!");
+                    cmTools.showInfoMsg(Strings.str_achievement_greter_then_total_marks);
                     txtAchievement.Text = txtTotalMarks.Text;
                 }
         }

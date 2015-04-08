@@ -77,48 +77,48 @@
             <DropShadowEffect Opacity="0.5" ShadowDepth="2" BlurRadius="7"/>
         </Grid.Effect>
         <Label x:Name="lblWinTitle" Content="Title" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" FontSize="14" BorderThickness="0,0,0,3" BorderBrush="#FFEEEEEE"/>
-        <Button x:Name="btnBack" Content="&#xF0A8; Back" HorizontalAlignment="Right" Margin="0,0,10,10" VerticalAlignment="Bottom" Width="100" Height="35" FontSize="16" FontFamily="FontAwesome" Background="White" BorderThickness="0,0,0,3" Click="btnBack_Click" Style="{DynamicResource ButtonStyle}" IsCancel="True" TabIndex="18"/>
+        <Button x:Name="btnBack" Content="&#xF0A8; Back" HorizontalAlignment="Right" Margin="0,0,10,10" VerticalAlignment="Bottom" Width="100" Height="35" FontSize="16" FontFamily="FontAwesome" Background="White" BorderThickness="0,0,0,3" Click="btnBack_Click" Style="{DynamicResource ButtonStyle}" IsCancel="True" TabIndex="20"/>
         <Label Content="Student Name*:" HorizontalAlignment="Left" Margin="30,65,0,0" VerticalAlignment="Top" FontSize="16" Background="White" Foreground="#FF640000"/>
-        <TextBox x:Name="txtName" Margin="200,69,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="16" HorizontalAlignment="Left" Width="540" MaxLength="255" TabIndex="0"/>
-        <Label Content="Father Name:" HorizontalAlignment="Left" Margin="30,93,0,0" VerticalAlignment="Top" FontSize="16"/>
-        <TextBox x:Name="txtFatherName" Margin="200,97,30,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="16" MaxLength="255" TabIndex="1"/>
-        <Label Content="Mother Nmae:" HorizontalAlignment="Left" Margin="30,121,0,0" VerticalAlignment="Top" FontSize="16"/>
-        <TextBox x:Name="txtMotherName" Margin="200,125,30,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="16" MaxLength="255" TabIndex="2"/>
-        <Label Content="Permanent Address:" HorizontalAlignment="Left" Margin="30,184,0,0" VerticalAlignment="Top" FontSize="16"/>
-        <Label Content="Present Address:" HorizontalAlignment="Left" Margin="30,232,0,0" VerticalAlignment="Top" FontSize="16"/>
-        <Label Content="Guardian Mobile No.:" HorizontalAlignment="Left" Margin="30,280,0,0" VerticalAlignment="Top" FontSize="16"/>
-        <TextBox x:Name="txtGuardianMob" Margin="200,284,30,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="16" MaxLength="255" TabIndex="7"/>
-        <Label Content="Student Mobile No.:" HorizontalAlignment="Left" Margin="30,308,0,0" VerticalAlignment="Top" FontSize="16"/>
-        <TextBox x:Name="txtStdMob" Margin="200,312,30,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="16" MaxLength="255" TabIndex="8"/>
-        <Label Content="E-mail Address:" HorizontalAlignment="Left" Margin="30,336,0,0" VerticalAlignment="Top" FontSize="16"/>
-        <TextBox x:Name="txtEmail" Margin="200,340,30,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="16" MaxLength="255" TabIndex="9"/>
-        <Label Content="Institute Name*:" HorizontalAlignment="Left" Margin="30,364,0,0" VerticalAlignment="Top" FontSize="16" Background="White" Foreground="#FF640000"/>
-        <Label Content="Class*:" HorizontalAlignment="Left" Margin="30,394,0,0" VerticalAlignment="Top" FontSize="16" Background="White" Foreground="#FF640000"/>
-        <Label Content="Sex:" HorizontalAlignment="Left" Margin="482,150,0,0" VerticalAlignment="Top" FontSize="16"/>
-        <Label Content="Religion:" HorizontalAlignment="Left" Margin="30,150,0,0" VerticalAlignment="Top" FontSize="16"/>
-        <Label Content="Roll No.*:" HorizontalAlignment="Left" Margin="30,424,0,0" VerticalAlignment="Top" FontSize="16" Background="White" Foreground="#FF640000"/>
-        <Label Content="Group*:" HorizontalAlignment="Left" Margin="462,394,0,0" VerticalAlignment="Top" FontSize="16" Background="White" Foreground="#FF640000"/>
-        <Label Content="Batch No.:" HorizontalAlignment="Left" Margin="30,452,0,0" VerticalAlignment="Top" FontSize="16"/>
-        <Label Content="Monthly Fee:" HorizontalAlignment="Left" Margin="419,424,0,0" VerticalAlignment="Top" FontSize="16"/>
-        <Label Content="Admission Date*:" HorizontalAlignment="Left" Margin="396,451,0,0" VerticalAlignment="Top" FontSize="16" Background="White" Foreground="#FF640000"/>
-        <ComboBox x:Name="cmbBxSex" Margin="525,152,0,0" VerticalAlignment="Top" FontSize="16" HorizontalAlignment="Left" Width="215" SelectedIndex="0" TabIndex="4">
+        <TextBox x:Name="txtName" Margin="200,69,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="16" HorizontalAlignment="Left" Width="435" MaxLength="255" TabIndex="0"/>
+        <Label Content="Father Name:" HorizontalAlignment="Left" Margin="30,98,0,0" VerticalAlignment="Top" FontSize="16"/>
+        <TextBox x:Name="txtFatherName" Margin="200,102,135,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="16" MaxLength="255" TabIndex="1"/>
+        <Label Content="Mother Name:" HorizontalAlignment="Left" Margin="30,126,0,0" VerticalAlignment="Top" FontSize="16"/>
+        <TextBox x:Name="txtMotherName" Margin="200,130,135,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="16" MaxLength="255" TabIndex="2"/>
+        <Label Content="Permanent Address:" HorizontalAlignment="Left" Margin="30,222,0,0" VerticalAlignment="Top" FontSize="16"/>
+        <Label Content="Present Address:" HorizontalAlignment="Left" Margin="30,270,0,0" VerticalAlignment="Top" FontSize="16"/>
+        <Label Content="Guardian Mobile No.:" HorizontalAlignment="Left" Margin="30,318,0,0" VerticalAlignment="Top" FontSize="16"/>
+        <TextBox x:Name="txtGuardianMob" Margin="200,322,30,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="16" MaxLength="255" TabIndex="7"/>
+        <Label Content="Student Mobile No.:" HorizontalAlignment="Left" Margin="30,346,0,0" VerticalAlignment="Top" FontSize="16"/>
+        <TextBox x:Name="txtStdMob" Margin="200,350,30,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="16" MaxLength="255" TabIndex="8"/>
+        <Label Content="E-mail Address:" HorizontalAlignment="Left" Margin="30,374,0,0" VerticalAlignment="Top" FontSize="16"/>
+        <TextBox x:Name="txtEmail" Margin="200,378,30,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="16" MaxLength="255" TabIndex="9"/>
+        <Label Content="Institute Name*:" HorizontalAlignment="Left" Margin="30,402,0,0" VerticalAlignment="Top" FontSize="16" Background="White" Foreground="#FF640000"/>
+        <Label Content="Class*:" HorizontalAlignment="Left" Margin="30,432,0,0" VerticalAlignment="Top" FontSize="16" Background="White" Foreground="#FF640000"/>
+        <Label Content="Sex:" HorizontalAlignment="Left" Margin="30,157,0,0" VerticalAlignment="Top" FontSize="16"/>
+        <Label Content="Religion:" HorizontalAlignment="Left" Margin="30,188,0,0" VerticalAlignment="Top" FontSize="16"/>
+        <Label Content="Roll No.*:" HorizontalAlignment="Left" Margin="30,462,0,0" VerticalAlignment="Top" FontSize="16" Background="White" Foreground="#FF640000"/>
+        <Label Content="Group*:" HorizontalAlignment="Left" Margin="462,432,0,0" VerticalAlignment="Top" FontSize="16" Background="White" Foreground="#FF640000"/>
+        <Label Content="Batch No.:" HorizontalAlignment="Left" Margin="30,490,0,0" VerticalAlignment="Top" FontSize="16"/>
+        <Label Content="Monthly Fee:" HorizontalAlignment="Left" Margin="419,462,0,0" VerticalAlignment="Top" FontSize="16"/>
+        <Label Content="Admission Date*:" HorizontalAlignment="Left" Margin="396,489,0,0" VerticalAlignment="Top" FontSize="16" Background="White" Foreground="#FF640000"/>
+        <ComboBox x:Name="cmbBxSex" Margin="200,158,0,0" VerticalAlignment="Top" FontSize="16" HorizontalAlignment="Left" Width="191" TabIndex="4" SelectedIndex="0">
             <ComboBoxItem Content="Male"/>
             <ComboBoxItem Content="Female"/>
         </ComboBox>
-        <ComboBox x:Name="cmbBxReligion" HorizontalAlignment="Left" Margin="200,152,0,0" VerticalAlignment="Top" Width="191" FontSize="16" SelectedIndex="0" TabIndex="3">
+        <ComboBox x:Name="cmbBxReligion" HorizontalAlignment="Left" Margin="200,190,0,0" VerticalAlignment="Top" Width="191" FontSize="16" TabIndex="3" SelectedIndex="0">
             <ComboBoxItem Content="Muslim"/>
             <ComboBoxItem Content="Hindu"/>
             <ComboBoxItem Content="Buddhist"/>
             <ComboBoxItem Content="Christian"/>
             <ComboBoxItem Content="Others"/>
         </ComboBox>
-        <ComboBox x:Name="cmbBxGroup" HorizontalAlignment="Left" Margin="525,396,0,0" VerticalAlignment="Top" Width="215" FontSize="16" SelectedIndex="3" TabIndex="12">
+        <ComboBox x:Name="cmbBxGroup" HorizontalAlignment="Left" Margin="525,434,0,0" VerticalAlignment="Top" Width="215" FontSize="16" SelectedIndex="3" TabIndex="12">
             <ComboBoxItem Content="Science"/>
             <ComboBoxItem Content="Commerce"/>
             <ComboBoxItem Content="Arts"/>
             <ComboBoxItem Content="None"/>
         </ComboBox>
-        <ComboBox x:Name="cmbBxClass" HorizontalAlignment="Left" Margin="200,396,0,0" VerticalAlignment="Top" Width="191" FontSize="16" SelectedIndex="0" TabIndex="11">
+        <ComboBox x:Name="cmbBxClass" HorizontalAlignment="Left" Margin="200,434,0,0" VerticalAlignment="Top" Width="191" FontSize="16" TabIndex="11">
             <ComboBoxItem Content="Nursery"/>
             <ComboBoxItem Content="1"/>
             <ComboBoxItem Content="2"/>
@@ -133,17 +133,25 @@
             <ComboBoxItem Content="11"/>
             <ComboBoxItem Content="12"/>
         </ComboBox>
-        <TextBox x:Name="txtInstitute" Margin="200,368,30,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="16" MaxLength="255" TabIndex="10"/>
-        <TextBox x:Name="txtFee" Margin="527,428,56,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="16" TabIndex="14" PreviewTextInput="txtRoll_PreviewTextInput"/>
-        <TextBox x:Name="txtRoll" Margin="200,428,379,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="16" TabIndex="13" PreviewTextInput="txtRoll_PreviewTextInput"/>
-        <TextBox x:Name="txtBatchNo" Margin="200,456,379,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="16" MaxLength="255" TabIndex="15"/>
-        <Button x:Name="btnAdd" Content="&#xF067; Add" HorizontalAlignment="Right" Margin="0,0,658,10" VerticalAlignment="Bottom" Width="100" Height="35" FontSize="16" FontFamily="FontAwesome" Background="White" BorderThickness="0,0,0,3" Style="{DynamicResource ButtonStyle}" Click="btnAdd_Click" TabIndex="17"/>
-        <TextBox x:Name="txtPermanentAddr" Margin="200,184,30,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="16" MinLines="2" MaxLength="255" TabIndex="5"/>
-        <TextBox x:Name="txtPresentAddr" Margin="200,234,30,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="16" MinLines="2" MaxLength="255" TabIndex="6"/>
-        <DatePicker x:Name="datePickerAdmission" HorizontalAlignment="Left" Margin="525,453,0,0" VerticalAlignment="Top" Width="215" FontSize="16" BorderThickness="1" FirstDayOfWeek="Saturday" SelectedDateFormat="Long" BorderBrush="#FFABADB3" TabIndex="16"/>
-        <Label x:Name="lblName_Copy" Content="৳" HorizontalAlignment="Left" Margin="719,424,0,0" VerticalAlignment="Top" FontSize="16"/>
+        <TextBox x:Name="txtFee" Margin="525,466,56,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="16" TabIndex="14" PreviewTextInput="txtRoll_PreviewTextInput"/>
+        <TextBox x:Name="txtRoll" Margin="200,466,379,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="16" TabIndex="13" PreviewTextInput="txtRoll_PreviewTextInput"/>
+        <TextBox x:Name="txtBatchNo" Margin="200,494,379,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="16" MaxLength="255" TabIndex="15"/>
+        <Button x:Name="btnAdd" Content="&#xF067; Add" HorizontalAlignment="Right" Margin="0,0,658,10" VerticalAlignment="Bottom" Width="100" Height="35" FontSize="16" FontFamily="FontAwesome" Background="White" BorderThickness="0,0,0,3" Style="{DynamicResource ButtonStyle}" Click="btnAdd_Click" TabIndex="19"/>
+        <TextBox x:Name="txtPermanentAddr" Margin="200,222,30,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="16" MinLines="2" MaxLength="255" TabIndex="5"/>
+        <TextBox x:Name="txtPresentAddr" Margin="200,272,30,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="16" MinLines="2" MaxLength="255" TabIndex="6"/>
+        <DatePicker x:Name="datePickerAdmission" HorizontalAlignment="Left" Margin="525,491,0,0" VerticalAlignment="Top" Width="215" FontSize="16" BorderThickness="1" FirstDayOfWeek="Saturday" SelectedDateFormat="Long" BorderBrush="#FFABADB3" TabIndex="16"/>
+        <Label Content="৳" HorizontalAlignment="Left" Margin="719,462,0,0" VerticalAlignment="Top" FontSize="16"/>
         <Button x:Name="btnCornerExit" Content="&#xF00D;" Margin="0" VerticalAlignment="Top" HorizontalAlignment="Right" FontFamily="FontAwesome" FontSize="14" BorderThickness="0,0,0,3" Background="White" Click="btnBack_Click" Style="{DynamicResource CornerButtonStyle}" TabIndex="4" IsTabStop="False"/>
         <Button x:Name="btnCornerMin" Content="&#xF068;" Margin="0,0,25,0" VerticalAlignment="Top" HorizontalAlignment="Right" FontFamily="FontAwesome" FontSize="14" BorderThickness="0,0,0,3" Background="White" Style="{DynamicResource CornerButtonStyle}" Click="btnCornerMin_Click" TabIndex="3" IsTabStop="False"/>
+        <Border
+            BorderThickness="2"
+            BorderBrush="LightGray" HorizontalAlignment="Right" VerticalAlignment="Top" Height="120" Width="100" Margin="0,69,30,0">
+            <Image x:Name="imgStdnt" Margin="0"/>
+        </Border>
+        <Button x:Name="btnBrowseImg" Content="&#xF03E;" HorizontalAlignment="Right" Margin="0,193,30,0" VerticalAlignment="Top" FontFamily="FontAwesome" Background="White" BorderThickness="0,0,0,3" Style="{DynamicResource CornerButtonStyle}" TabIndex="18" FontSize="14" Click="btnBrowseImg_Click" ToolTip="Select Student Image" Width="45"/>
+        <Button x:Name="btnDeleteImg" Content="&#xF057;" HorizontalAlignment="Right" Margin="0,193,85,0" VerticalAlignment="Top" FontFamily="FontAwesome" Background="White" BorderThickness="0,0,0,3" Style="{DynamicResource CornerButtonStyle}" TabIndex="17" FontSize="14" Click="btnDeleteImg_Click" ToolTip="Remove Image" Width="45"/>
+        <ComboBox x:Name="cmbBxInstituteName" HorizontalAlignment="Left" Margin="200,404,0,0" VerticalAlignment="Top" Width="514" FontSize="16" TabIndex="10"/>
+        <Label x:Name="lblQusInstitute" Content="&#xF059;" HorizontalAlignment="Left" Margin="716,404,0,0" VerticalAlignment="Top" FontFamily="FontAwesome" FontSize="16"/>
 
 
     </Grid>

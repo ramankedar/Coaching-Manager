@@ -99,7 +99,6 @@
         <Label Content="Student Name:" HorizontalAlignment="Left" Margin="10,89,0,0" VerticalAlignment="Top" Width="124" FontSize="14"/>
         <TextBox x:Name="txtBoxStdntName" HorizontalAlignment="Left" Margin="139,93,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="621" FontSize="14" TabIndex="0"/>
         <Label Content="School/College:" HorizontalAlignment="Left" Margin="10,123,0,0" VerticalAlignment="Top" Width="124" FontSize="14"/>
-        <TextBox x:Name="txtBoxSclName" HorizontalAlignment="Left" Margin="139,127,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="621" FontSize="14" TabIndex="1"/>
         <Label Content="Coaching ID:" HorizontalAlignment="Left" Margin="10,157,0,0" VerticalAlignment="Top" Width="124" FontSize="14"/>
         <TextBox x:Name="txtBoxCoachingRoll" HorizontalAlignment="Left" Margin="139,161,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="150" FontSize="14" TabIndex="2" PreviewTextInput="txtBoxCoachingRoll_PreviewTextInput"/>
         <Label Content="Class:" HorizontalAlignment="Left" Margin="309,157,0,0" VerticalAlignment="Top" FontSize="14"/>
@@ -129,6 +128,8 @@
         <Label x:Name="lblTotalResult" Content="Ready" HorizontalAlignment="Left" Margin="10,527,0,0" VerticalAlignment="Top" FontSize="16"/>
         <Button x:Name="btnCornerExit" Content="&#xF00D;" Margin="0" VerticalAlignment="Top" HorizontalAlignment="Right" FontFamily="FontAwesome" FontSize="14" BorderThickness="0,0,0,3" Background="White" Click="btnBack_Click" Style="{DynamicResource CornerButtonStyle}" TabIndex="11" IsTabStop="False"/>
         <Button x:Name="btnCornerMin" Content="&#xF068;" Margin="0,0,25,0" VerticalAlignment="Top" HorizontalAlignment="Right" FontFamily="FontAwesome" FontSize="14" BorderThickness="0,0,0,3" Background="White" Style="{DynamicResource CornerButtonStyle}" Click="btnCornerMin_Click" TabIndex="10" IsTabStop="False"/>
+        <ComboBox x:Name="cmbBxInstituteName" HorizontalAlignment="Left" Margin="139,124,0,0" VerticalAlignment="Top" Width="597" FontSize="16" TabIndex="10"/>
+        <Label x:Name="lblQusInstitute" Content="&#xF059;" HorizontalAlignment="Left" Margin="736,124,0,0" VerticalAlignment="Top" FontFamily="FontAwesome" FontSize="16"/>
 
     </Grid>
 </Window>

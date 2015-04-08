@@ -57,6 +57,10 @@ namespace Coaching_Manager
         private void SetValues()
         {
             lblWinTitle.Content = Title + " | " + Strings.AppName + " | " + Strings.InstituteName;
+
+            lblQusInstitute.ToolTip = Strings.str_tips_institute_name_change_location;
+
+            cmTools.GetInstituteNames(cmbBxInstituteName.Items);
         }
 
         private void btnBack_Click(object sender, RoutedEventArgs e)
@@ -84,12 +88,12 @@ namespace Coaching_Manager
 
         private void btnSearch_Click(object sender, RoutedEventArgs e)
         {
-            if ((txtBoxStdntName.Text != "") || (txtBoxSclName.Text != "")
+            if ((txtBoxStdntName.Text != "") || (cmbBxInstituteName.SelectedIndex != -1)
                 || (txtBoxCoachingRoll.Text != "") || (cmbBxClass.SelectedIndex != -1)
                 || (cmbBxIsActive.SelectedIndex != -1))
                 searchNow();
             else
-                cmTools.showInfoMsg("Fill any search criteria first!");
+                cmTools.showInfoMsg(Strings.str_fill_any_search_criteria_for_search);
         }
 
         private void searchNow()
@@ -110,7 +114,7 @@ namespace Coaching_Manager
                         IsMulti = true;
                     }
 
-                if (txtBoxSclName.Text != "")
+                if (cmbBxInstituteName.SelectedIndex != -1)
                     if (IsMulti)
                         queryString += " AND [SchoolName] LIKE @srcScl";
                     else
@@ -153,8 +157,8 @@ namespace Coaching_Manager
                 if (txtBoxStdntName.Text != "")
                     command.Parameters.AddWithValue("@srcStr", "%" + txtBoxStdntName.Text + "%");
 
-                if (txtBoxSclName.Text != "")
-                    command.Parameters.AddWithValue("@srcScl", "%" + txtBoxSclName.Text + "%");
+                if (cmbBxInstituteName.SelectedIndex != -1)
+                    command.Parameters.AddWithValue("@srcScl", "%" + cmbBxInstituteName.SelectedValue + "%");
 
                 if (txtBoxCoachingRoll.Text != "")
                     command.Parameters.AddWithValue("@srcID", txtBoxCoachingRoll.Text);
@@ -164,8 +168,6 @@ namespace Coaching_Manager
 
                 if (cmbBxIsActive.SelectedIndex != -1)
                     command.Parameters.AddWithValue("@srcIsActive", (cmbBxIsActive.SelectedIndex == 0) ? true : false);
-
-                //Console.WriteLine(command.CommandText.ToString());
 
                 connection.Open();
 
@@ -194,11 +196,11 @@ namespace Coaching_Manager
 
                 if (lstView.Items.Count == 0)
                 {
-                    lblTotalResult.Content = "0 Result Found";
+                    lblTotalResult.Content = Strings.str_zero_result_found;
                     btnCngActive.IsEnabled = false;
                 }
                 else
-                    lblTotalResult.Content = lstView.Items.Count + " Result(s) Found";
+                    lblTotalResult.Content = string.Format(Strings.str_total_result_found, lstView.Items.Count);
 
             }
             catch (Exception ex)
@@ -217,7 +219,6 @@ namespace Coaching_Manager
                     return;
                 }
 
-                //ShowStudentsDetails(selectedlistItem.ID);
                 btnCngActive.IsEnabled = true;
                 if (selectedlistItem.ForeColor == "Red")
                     btnCngActive.Content = " Make Active";
@@ -260,9 +261,7 @@ namespace Coaching_Manager
                 command.Dispose();
                 connection.Dispose();
 
-                string mark = (IsActive) ? "Inactive" : "Active";
-
-                cmTools.AddLog("Student \"" + selectedlistItem.StudentName + "\" (ID: " + selectedlistItem.CoachingRoll + ") marked as " + mark + ".", this.Title);
+                cmTools.AddLog(string.Format(Strings.str_log_object_active_mark_changed, "Student", selectedlistItem.StudentName, selectedlistItem.CoachingRoll, (IsActive) ? "Inactive" : "Active"), this.Title);
 
                 //ChangeTable
                 selectedlistItem.IsActive = (IsActive) ? "" : "";
@@ -280,9 +279,9 @@ namespace Coaching_Manager
 
         private void btnReset_Click(object sender, RoutedEventArgs e)
         {
-            lblTotalResult.Content = "Ready";
+            lblTotalResult.Content = Strings.str_ready;
             txtBoxStdntName.Text = "";
-            txtBoxSclName.Text = "";
+            cmbBxInstituteName.SelectedIndex = -1;
             txtBoxCoachingRoll.Text = "";
             cmbBxClass.SelectedIndex = -1;
             cmbBxIsActive.SelectedIndex = -1;

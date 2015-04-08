@@ -1,6 +1,7 @@
-﻿<Window x:Class="Coaching_Manager.winStudentReport"
+﻿<Window
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+         xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d" x:Class="Coaching_Manager.winStudentReport"
          Title="Student Payment Viewer" Height="600" Width="1000" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" WindowStyle="None" AllowsTransparency="True" Background="{x:Null}" Icon="CM_Icon_001.ico">
 
     <Window.Resources>
@@ -10,16 +11,16 @@
             <Setter Property="Foreground" Value="#FF333333"/>
             <Setter Property="Template">
                 <Setter.Value>
-                    <ControlTemplate TargetType="Button">
-                        <Border Name="border" 
-                            BorderThickness="0,0,0,4" 
-                            Padding="10,5"
-                            BorderBrush="#FFEEEEEE" 
-                            CornerRadius="3" 
-                            Background="{TemplateBinding Background}">
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border x:Name="border" 
+        					BorderThickness="0,0,0,4" 
+        					Padding="10,5"
+        					BorderBrush="#FFEEEEEE" 
+        					CornerRadius="3" 
+        					Background="{TemplateBinding Background}">
                             <ContentPresenter
-                                HorizontalAlignment="Center"
-                                VerticalAlignment="Center" />
+        						HorizontalAlignment="Center"
+        						VerticalAlignment="Center" />
                         </Border>
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsPressed" Value="True">
@@ -45,16 +46,16 @@
             <Setter Property="Foreground" Value="#FF333333"/>
             <Setter Property="Template">
                 <Setter.Value>
-                    <ControlTemplate TargetType="Button">
-                        <Border Name="border" 
-                            BorderThickness="0" 
-                            Padding="7,5"
-                            BorderBrush="White" 
-                            CornerRadius="0" 
-                            Background="{TemplateBinding Background}">
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border x:Name="border" 
+        					BorderThickness="0" 
+        					Padding="7,5"
+        					BorderBrush="White" 
+        					CornerRadius="0" 
+        					Background="{TemplateBinding Background}">
                             <ContentPresenter
-                                HorizontalAlignment="Center"
-                                VerticalAlignment="Center" />
+        						HorizontalAlignment="Center"
+        						VerticalAlignment="Center" />
                         </Border>
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsPressed" Value="True">
@@ -83,252 +84,6 @@
         <Button x:Name="btnCornerMin" Content="&#xF068;" Margin="0,0,25,0" VerticalAlignment="Top" HorizontalAlignment="Right" FontFamily="FontAwesome" FontSize="14" BorderThickness="0,0,0,3" Background="White" Style="{DynamicResource CornerButtonStyle}" Click="btnCornerMin_Click" TabIndex="3" IsTabStop="False"/>
         <Button x:Name="btnBack" Content="&#xF0A8; Back" HorizontalAlignment="Right" Margin="0,0,10,10" VerticalAlignment="Bottom" Width="100" Height="35" FontSize="16" FontFamily="FontAwesome" Background="White" BorderThickness="0,0,0,3" Click="btnBack_Click" Style="{DynamicResource ButtonStyle}" IsCancel="True" TabIndex="4"/>
         <Button x:Name="btnCornerMaximize" Content="&#xF0B2;" Margin="0,0,50,0" VerticalAlignment="Top" HorizontalAlignment="Right" FontFamily="FontAwesome" FontSize="14" BorderThickness="0,0,0,3" Background="White" Click="btnCornerMaximize_Click" Style="{DynamicResource CornerButtonStyle}" TabIndex="4" IsTabStop="False"/>
-        <ListView x:Name="lstView" Margin="10,73,10,75" Foreground="Black" BorderBrush="#FFEEEEEE" BorderThickness="1,1,1,3" FontSize="16" Background="WhiteSmoke">
-            <ListView.View>
-                <GridView AllowsColumnReorder="False">
-                    <GridView.ColumnHeaderContainerStyle>
-                        <Style TargetType="{x:Type GridViewColumnHeader}">
-                            <Setter Property="IsEnabled" Value="False"/>
-                            <Style.Triggers>
-                                <Trigger Property="IsEnabled" Value="False">
-                                    <Setter Property="TextElement.Foreground" Value="Black"/>
-                                </Trigger>
-                            </Style.Triggers>
-                        </Style>
-                        
-                    </GridView.ColumnHeaderContainerStyle>
-                    
-                    <GridViewColumn x:Name="colID" Width="80" Header="ID" DisplayMemberBinding="{Binding ID}"/>
-                    <GridViewColumn x:Name="colStdName" Width="200" Header="Student Name" DisplayMemberBinding="{Binding StudentName}"/>
-                    <GridViewColumn x:Name="colAttendance" Width="140" Header="Attendance">
-                        <GridViewColumn.CellTemplate>
-                            <DataTemplate>
-                                <TextBlock Text="{Binding Attendance}" Foreground="{Binding ForeColorAttendance}"/>
-                            </DataTemplate>
-                        </GridViewColumn.CellTemplate>
-                    </GridViewColumn>
-
-                    <GridViewColumn x:Name="colDay1" Width="0" Header="Exam Date:&#xA;1">
-                        <GridViewColumn.CellTemplate>
-                            <DataTemplate>
-                                <TextBlock Text="{Binding day1}" Foreground="{Binding ForeColor1}"/>
-                            </DataTemplate>
-                        </GridViewColumn.CellTemplate>
-                    </GridViewColumn>
-                    <GridViewColumn x:Name="colDay2" Width="0" Header="Exam Date:&#xA;2">
-                        <GridViewColumn.CellTemplate>
-                            <DataTemplate>
-                                <TextBlock Text="{Binding day2}" Foreground="{Binding ForeColor2}"/>
-                            </DataTemplate>
-                        </GridViewColumn.CellTemplate>
-                    </GridViewColumn>
-                    <GridViewColumn x:Name="colDay3" Width="0" Header="Exam Date:&#xA;3">
-                        <GridViewColumn.CellTemplate>
-                            <DataTemplate>
-                                <TextBlock Text="{Binding day3}" Foreground="{Binding ForeColor3}"/>
-                            </DataTemplate>
-                        </GridViewColumn.CellTemplate>
-                    </GridViewColumn>
-                    <GridViewColumn x:Name="colDay4" Width="0" Header="Exam Date:&#xA;4">
-                        <GridViewColumn.CellTemplate>
-                            <DataTemplate>
-                                <TextBlock Text="{Binding day4}" Foreground="{Binding ForeColor4}"/>
-                            </DataTemplate>
-                        </GridViewColumn.CellTemplate>
-                    </GridViewColumn>
-                    <GridViewColumn x:Name="colDay5" Width="0" Header="Exam Date:&#xA;5">
-                        <GridViewColumn.CellTemplate>
-                            <DataTemplate>
-                                <TextBlock Text="{Binding day5}" Foreground="{Binding ForeColor5}"/>
-                            </DataTemplate>
-                        </GridViewColumn.CellTemplate>
-                    </GridViewColumn>
-                    <GridViewColumn x:Name="colDay6" Width="0" Header="Exam Date:&#xA;6">
-                        <GridViewColumn.CellTemplate>
-                            <DataTemplate>
-                                <TextBlock Text="{Binding day6}" Foreground="{Binding ForeColor6}"/>
-                            </DataTemplate>
-                        </GridViewColumn.CellTemplate>
-                    </GridViewColumn>
-                    <GridViewColumn x:Name="colDay7" Width="0" Header="Exam Date:&#xA;7">
-                        <GridViewColumn.CellTemplate>
-                            <DataTemplate>
-                                <TextBlock Text="{Binding day7}" Foreground="{Binding ForeColor7}"/>
-                            </DataTemplate>
-                        </GridViewColumn.CellTemplate>
-                    </GridViewColumn>
-                    <GridViewColumn x:Name="colDay8" Width="0" Header="Exam Date:&#xA;8">
-                        <GridViewColumn.CellTemplate>
-                            <DataTemplate>
-                                <TextBlock Text="{Binding day8}" Foreground="{Binding ForeColor8}"/>
-                            </DataTemplate>
-                        </GridViewColumn.CellTemplate>
-                    </GridViewColumn>
-                    <GridViewColumn x:Name="colDay9" Width="0" Header="Exam Date:&#xA;9">
-                        <GridViewColumn.CellTemplate>
-                            <DataTemplate>
-                                <TextBlock Text="{Binding day9}" Foreground="{Binding ForeColor9}"/>
-                            </DataTemplate>
-                        </GridViewColumn.CellTemplate>
-                    </GridViewColumn>
-                    <GridViewColumn x:Name="colDay10" Width="0" Header="Exam Date:&#xA;10">
-                        <GridViewColumn.CellTemplate>
-                            <DataTemplate>
-                                <TextBlock Text="{Binding day10}" Foreground="{Binding ForeColor10}"/>
-                            </DataTemplate>
-                        </GridViewColumn.CellTemplate>
-                    </GridViewColumn>
-                    <GridViewColumn x:Name="colDay11" Width="0" Header="Exam Date:&#xA;11">
-                        <GridViewColumn.CellTemplate>
-                            <DataTemplate>
-                                <TextBlock Text="{Binding day11}" Foreground="{Binding ForeColor11}"/>
-                            </DataTemplate>
-                        </GridViewColumn.CellTemplate>
-                    </GridViewColumn>
-                    <GridViewColumn x:Name="colDay12" Width="0" Header="Exam Date:&#xA;12">
-                        <GridViewColumn.CellTemplate>
-                            <DataTemplate>
-                                <TextBlock Text="{Binding day12}" Foreground="{Binding ForeColor12}"/>
-                            </DataTemplate>
-                        </GridViewColumn.CellTemplate>
-                    </GridViewColumn>
-                    <GridViewColumn x:Name="colDay13" Width="0" Header="Exam Date:&#xA;13">
-                        <GridViewColumn.CellTemplate>
-                            <DataTemplate>
-                                <TextBlock Text="{Binding day13}" Foreground="{Binding ForeColor13}"/>
-                            </DataTemplate>
-                        </GridViewColumn.CellTemplate>
-                    </GridViewColumn>
-                    <GridViewColumn x:Name="colDay14" Width="0" Header="Exam Date:&#xA;14">
-                        <GridViewColumn.CellTemplate>
-                            <DataTemplate>
-                                <TextBlock Text="{Binding day14}" Foreground="{Binding ForeColor14}"/>
-                            </DataTemplate>
-                        </GridViewColumn.CellTemplate>
-                    </GridViewColumn>
-                    <GridViewColumn x:Name="colDay15" Width="0" Header="Exam Date:&#xA;15">
-                        <GridViewColumn.CellTemplate>
-                            <DataTemplate>
-                                <TextBlock Text="{Binding day15}" Foreground="{Binding ForeColor15}"/>
-                            </DataTemplate>
-                        </GridViewColumn.CellTemplate>
-                    </GridViewColumn>
-                    <GridViewColumn x:Name="colDay16" Width="0" Header="Exam Date:&#xA;16">
-                        <GridViewColumn.CellTemplate>
-                            <DataTemplate>
-                                <TextBlock Text="{Binding day16}" Foreground="{Binding ForeColor16}"/>
-                            </DataTemplate>
-                        </GridViewColumn.CellTemplate>
-                    </GridViewColumn>
-                    <GridViewColumn x:Name="colDay17" Width="0" Header="Exam Date:&#xA;17">
-                        <GridViewColumn.CellTemplate>
-                            <DataTemplate>
-                                <TextBlock Text="{Binding day17}" Foreground="{Binding ForeColor17}"/>
-                            </DataTemplate>
-                        </GridViewColumn.CellTemplate>
-                    </GridViewColumn>
-                    <GridViewColumn x:Name="colDay18" Width="0" Header="Exam Date:&#xA;18">
-                        <GridViewColumn.CellTemplate>
-                            <DataTemplate>
-                                <TextBlock Text="{Binding day18}" Foreground="{Binding ForeColor18}"/>
-                            </DataTemplate>
-                        </GridViewColumn.CellTemplate>
-                    </GridViewColumn>
-                    <GridViewColumn x:Name="colDay19" Width="0" Header="Exam Date:&#xA;19">
-                        <GridViewColumn.CellTemplate>
-                            <DataTemplate>
-                                <TextBlock Text="{Binding day19}" Foreground="{Binding ForeColor19}"/>
-                            </DataTemplate>
-                        </GridViewColumn.CellTemplate>
-                    </GridViewColumn>
-                    <GridViewColumn x:Name="colDay20" Width="0" Header="Exam Date:&#xA;20">
-                        <GridViewColumn.CellTemplate>
-                            <DataTemplate>
-                                <TextBlock Text="{Binding day20}" Foreground="{Binding ForeColor20}"/>
-                            </DataTemplate>
-                        </GridViewColumn.CellTemplate>
-                    </GridViewColumn>
-                    <GridViewColumn x:Name="colDay21" Width="0" Header="Exam Date:&#xA;21">
-                        <GridViewColumn.CellTemplate>
-                            <DataTemplate>
-                                <TextBlock Text="{Binding day21}" Foreground="{Binding ForeColor21}"/>
-                            </DataTemplate>
-                        </GridViewColumn.CellTemplate>
-                    </GridViewColumn>
-                    <GridViewColumn x:Name="colDay22" Width="0" Header="Exam Date:&#xA;22">
-                        <GridViewColumn.CellTemplate>
-                            <DataTemplate>
-                                <TextBlock Text="{Binding day22}" Foreground="{Binding ForeColor22}"/>
-                            </DataTemplate>
-                        </GridViewColumn.CellTemplate>
-                    </GridViewColumn>
-                    <GridViewColumn x:Name="colDay23" Width="0" Header="Exam Date:&#xA;23">
-                        <GridViewColumn.CellTemplate>
-                            <DataTemplate>
-                                <TextBlock Text="{Binding day23}" Foreground="{Binding ForeColor23}"/>
-                            </DataTemplate>
-                        </GridViewColumn.CellTemplate>
-                    </GridViewColumn>
-                    <GridViewColumn x:Name="colDay24" Width="0" Header="Exam Date:&#xA;24">
-                        <GridViewColumn.CellTemplate>
-                            <DataTemplate>
-                                <TextBlock Text="{Binding day24}" Foreground="{Binding ForeColor24}"/>
-                            </DataTemplate>
-                        </GridViewColumn.CellTemplate>
-                    </GridViewColumn>
-                    <GridViewColumn x:Name="colDay25" Width="0" Header="Exam Date:&#xA;25">
-                        <GridViewColumn.CellTemplate>
-                            <DataTemplate>
-                                <TextBlock Text="{Binding day25}" Foreground="{Binding ForeColor25}"/>
-                            </DataTemplate>
-                        </GridViewColumn.CellTemplate>
-                    </GridViewColumn>
-                    <GridViewColumn x:Name="colDay26" Width="0" Header="Exam Date:&#xA;26">
-                        <GridViewColumn.CellTemplate>
-                            <DataTemplate>
-                                <TextBlock Text="{Binding day26}" Foreground="{Binding ForeColor26}"/>
-                            </DataTemplate>
-                        </GridViewColumn.CellTemplate>
-                    </GridViewColumn>
-                    <GridViewColumn x:Name="colDay27" Width="0" Header="Exam Date:&#xA;27">
-                        <GridViewColumn.CellTemplate>
-                            <DataTemplate>
-                                <TextBlock Text="{Binding day27}" Foreground="{Binding ForeColor27}"/>
-                            </DataTemplate>
-                        </GridViewColumn.CellTemplate>
-                    </GridViewColumn>
-                    <GridViewColumn x:Name="colDay28" Width="0" Header="Exam Date:&#xA;28">
-                        <GridViewColumn.CellTemplate>
-                            <DataTemplate>
-                                <TextBlock Text="{Binding day28}" Foreground="{Binding ForeColor28}"/>
-                            </DataTemplate>
-                        </GridViewColumn.CellTemplate>
-                    </GridViewColumn>
-                    <GridViewColumn x:Name="colDay29" Width="0" Header="Exam Date:&#xA;29">
-                        <GridViewColumn.CellTemplate>
-                            <DataTemplate>
-                                <TextBlock Text="{Binding day29}" Foreground="{Binding ForeColor29}"/>
-                            </DataTemplate>
-                        </GridViewColumn.CellTemplate>
-                    </GridViewColumn>
-                    <GridViewColumn x:Name="colDay30" Width="0" Header="Exam Date:&#xA;30">
-                        <GridViewColumn.CellTemplate>
-                            <DataTemplate>
-                                <TextBlock Text="{Binding day30}" Foreground="{Binding ForeColor30}"/>
-                            </DataTemplate>
-                        </GridViewColumn.CellTemplate>
-                    </GridViewColumn>
-                    <GridViewColumn x:Name="colDay31" Width="0" Header="Exam Date:&#xA;31">
-                        <GridViewColumn.CellTemplate>
-                            <DataTemplate>
-                                <TextBlock Text="{Binding day31}" Foreground="{Binding ForeColor31}"/>
-                            </DataTemplate>
-                        </GridViewColumn.CellTemplate>
-                    </GridViewColumn>
-
-                </GridView>
-            </ListView.View>
-        </ListView>
         <Label Content="Class:" HorizontalAlignment="Left" Margin="10,0,0,10" VerticalAlignment="Bottom" FontSize="16" Background="White" Foreground="Black"/>
         <ComboBox x:Name="cmbBxSelClass" HorizontalAlignment="Left" Margin="64,0,0,12" VerticalAlignment="Bottom" FontSize="16" SelectedIndex="0" Width="100" TabIndex="0">
             <ComboBoxItem Content="Nursery"/>
@@ -346,9 +101,9 @@
             <ComboBoxItem Content="12"/>
         </ComboBox>
         <Button x:Name="btnQuery" Content="&#xF135; Query Now" HorizontalAlignment="Right" Margin="0,0,115,10" VerticalAlignment="Bottom" Width="150" Height="35" FontSize="16" FontFamily="FontAwesome" Background="White" BorderThickness="0,0,0,3" Style="{DynamicResource ButtonStyle}" Click="btnQuery_Click" TabIndex="3" IsDefault="True"/>
-        <Label Content="Year:" HorizontalAlignment="Left" Margin="323,0,0,10" VerticalAlignment="Bottom" FontSize="16" Background="White" Foreground="Black"/>
-        <TextBox x:Name="txtYear" HorizontalAlignment="Left" Margin="372,0,0,14" TextWrapping="Wrap" VerticalAlignment="Bottom" Width="100" FontSize="16" LostFocus="txtYear_LostFocus" PreviewTextInput="txtYear_PreviewTextInput" TabIndex="2"/>
-        <ComboBox x:Name="cmbBxMonth" HorizontalAlignment="Left" Margin="218,0,0,12" VerticalAlignment="Bottom" Width="100" FontSize="16" SelectedIndex="0" TabIndex="1">
+        <Label Content="Year:" HorizontalAlignment="Left" Margin="340,0,0,10" VerticalAlignment="Bottom" FontSize="16" Background="White" Foreground="Black"/>
+        <TextBox x:Name="txtYear" HorizontalAlignment="Left" Margin="389,0,0,14" TextWrapping="Wrap" VerticalAlignment="Bottom" Width="100" FontSize="16" LostFocus="txtYear_LostFocus" PreviewTextInput="txtYear_PreviewTextInput" TabIndex="2"/>
+        <ComboBox x:Name="cmbBxMonth" HorizontalAlignment="Left" Margin="235,0,0,12" VerticalAlignment="Bottom" Width="100" FontSize="16" SelectedIndex="0" TabIndex="1">
             <ComboBoxItem Content="January"/>
             <ComboBoxItem Content="February"/>
             <ComboBoxItem Content="March"/>
@@ -362,7 +117,7 @@
             <ComboBoxItem Content="November"/>
             <ComboBoxItem Content="December"/>
         </ComboBox>
-        <Label Content="Year:" HorizontalAlignment="Left" Margin="169,0,0,10" VerticalAlignment="Bottom" FontSize="16" Background="White" Foreground="Black"/>
+        <Label Content="Month:" HorizontalAlignment="Left" Margin="169,0,0,10" VerticalAlignment="Bottom" FontSize="16" Background="White" Foreground="Black"/>
         <Label Content="&#xF118;" HorizontalAlignment="Left" Margin="10,0,0,43" VerticalAlignment="Bottom" Background="White" Foreground="DarkGreen" FontSize="20" FontFamily="FontAwesome"/>
         <Label Content="80%" HorizontalAlignment="Left" Margin="42,0,0,44" VerticalAlignment="Bottom" Background="White" Foreground="DarkGreen" FontWeight="Bold" FontSize="14"/>
         <Label Content="70%" HorizontalAlignment="Left" Margin="85,0,0,44" VerticalAlignment="Bottom" Background="White" Foreground="LimeGreen" FontWeight="Bold" FontSize="14"/>
@@ -370,10 +125,261 @@
         <Label Content="30%" HorizontalAlignment="Left" Margin="171,0,0,44" VerticalAlignment="Bottom" Background="White" Foreground="Tomato" FontWeight="Bold" FontSize="14"/>
         <Label Content="Fail" HorizontalAlignment="Left" Margin="214,0,0,44" VerticalAlignment="Bottom" Background="White" Foreground="Red" FontWeight="Bold" FontSize="14"/>
         <Label Content="&#xF119;" HorizontalAlignment="Left" Margin="251,0,0,43" VerticalAlignment="Bottom" Background="White" Foreground="Red" FontSize="20" FontFamily="FontAwesome"/>
-        <Label x:Name="lblQuerying" Content="&#xF085; Querying..." Margin="10,73,10,75" FontSize="48" Background="{x:Null}" Foreground="#FF888888" FontFamily="FontAwesome" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
+        <Label x:Name="lblQuerying" Content="&#xF085; Querying..." Margin="10,73,10,75" FontSize="48" Background="{x:Null}" Foreground="#FF888888" FontFamily="FontAwesome" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" d:IsLocked="True"/>
         <Button x:Name="btnZoomOut" Content="&#xF010;" Margin="0,34,10,0" VerticalAlignment="Top" HorizontalAlignment="Right" FontFamily="FontAwesome" FontSize="16" BorderThickness="0,0,0,3" Background="White" Style="{DynamicResource CornerButtonStyle}" TabIndex="4" IsTabStop="False" Click="btnZoomOut_Click"/>
         <Button x:Name="btnZoomIn" Content="&#xF00E;" Margin="0,34,39,0" VerticalAlignment="Top" HorizontalAlignment="Right" FontFamily="FontAwesome" FontSize="16" BorderThickness="0,0,0,3" Background="White" Style="{DynamicResource CornerButtonStyle}" TabIndex="4" IsTabStop="False" Click="btnZoomIn_Click"/>
-        <Label x:Name="lblReportTitle" Content="Students Report January 2015 : Class 0" HorizontalAlignment="Center" Margin="0,42,0,0" VerticalAlignment="Top" FontSize="16" Background="White" Foreground="Black" FontWeight="Bold"/>
+        <ScrollViewer Margin="10,65,10,75" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+            <Grid x:Name="gStudentReport" HorizontalAlignment="Left" VerticalAlignment="Top">
+                <Label x:Name="lblReportTitle" Content="Students Report January 2015 : Class 0" HorizontalAlignment="Center" Margin="0" VerticalAlignment="Top" FontSize="16" Background="White" Foreground="Black" FontWeight="Bold"/>
+                <ListView x:Name="lstView" Margin="10,36,0,0" Foreground="Black" BorderBrush="#FFEEEEEE" BorderThickness="1,1,1,3" FontSize="16" Background="WhiteSmoke" MinWidth="920" HorizontalAlignment="Left" VerticalAlignment="Top">
+                    <ListView.View>
+                        <GridView AllowsColumnReorder="False">
+                            <GridView.ColumnHeaderContainerStyle>
+                                <Style TargetType="{x:Type GridViewColumnHeader}">
+                                    <Setter Property="IsEnabled" Value="False"/>
+                                    <Style.Triggers>
+                                        <Trigger Property="IsEnabled" Value="False">
+                                            <Setter Property="TextElement.Foreground" Value="Black"/>
+                                        </Trigger>
+                                    </Style.Triggers>
+                                </Style>
+
+                            </GridView.ColumnHeaderContainerStyle>
+
+                            <GridViewColumn x:Name="colID" Width="80" Header="ID" DisplayMemberBinding="{Binding ID}"/>
+                            <GridViewColumn x:Name="colStdName" Width="200" Header="Student Name" DisplayMemberBinding="{Binding StudentName}"/>
+                            <GridViewColumn x:Name="colAttendance" Width="140" Header="Attendance">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding Attendance}" Foreground="{Binding ForeColorAttendance}"/>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+
+                            <GridViewColumn x:Name="colDay1" Width="0" Header="Exam Date:&#xA;1">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding day1}" Foreground="{Binding ForeColor1}"/>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn x:Name="colDay2" Width="0" Header="Exam Date:&#xA;2">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding day2}" Foreground="{Binding ForeColor2}"/>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn x:Name="colDay3" Width="0" Header="Exam Date:&#xA;3">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding day3}" Foreground="{Binding ForeColor3}"/>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn x:Name="colDay4" Width="0" Header="Exam Date:&#xA;4">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding day4}" Foreground="{Binding ForeColor4}"/>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn x:Name="colDay5" Width="0" Header="Exam Date:&#xA;5">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding day5}" Foreground="{Binding ForeColor5}"/>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn x:Name="colDay6" Width="0" Header="Exam Date:&#xA;6">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding day6}" Foreground="{Binding ForeColor6}"/>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn x:Name="colDay7" Width="0" Header="Exam Date:&#xA;7">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding day7}" Foreground="{Binding ForeColor7}"/>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn x:Name="colDay8" Width="0" Header="Exam Date:&#xA;8">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding day8}" Foreground="{Binding ForeColor8}"/>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn x:Name="colDay9" Width="0" Header="Exam Date:&#xA;9">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding day9}" Foreground="{Binding ForeColor9}"/>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn x:Name="colDay10" Width="0" Header="Exam Date:&#xA;10">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding day10}" Foreground="{Binding ForeColor10}"/>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn x:Name="colDay11" Width="0" Header="Exam Date:&#xA;11">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding day11}" Foreground="{Binding ForeColor11}"/>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn x:Name="colDay12" Width="0" Header="Exam Date:&#xA;12">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding day12}" Foreground="{Binding ForeColor12}"/>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn x:Name="colDay13" Width="0" Header="Exam Date:&#xA;13">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding day13}" Foreground="{Binding ForeColor13}"/>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn x:Name="colDay14" Width="0" Header="Exam Date:&#xA;14">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding day14}" Foreground="{Binding ForeColor14}"/>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn x:Name="colDay15" Width="0" Header="Exam Date:&#xA;15">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding day15}" Foreground="{Binding ForeColor15}"/>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn x:Name="colDay16" Width="0" Header="Exam Date:&#xA;16">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding day16}" Foreground="{Binding ForeColor16}"/>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn x:Name="colDay17" Width="0" Header="Exam Date:&#xA;17">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding day17}" Foreground="{Binding ForeColor17}"/>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn x:Name="colDay18" Width="0" Header="Exam Date:&#xA;18">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding day18}" Foreground="{Binding ForeColor18}"/>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn x:Name="colDay19" Width="0" Header="Exam Date:&#xA;19">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding day19}" Foreground="{Binding ForeColor19}"/>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn x:Name="colDay20" Width="0" Header="Exam Date:&#xA;20">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding day20}" Foreground="{Binding ForeColor20}"/>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn x:Name="colDay21" Width="0" Header="Exam Date:&#xA;21">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding day21}" Foreground="{Binding ForeColor21}"/>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn x:Name="colDay22" Width="0" Header="Exam Date:&#xA;22">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding day22}" Foreground="{Binding ForeColor22}"/>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn x:Name="colDay23" Width="0" Header="Exam Date:&#xA;23">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding day23}" Foreground="{Binding ForeColor23}"/>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn x:Name="colDay24" Width="0" Header="Exam Date:&#xA;24">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding day24}" Foreground="{Binding ForeColor24}"/>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn x:Name="colDay25" Width="0" Header="Exam Date:&#xA;25">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding day25}" Foreground="{Binding ForeColor25}"/>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn x:Name="colDay26" Width="0" Header="Exam Date:&#xA;26">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding day26}" Foreground="{Binding ForeColor26}"/>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn x:Name="colDay27" Width="0" Header="Exam Date:&#xA;27">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding day27}" Foreground="{Binding ForeColor27}"/>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn x:Name="colDay28" Width="0" Header="Exam Date:&#xA;28">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding day28}" Foreground="{Binding ForeColor28}"/>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn x:Name="colDay29" Width="0" Header="Exam Date:&#xA;29">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding day29}" Foreground="{Binding ForeColor29}"/>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn x:Name="colDay30" Width="0" Header="Exam Date:&#xA;30">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding day30}" Foreground="{Binding ForeColor30}"/>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn x:Name="colDay31" Width="0" Header="Exam Date:&#xA;31">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding day31}" Foreground="{Binding ForeColor31}"/>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+            </Grid>
+        </ScrollViewer>
+        <Button x:Name="btnPrint" Content="&#xF02F; Print" HorizontalAlignment="Right" Margin="0,0,270,10" VerticalAlignment="Bottom" Width="100" Height="35" FontSize="16" FontFamily="FontAwesome" Background="White" BorderThickness="0,0,0,3" Click="btnPrint_Click" Style="{DynamicResource ButtonStyle}" TabIndex="2"/>
 
 
     </Grid>

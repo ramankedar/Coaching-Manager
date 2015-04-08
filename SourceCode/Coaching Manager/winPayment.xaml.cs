@@ -61,7 +61,6 @@ namespace Coaching_Manager
             grpBxPayCalc.Visibility = Visibility.Hidden;
 
             lblInstituteName.Content = Strings.InstituteName;
-            lblReceiptAppTitle.Content = Strings.AppName + " " + Strings.AppVersion;
         }
 
         private void btnBack_Click(object sender, RoutedEventArgs e)
@@ -84,22 +83,26 @@ namespace Coaching_Manager
             {
                 if (Convert.ToInt32((txtAmount.Text == "") ? "0" : txtAmount.Text) != 0)
                 {
-                    if (MessageBox.Show("Are you sure want to Add this Transaction?", "ATTENTATION", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+                    if (MessageBox.Show(Strings.str_transaction_confirmation, Strings.str_attention, MessageBoxButton.YesNo) == MessageBoxResult.Yes)
                     {
                         if (ValidID)
-                            if (cmbBxType.SelectedIndex == 0)
+                        {
+                            if (cmbBxType.SelectedIndex == 0) // Student
                                 AddStudentPayment();
-                            else
+                            else if (cmbBxType.SelectedIndex == 1) // Teacher
                                 AddTeacherPayment();
+                        }
+                        else if (cmbBxType.SelectedIndex == 2) // Cost
+                            AddCost();
                         else
-                            cmTools.showInfoMsg("Invalid ID!");
+                            cmTools.showInfoMsg(Strings.str_invalid_id);
                     }
                 }
                 else
-                    cmTools.showInfoMsg("0 Tk Payment!!!");
+                    cmTools.showInfoMsg(Strings.str_zero_tk_payment);
             }
             else
-                cmTools.showInfoMsg("Select type first!");
+                cmTools.showInfoMsg(Strings.str_select_what_type);
 
         }
 
@@ -122,7 +125,7 @@ namespace Coaching_Manager
 
                 if ((txtID.Text == "") || (txtYear.Text == "") || (txtAmount.Text == ""))
                 {
-                    MessageBox.Show("Fill up all required fields.");
+                    MessageBox.Show(Strings.strFillupAllFields);
                 }
                 else
                 {
@@ -131,8 +134,7 @@ namespace Coaching_Manager
 
                     command.ExecuteNonQuery();
 
-                    cmTools.AddLog("Transaction: Fee \"" + txtAmount.Text + "\" Tk is given by the Student \"" + lblName.Content + "\" (ID: " + txtID.Text + ").", this.Title);
-                    MessageBox.Show("Fee Added Successfully! :)");
+                    MessageBox.Show(Strings.str_fee_added);
 
                     // Release Memory
                     connection.Close();
@@ -178,7 +180,7 @@ namespace Coaching_Manager
 
                 if ((txtID.Text == "") || (txtYear.Text == "") || (txtAmount.Text == ""))
                 {
-                    MessageBox.Show("Fill up all required fields.");
+                    MessageBox.Show(Strings.strFillupAllFields);
                 }
                 else
                 {
@@ -186,8 +188,7 @@ namespace Coaching_Manager
                     connection.Open();
 
                     command.ExecuteNonQuery();
-                    cmTools.AddLog("Transaction: \"" + txtAmount.Text + "\" Tk is given to the Teacher \"" + lblName.Content + "\" (ID: " + txtID.Text + ").", this.Title);
-                    MessageBox.Show("Payment Added Successfully! :)");
+                    MessageBox.Show(Strings.str_payment_added);
 
                     // Release Memory
                     connection.Close();
@@ -211,6 +212,70 @@ namespace Coaching_Manager
             {
                 MessageBox.Show(ex.Message);
             }
+        }
+
+        private void AddCost()
+        {
+            try
+            {
+                OleDbConnection connection = new OleDbConnection(Strings.DBconStr);
+                OleDbCommand command = new OleDbCommand(@"INSERT INTO TblCost
+                        ([Title], [Cost], [Date])
+                        VALUES (@Title, @Cost, @Date)", connection);
+
+                int intMonth = cmbBxMonth.SelectedIndex + 1;
+
+                command.Parameters.AddWithValue("@Title", txtYear.Text); // Datatype:  Max 255 Char
+                command.Parameters.AddWithValue("@Cost", txtAmount.Text); // Datatype: Integer Long
+                command.Parameters.AddWithValue("@Date", dPTransaction.SelectedDate); // Datatype: Date/Time
+
+                if ((txtYear.Text == "") || (txtAmount.Text == ""))
+                {
+                    MessageBox.Show(Strings.strFillupAllFields);
+                }
+                else
+                {
+
+                    connection.Open();
+
+                    command.ExecuteNonQuery();
+                    MessageBox.Show(Strings.str_cost_added);
+
+                    // Release Memory
+                    connection.Close();
+                    command.Dispose();
+                    connection.Dispose();
+
+                    cmTools.AddLog(string.Format(Strings.str_log_cost_details, txtAmount.Text, txtYear.Text), this.Title);
+
+                    // We don't need a receipt for adding cost.. ;)
+                    //ViewReceipt(txtID.Text,
+                    //    lblName.Content.ToString(),
+                    //    txtYear.Text,
+                    //    cmbBxMonth.Text,
+                    //    txtAmount.Text,
+                    //    Convert.ToDateTime(dPTransaction.SelectedDate).ToLongDateString(),
+                    //    false);
+                }
+
+                // Release Memory
+                command.Dispose();
+                connection.Dispose();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
+            // Close Window
+            {
+                // To Show a window we need to write below two line
+                MainWindow win = new MainWindow();
+                win.Show();
+                // this line for close this form.
+                this.Close();
+            }
+
         }
 
         private void ViewReceipt(string strID, string strName, string strYear, string strMonth, string strAmount, string DT, Boolean IsStudent)
@@ -242,13 +307,19 @@ namespace Coaching_Manager
                 MessageBox.Show(ex.Message);
             }
 
+            if (IsStudent)
+                cmTools.AddLog(string.Format(Strings.str_log_student_transaction_details, count.ToString("D6"), strAmount, strName, strID), this.Title);
+            else
+                cmTools.AddLog(string.Format(Strings.str_log_teacher_transaction_details, count.ToString("D6"), strAmount, strName, strID), this.Title);
+
+
             lblTxtName.Content = (IsStudent) ? "Student Name:" : "Teacher Name:";
 
             lblReceiptID.Content = strID;
             lblReceiptName.Content = strName;
             lblReceiptYear.Content = strYear;
             lblReciptMonth.Content = strMonth;
-            lblReceiptAmount.Content = strAmount;
+            lblReceiptAmount.Content = strAmount + Strings.str_currency_end_sign;
             lblReceiptDate.Content = DT;
             lblReceiptNo.Content = count.ToString("D6");
 
@@ -288,7 +359,7 @@ namespace Coaching_Manager
 
                 if (name == "")
                 {
-                    lblName.Content = "No Student Found with this ID!";
+                    lblName.Content = string.Format(Strings.str_no_object_found_with_this_id, "Student");
                     ValidID = false;
                 }
                 else
@@ -338,7 +409,7 @@ namespace Coaching_Manager
 
                 if (name == "")
                 {
-                    lblName.Content = "No Teacher Found with this ID!";
+                    lblName.Content = string.Format(Strings.str_no_object_found_with_this_id, "Teacher");
                     ValidID = false;
                 }
                 else
@@ -367,7 +438,7 @@ namespace Coaching_Manager
                         SearchTeacherName();
                 else
                 {
-                    lblName.Content = "Invalid ID!";
+                    lblName.Content = Strings.str_invalid_id;
                     ValidID = false;
                 }
             }
@@ -384,10 +455,47 @@ namespace Coaching_Manager
                 txtAmount.IsEnabled = true;
                 dPTransaction.IsEnabled = true;
             }
-            if (cmbBxType.SelectedIndex != 0)
-                grpBxPayCalc.Visibility = Visibility.Visible;
-            else
+
+            if (cmbBxType.SelectedIndex == 0) //Student
+            {
                 grpBxPayCalc.Visibility = Visibility.Hidden;
+                lblYear.Content = Strings.str_lbl_year_title;
+                txtYear.Text = DateTime.Today.Year.ToString(); ;
+
+                btnSearchName.Visibility = Visibility.Visible;
+                lblName.Visibility = Visibility.Visible;
+                lblID.Visibility = Visibility.Visible;
+                txtID.Visibility = Visibility.Visible;
+                lblMonth.Visibility = Visibility.Visible;
+                cmbBxMonth.Visibility = Visibility.Visible;
+            }
+            else if (cmbBxType.SelectedIndex == 1) //Teacher
+            {
+                grpBxPayCalc.Visibility = Visibility.Visible;
+                lblYear.Content = Strings.str_lbl_year_title;
+                txtYear.Text = DateTime.Today.Year.ToString(); ;
+
+                btnSearchName.Visibility = Visibility.Visible;
+                lblName.Visibility = Visibility.Visible;
+                lblID.Visibility = Visibility.Visible;
+                txtID.Visibility = Visibility.Visible;
+                lblMonth.Visibility = Visibility.Visible;
+                cmbBxMonth.Visibility = Visibility.Visible;
+            }
+            else if (cmbBxType.SelectedIndex == 2) //Cost
+            {
+                grpBxPayCalc.Visibility = Visibility.Hidden;
+                lblYear.Content = Strings.str_lbl_cost_title;
+                txtYear.Text = "";
+
+                btnSearchName.Visibility = Visibility.Hidden;
+                lblName.Visibility = Visibility.Hidden;
+                lblID.Visibility = Visibility.Hidden;
+                txtID.Visibility = Visibility.Hidden;
+                lblMonth.Visibility = Visibility.Hidden;
+                cmbBxMonth.Visibility = Visibility.Hidden;
+            }
+
             resetAll();
         }
 
@@ -403,8 +511,11 @@ namespace Coaching_Manager
 
         private void txtTotalClass_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
-            Regex regex = new Regex("[^0-9]+");
-            e.Handled = regex.IsMatch(e.Text);
+            if (!((cmbBxType.SelectedIndex == 2) && ((sender as TextBox).Name == "txtYear")))
+            {
+                Regex regex = new Regex("[^0-9]+");
+                e.Handled = regex.IsMatch(e.Text);
+            }
         }
 
         private void txtTotalClass_TextChanged(object sender, TextChangedEventArgs e)
@@ -429,21 +540,21 @@ namespace Coaching_Manager
             {
                 //dlg.PrintVisual(panel.Content as Visual, "Print Button");
 
-                printDialog.PrintVisual(borderReceiptView, "Print Payment Receipt");
+                printDialog.PrintVisual(borderReceiptView, Strings.str_print_payment_receipt_title);
 
-                cmTools.AddLog("Transaction: Payment Receipt Printed.", this.Title);
+                cmTools.AddLog(Strings.str_log_payment_receipt_printed, this.Title);
             }
 
         }
 
         private void btnCloseReceipt_Click(object sender, RoutedEventArgs e)
         {
-            if (MessageBox.Show("Are you sure want to close the Pay Reciept?", "ATTENTATION", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+            if (MessageBox.Show(Strings.str_close_pay_reciept_confirmation, Strings.str_attention, MessageBoxButton.YesNo) == MessageBoxResult.Yes)
             {
                 //// To Show a window we need to write below two line
                 MainWindow win = new MainWindow();
                 win.Show();
-                // this line for close this form. "this" means winNewStudent Window.
+                // this line for close this form.
                 this.Close();
             }
         }
@@ -451,6 +562,19 @@ namespace Coaching_Manager
         private void btnCornerMin_Click(object sender, RoutedEventArgs e)
         {
             WindowState = WindowState.Minimized;
+        }
+
+        private void txtYear_LostFocus(object sender, RoutedEventArgs e)
+        {
+            if (!((cmbBxType.SelectedIndex == 2) && ((sender as TextBox).Name == "txtYear")))
+            {
+                if (!((Convert.ToDecimal(txtYear.Text) > 2000) && (Convert.ToDecimal(txtYear.Text) < 2099)))
+                {
+                    int year = DateTime.Now.Year;
+                    txtYear.Text = year.ToString();
+                    cmTools.showInfoMsg(string.Format(Strings.str_invalid_year_changed_to_default_year, year));
+                }
+            }
         }
     }
 }

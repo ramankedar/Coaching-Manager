@@ -77,22 +77,22 @@
             <DropShadowEffect Opacity="0.5" ShadowDepth="2" BlurRadius="7"/>
         </Grid.Effect>
         <Label x:Name="lblWinTitle" Content="Title" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" FontSize="14" BorderThickness="0,0,0,3" BorderBrush="#FFEEEEEE"/>
-        <Button x:Name="btnBack" Content="&#xF0A8; Back" HorizontalAlignment="Right" Margin="0,0,10,10" VerticalAlignment="Bottom" Width="100" Height="35" FontSize="16" FontFamily="FontAwesome" Background="White" BorderThickness="0,0,0,3" Click="btnBack_Click" Style="{DynamicResource ButtonStyle}" IsCancel="True" TabIndex="9"/>
-        <Button x:Name="btnAdd" Content="&#xF067; Add" HorizontalAlignment="Right" Margin="0,0,660,10" VerticalAlignment="Bottom" Width="100" Height="35" FontSize="16" FontFamily="FontAwesome" Background="White" BorderThickness="0,0,0,3" Style="{DynamicResource ButtonStyle}" Click="btnAdd_Click" TabIndex="8"/>
+        <Button x:Name="btnBack" Content="&#xF0A8; Back" HorizontalAlignment="Right" Margin="0,0,10,10" VerticalAlignment="Bottom" Width="100" Height="35" FontSize="16" FontFamily="FontAwesome" Background="White" BorderThickness="0,0,0,3" Click="btnBack_Click" Style="{DynamicResource ButtonStyle}" IsCancel="True" TabIndex="11"/>
+        <Button x:Name="btnAdd" Content="&#xF067; Add" HorizontalAlignment="Right" Margin="0,0,660,10" VerticalAlignment="Bottom" Width="100" Height="35" FontSize="16" FontFamily="FontAwesome" Background="White" BorderThickness="0,0,0,3" Style="{DynamicResource ButtonStyle}" Click="btnAdd_Click" TabIndex="10"/>
         <Label Content="Name*:" HorizontalAlignment="Left" Margin="30,65,0,0" VerticalAlignment="Top" FontSize="16" Foreground="#FF640000"/>
-        <TextBox x:Name="txtName" Margin="200,69,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="16" HorizontalAlignment="Left" Width="540" TabIndex="0"/>
+        <TextBox x:Name="txtName" Margin="200,69,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="16" HorizontalAlignment="Left" Width="435" TabIndex="0"/>
         <Label Content="Institute Name*:" HorizontalAlignment="Left" Margin="30,137,0,0" VerticalAlignment="Top" FontSize="16" Foreground="#FF640000"/>
-        <TextBox x:Name="txtInstitute" Margin="200,141,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="16" HorizontalAlignment="Left" Width="540" TabIndex="2"/>
+        <TextBox x:Name="txtInstitute" Margin="200,141,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="16" HorizontalAlignment="Left" Width="435" TabIndex="2"/>
         <Label Content="Qualification*:" HorizontalAlignment="Left" Margin="30,173,0,0" VerticalAlignment="Top" FontSize="16" Foreground="#FF640000"/>
-        <TextBox x:Name="txtQualification" Margin="200,177,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="16" HorizontalAlignment="Left" Width="540" SpellCheck.IsEnabled="True" TabIndex="3"/>
+        <TextBox x:Name="txtQualification" Margin="200,177,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="16" HorizontalAlignment="Left" Width="435" SpellCheck.IsEnabled="True" TabIndex="3"/>
         <Label Content="Subject*:" HorizontalAlignment="Left" Margin="30,209,0,0" VerticalAlignment="Top" FontSize="16" Foreground="#FF640000"/>
-        <TextBox x:Name="txtSub" Margin="200,213,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="16" HorizontalAlignment="Left" Width="540" SpellCheck.IsEnabled="True" TabIndex="4"/>
+        <TextBox x:Name="txtSub" Margin="200,213,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="16" HorizontalAlignment="Left" Width="435" SpellCheck.IsEnabled="True" TabIndex="4"/>
         <Label Content="Pay Scale:" HorizontalAlignment="Left" Margin="30,281,0,0" VerticalAlignment="Top" FontSize="16"/>
         <TextBox x:Name="txtPay" Margin="200,285,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="16" HorizontalAlignment="Left" Width="514" TabIndex="6" PreviewTextInput="txtPay_PreviewTextInput"/>
         <Label Content="Join Date*:" HorizontalAlignment="Left" Margin="30,317,0,0" VerticalAlignment="Top" FontSize="16" Background="White" Foreground="#FF640000"/>
         <DatePicker x:Name="datePickerJoin" HorizontalAlignment="Left" Margin="200,318,0,0" VerticalAlignment="Top" Width="540" FontSize="16" BorderThickness="1" FirstDayOfWeek="Saturday" SelectedDateFormat="Long" BorderBrush="#FFABADB3" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Center" TabIndex="7"/>
         <Label Content="Sex*:" HorizontalAlignment="Left" Margin="30,101,0,0" VerticalAlignment="Top" FontSize="16" Foreground="#FF640000"/>
-        <ComboBox x:Name="cmbBxSex" Margin="200,103,0,0" VerticalAlignment="Top" FontSize="16" HorizontalAlignment="Left" Width="540" SelectedIndex="0" TabIndex="1">
+        <ComboBox x:Name="cmbBxSex" Margin="200,103,0,0" VerticalAlignment="Top" FontSize="16" HorizontalAlignment="Left" Width="435" SelectedIndex="0" TabIndex="1">
             <ComboBoxItem Content="Male"/>
             <ComboBoxItem Content="Female"/>
         </ComboBox>
@@ -101,6 +101,13 @@
         <Label x:Name="lblName_Copy" Content="৳" HorizontalAlignment="Left" Margin="719,281,0,0" VerticalAlignment="Top" FontSize="16"/>
         <Button x:Name="btnCornerExit" Content="&#xF00D;" Margin="0" VerticalAlignment="Top" HorizontalAlignment="Right" FontFamily="FontAwesome" FontSize="14" BorderThickness="0,0,0,3" Background="White" Click="btnBack_Click" Style="{DynamicResource CornerButtonStyle}" TabIndex="4" IsTabStop="False"/>
         <Button x:Name="btnCornerMin" Content="&#xF068;" Margin="0,0,25,0" VerticalAlignment="Top" HorizontalAlignment="Right" FontFamily="FontAwesome" FontSize="14" BorderThickness="0,0,0,3" Background="White" Style="{DynamicResource CornerButtonStyle}" Click="btnCornerMin_Click" TabIndex="3" IsTabStop="False"/>
+        <Border
+        	BorderThickness="2"
+        	BorderBrush="LightGray" HorizontalAlignment="Right" VerticalAlignment="Top" Height="120" Width="100" Margin="0,69,30,0">
+            <Image x:Name="imgTeacher" Margin="0"/>
+        </Border>
+        <Button x:Name="btnBrowseImg" Content="&#xF03E;" HorizontalAlignment="Right" Margin="0,193,30,0" VerticalAlignment="Top" FontFamily="FontAwesome" Background="White" BorderThickness="0,0,0,3" Style="{DynamicResource CornerButtonStyle}" TabIndex="9" FontSize="14" Click="btnBrowseImg_Click" ToolTip="Select Teacher Image" Width="45"/>
+        <Button x:Name="btnDeleteImg" Content="&#xF057;" HorizontalAlignment="Right" Margin="0,193,85,0" VerticalAlignment="Top" FontFamily="FontAwesome" Background="White" BorderThickness="0,0,0,3" Style="{DynamicResource CornerButtonStyle}" TabIndex="8" FontSize="14" Click="btnDeleteImg_Click" ToolTip="Remove Image" Width="45"/>
 
 
     </Grid>
